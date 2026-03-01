@@ -1,6 +1,7 @@
 // NPM PACKAGES SECTION
 import "dotenv/config"
 import express from "express"
+import cookieParser from "cookie-parser";
 // CONFIGURATIONS SECTION
 import dbConnection from "./configs/db.connection.js";
 const app=express();
@@ -9,6 +10,7 @@ dbConnection()
 
 // PARSER 
 app.use(express.json())
+app.use(cookieParser())
 
 // ROUTERS
 import authRouter from "./routes/auth.routes.js";

@@ -1,4 +1,5 @@
 import userModel from "../models/user.model.js"
+import blackListModel from "../models/blackListedTokens.model.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 /**
@@ -75,9 +76,33 @@ return res.status(400).json({message:"Incorrect email  or password"})
       .json({message:"User loged in successfully"})
     }
 })
+}
 
 
+export const logoutController=async(req,res)=>{
+const token=req.cookies.token
+console.log(token)
+if(!token){
+    return res
+         .status(400)
+         .json({message:"token required"})
+}
+ if (token){
+     const blackListedToken=await blackListModel.create({token})
+}
+ return res
+.clearCookie("token")
+.status(200)
+.json({message:"user logged out successfully"})
 
-
-
+}
+ export const getMeController=async(req,res)=>{
+const user=await userModel.findOne({
+    _id:req.user.id
+},{password:0})
+return res
+.status(200)
+.json({user,
+    message:"User details fetchd successfully"
+})
 }
