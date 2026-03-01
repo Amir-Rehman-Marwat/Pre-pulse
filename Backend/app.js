@@ -12,6 +12,7 @@ app.use(express.json())
 
 // ROUTERS
 import authRouter from "./routes/auth.routes.js";
+import userModel from "./models/user.model.js";
 
 // routes 
 app.use("/api/auth",authRouter)
