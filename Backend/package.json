@@ -1,0 +1,27 @@
+{
+  "name": "mern-stcack-project",
+  "version": "1.0.0",
+  "description": "a gen ai project",
+  "homepage": "https://github.com/Amir-Rehman-Marwat/Pre-pulse#readme",
+  "bugs": {
+    "url": "https://github.com/Amir-Rehman-Marwat/Pre-pulse/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amir-Rehman-Marwat/Pre-pulse.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.3"
+  }
+}
