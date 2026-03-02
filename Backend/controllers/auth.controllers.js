@@ -44,7 +44,11 @@ try {
  return res
  .status(201)
  .cookie("token",token)
- .json({message:"user registered successfully"}) 
+ .json({message:"user registered successfully",user:{
+    id:registeredUser._id,
+    userName:registeredUser.userName,
+    email:registeredUser.email
+ }}) 
 
 } catch (error) {
     console.log(error)
@@ -57,6 +61,7 @@ try {
 
 }
 export const logineUserController=async (req,res)=>{
+    console.log("hitted")
  
     const {email,password}=req.body
     const user=await userModel.findOne({email});
@@ -73,7 +78,12 @@ return res.status(400).json({message:"Incorrect email  or password"})
       return res
       .status(201)
       .cookie("token",token)
-      .json({message:"User loged in successfully"})
+      .json({message:"User loged in successfully",user:{
+        id:user._id,
+        userName:user.userName,
+        email:user.email
+      }
+    })
     }
 })
 }
