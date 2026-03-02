@@ -6,6 +6,10 @@
 }
 body{
     background-color: rgb(5, 0, 0);
+    height: 100vh;
+    // overflow: hidden;
+    margin: 0px;
+    padding: 0px;
 }
 .login-form-container{
     width: 100vw;
@@ -22,7 +26,7 @@ body{
     align-items: center;
     justify-content: center;
     gap: 30px;
-    height: 90vw;
+    height:fit-content;
     width: 70vw;
 
 }
@@ -53,4 +57,7 @@ body{
 .link{
     color: red;
     text-decoration: none;
+}
+.home{
+    color: red;
 }

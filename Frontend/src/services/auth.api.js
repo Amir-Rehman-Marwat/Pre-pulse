@@ -29,9 +29,9 @@ export const logOutUser=async()=>{
     return error
    }
 }
-export const getMe=async(userName,email,password)=>{
+export const getMe=async()=>{
    try {
-     const response=await axios.post("http://localhost:3000/api/auth/getMe",{withCredentials:true})
+     const response=await axios.get("http://localhost:3000/api/auth/getMe",{withCredentials:true})
     return response
    } catch (error) {
     return error

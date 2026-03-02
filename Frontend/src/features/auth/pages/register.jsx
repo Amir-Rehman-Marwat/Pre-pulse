@@ -8,11 +8,11 @@ function Register() {
  const {handleRegister}=AuthHook()
   const context = useContext(AuthContext)
   const {loading,user}=context
-  console.log(loading,user)
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm()
 
@@ -31,6 +31,8 @@ if(response.user){
 }
 } catch (error) {
   console.log(error)
+}finally{
+  reset()
 }
                  }
   return (
@@ -39,7 +41,7 @@ if(response.user){
         
         <form className='login-form' onSubmit={handleSubmit(onSubmit)}>
           {loading && <div>LOADING....</div> }
-          <h3>Welcome Back</h3>
+          <h3>Create Account</h3>
              <input type="text"
            className="login-email" 
            defaultValue="" {...register("userName")}
@@ -52,7 +54,7 @@ if(response.user){
           className="login-password"
            defaultValue="" {...register("password")}
            placeholder='Password' />
-          <button type='submit' className="login-btn">Sign up</button>
+          <button disabled={loading} type='submit' className="login-btn">Sign up</button>
           <span>Already have an account ?</span> <Link className="link" to="/login">Login</Link>
         </form>
       </div>

@@ -1,11 +1,19 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { loginUser,registerUser } from "../services/auth.api";
 import { AuthContext } from "../contexts/auth.context";
 import React from "react";
+import { useNavigate } from "react-router";
 
 const AuthHook = () => {
 const context=useContext(AuthContext);
-const {setUser,setLoading}=context;
+const {setUser,setLoading,user}=context;
+const navigate=useNavigate()
+useEffect(() => {
+  if(user){
+    navigate("/")
+  }
+}, [user])
+
   const handleLogin = async (email, password) => {
     try {
        setLoading(true)
@@ -14,7 +22,7 @@ const {setUser,setLoading}=context;
       if (response.status === 201) {
         setUser(response.data.user)
         setLoading(false)
-        return response.data;
+        
       } else if (response.status === 400) {
         setLoading(false)
         return response.response.data;
@@ -31,14 +39,14 @@ const {setUser,setLoading}=context;
         setLoading(true)
         const response=await registerUser(userName,email,password)
         if(response.status===201){
+          setLoading(false)
+          setUser(response.data.user)
+        }else if(response.status!==201){
             setLoading(false)
-return response.data
-        }else if(!response.status){
-            setLoading(false)
-            return  "server error"
+           return  response.response.data
         }else{
             setLoading(false)
-            return  response.data
+            return  "server error"
         }
     } catch (error) {
         return error
