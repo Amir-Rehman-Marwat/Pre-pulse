@@ -11,7 +11,10 @@ app.use(cors({
     origin: "http://localhost:5173",
   credentials: true
 }))
+import {selfDescription,resumeText,targetJobDescription} from "./services/temp.js"
+import generateAireport from "./services/report.ai.js";
 
+// generateAireport(selfDescription,resumeText,targetJobDescription)
 
 // PARSER 
 app.use(express.json())
