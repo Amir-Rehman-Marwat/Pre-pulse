@@ -7,23 +7,79 @@ export const interviewReportController = async (req, res) => {
 const parser = new PDFParse({ data:resume.buffer});
 const result = await parser.getText();
 const resumeText=result.text
-console.log(resumeText)
-res.json({baw:resumeText})
+
+    const {selfDescription,jobDescription}=req.body;
+
+    const user=req.user
+    const aiReport=await generateAireport(selfDescription,resumeText,jobDescription)
+    const savedReport=await AiReportModel.create({
+        User:user.id,
+        selfDescription,
+        Resume:resumeText, 
+        jobDescription,
+        ...aiReport
+    })
+
+    return res
+              .status(201) 
+              .json({message:"Report generated successfully",aiReport})
+}
 
 
-    // const {selfDescription,jobDescription}=req.body;
+ export const getHistoryController=async(req,res)=>{
+    const user=req.user
 
-    // const user=req.user
-    // const aiReport=await generateAireport(selfDescription,resumeText,jobDescription)
-    // const savedReport=await AiReportModel.create({
-    //     User:user.id,
-    //     selfDescription,
-    //     Resume:resumeText, 
-    //     jobDescription,
-    //     ...aiReport
-    // })
+    try {
+        const history=await AiReportModel.aggregate([
+        {
+            $project:{
+                jobtittle:1,
+                _id:1
+            }
+        }
+    ])
 
-    // return res
-    //           .status(201) 
-    //           .json({message:"Report generated successfully",aiReport})
+  if(history.length<1){
+    return res 
+                 .status(400)
+                 .json({message:"No history found"})
+  }else{
+    return res  
+               .status(200)
+               .json({message:"history fetched successfully " ,history})
+  }
+    } catch (error) {
+        return res 
+                 .status(500)
+                 .json({message:"Internal server error,please try again later",error})
+    }
+
+}
+
+
+export const getDetails=async(req,res)=>{
+const reportId=req.params.reportId
+const user=req.user
+
+
+try {
+    const reportDetails=await AiReportModel.findOneById({_id:reportId},{_id:0, selfDescription:0,Resume:0,jobDescription:0})
+    if(reportDetails){
+        return res
+        .status(200)
+        .json({message:"Report details fetched successfully",reportDetails})
+
+    }else{
+        return res
+        .status(404)
+        .json({message:"No details found for this report "})
+    }
+    
+} catch (error) {
+    return res
+    .status(500)
+    .json({message:"Internal servver error ",error})
+}
+
+
 }

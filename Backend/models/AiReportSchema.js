@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { string } from "zod";
 
 
 // SUB SCHEMA's: 
@@ -91,6 +92,10 @@ const AiReportSchema = mongoose.Schema({
   },
 
   // Ai report details :
+  jobTittle:{
+    type:String,
+    required:true
+  },
 
   technicalQuestions: [technicalQuestionsSchema],
 

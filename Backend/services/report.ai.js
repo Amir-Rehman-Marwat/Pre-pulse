@@ -28,6 +28,7 @@ Day:z.number().describe("the number ,specify the day number from 1 "),
     })
     const AiReportSchema=z.object({
     matchScore:z.number().describe("this will  be indicaing he score of the user from 1-100 based on the current capabilities and skills of the user and the skills and abilities required for the user targe job "),
+    jobTittle:z.string().describe("The title of the job which user is seeking for "),
      technicalQuestions:z.array(technicalQuestionsSchema).describe("It will contain the technical questions that an intterviewer can ask from user related to the targeted job including questions , the motive of inerviewer behind ansking the question and answer  suggestions"),
      behavioralQuestions:z.array(behavioralQuestionsSchema).describe("this will contain the behavioral questions that an intterviewer can ask from user related to the targeted job including questions , the motive of inerviewer behind the question and aswer suggestions  "),
      skillGaps:z.array(skillGapsSchema).describe("this  will contain the skills that  the user dont have in its resume and descripion and which he should learn  and the severity of the skill based on how quick the user can learn it"),
