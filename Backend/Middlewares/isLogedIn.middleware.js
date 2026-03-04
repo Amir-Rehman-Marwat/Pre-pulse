@@ -1,6 +1,6 @@
 import blackListModel from "../models/blackListedTokens.model.js"
 import jwt from "jsonwebtoken"
-export const isLogiedIn=async(req,res,next)=>{
+export const isLogedIn  = async(req,res,next)=>{
 const token=req.cookies.token
 if(!token){
     return res 

@@ -10,7 +10,10 @@ const {setUser,setLoading,user}=context;
 const navigate=useNavigate()
 useEffect(() => {
   if(user){
-    navigate("/")
+    setTimeout(() => {
+      navigate("/")
+    }, 2000);
+    
   }
 }, [user])
 

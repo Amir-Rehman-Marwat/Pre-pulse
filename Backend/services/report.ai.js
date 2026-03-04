@@ -19,12 +19,12 @@ const technicalQuestionsSchema=z.object({
 
     const skillGapsSchema=z.object({
         skill:z.string().describe("The skill that is no presentt in the resume of the user and which he should learn based on the job he is seeking for ."),
-        severity:z.enum(["High,Medium,Low"]).describe("severity will describe the severity of te skill tha user can learn ,it must  be one of them [high ,medium ,low] if he can learn in short time it will be low and if it will take some time it will be medium and if i will take much more time then it will be high ")
+        severity: z.enum(["High", "Medium", "Low"]).describe("severity will describe the severity of te skill tha user can learn ,it must  be one of them [high ,medium ,low] if he can learn in short time it will be low and if it will take some time it will be medium and if i will take much more time then it will be high ")
     })
   const preperationPlaneSchema=z.object({
 Day:z.number().describe("the number ,specify the day number from 1 "),
  Focus:z.string().describe("the topic ,point or skill the user should focus on that day"),
- Tasks:z.array().describe("the array of strings which will contain the tasks that user will perform on that day according to the focus topic of that day")
+ Tasks: z.array(z.string()).describe("the array of strings which will contain the tasks that user will perform on that day according to the focus topic of that day")
     })
     const AiReportSchema=z.object({
     matchScore:z.number().describe("this will  be indicaing he score of the user from 1-100 based on the current capabilities and skills of the user and the skills and abilities required for the user targe job "),
@@ -37,14 +37,20 @@ Day:z.number().describe("the number ,specify the day number from 1 "),
 const ai = new GoogleGenAI({key:process.env.GEMINI_API_KEY});
 
 const generateAireport=async(selfDescription,resumeText,targetJobDescription)=>{
+console.log("getting the data ...")
+const prompt = `
+Generate an interview report.
 
-const prompt=`Generate an interview report for a candidate with the following details:
-  selfDescription:${selfDescription}
-  resumeText:${resumeText}
-  targetJobDescription:${targetJobDescription}
-`
+Return ONLY valid JSON.
+Do not include explanations.
+Follow the provided JSON schema strictly.
+
+selfDescription: ${selfDescription}
+resumeText: ${resumeText}
+targetJobDescription: ${targetJobDescription}
+`;
 const response=await ai.models.generateContent({
-    model:"gemini-3-flash-preview",
+    model:"gemini-3-pro-preview",
     contents:prompt,
     config:{
 responseMimeType:"application/json",
@@ -55,7 +61,7 @@ responseSchema: zodToJsonSchema(AiReportSchema)
 }
 )
 
-console.log(JSON.parse(response.text))
+ return JSON.parse(response.text)
 
 
 }

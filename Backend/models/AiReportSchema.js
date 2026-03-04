@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 // SUB SCHEMA's: 
 const technicalQuestionsSchema=new mongoose.Schema({
+
     Question:{
         type:String,
         required:[true,"Question is requireed"]
@@ -73,11 +74,15 @@ const preperationPlaneSchema=new mongoose.Schema({
 
 // MAIN REPORT SCHEMA;
 const AiReportSchema = mongoose.Schema({
-  // User's inpu  details;
+    User:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"User"
+    },
+  // User's input  details;
   selfDescription: {
     type: String,
   },
-  resume: {
+  Resume: {
     type: String,
   },
   jobDescription: {
@@ -99,7 +104,7 @@ const AiReportSchema = mongoose.Schema({
     type: Number,
     min: 0,
     max: 100,
-  },
+  }
 });
 
 

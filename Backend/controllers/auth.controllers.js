@@ -61,7 +61,6 @@ try {
 
 }
 export const logineUserController=async (req,res)=>{
-    console.log("hitted")
  
     const {email,password}=req.body
     const user=await userModel.findOne({email});
