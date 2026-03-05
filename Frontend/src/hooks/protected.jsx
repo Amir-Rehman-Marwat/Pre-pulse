@@ -21,7 +21,11 @@ useEffect(() => {
  
 }, [])
 
-return children
+if(loading){
+    <div>loadning ...</div>
+}else{
+    return children
+}
 }
 
 export default ProtectedRoute

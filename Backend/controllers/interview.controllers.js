@@ -32,8 +32,14 @@ const resumeText=result.text
     try {
         const history=await AiReportModel.aggregate([
         {
+            $match:{
+                
+ "_id": "69a85c1ee67b0fd4d7cc1078"
+            }
+        }
+            ,{
             $project:{
-                jobtittle:1,
+                jobTittle:1,
                 _id:1
             }
         }

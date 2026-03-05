@@ -1,11 +1,108 @@
-import React from 'react'
+import React from 'react';
+import { motion } from 'framer-motion';
+import { LayoutDashboard, UserCircle, UploadCloud, Target, Zap, ArrowRight } from 'lucide-react';
+import styles from './HomePage.module.scss';
+import { Navigate, useNavigate } from 'react-router';
 
-function Home() {
-  
+const HomePage = ({ userName = "Alex" }) => {
+  const navigate=useNavigate()
+  const welcomeText = "Welcome,";
+  const nameText = `${userName}!`;
+
+  // Faster, snappier stagger
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.04, delayChildren: 0.1 } // Reduced delay for speed
+    }
+  };
+
+  // Snappy pop-in animation
+  const letterVariants = {
+    hidden: { opacity: 0, x: -10, filter: "blur(5px)" },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      filter: "blur(0px)",
+      transition: { type: "spring", damping: 20, stiffness: 300 } 
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+  };
+
   return (
-    
-    <div className='home'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident impedit fugit, enim nemo error ab, quod labore voluptates eius, corrupti vel quidem unde saepe accusamus reprehenderit expedita harum atque doloribus dolorem? Autem placeat suscipit laudantium architecto quis, natus deserunt unde reiciendis hic tempora dicta itaque. Magni deserunt reprehenderit fugit, pariatur, atque, quasi ipsum ut placeat nostrum molestiae deleniti. Similique deserunt omnis molestiae facilis illo ab vitae obcaecati consequuntur beatae quod, vero iusto cupiditate a fugiat eum sequi vel iste tenetur soluta dignissimos numquam nisi! Voluptatem repellendus rem praesentium modi beatae illo incidunt facere repellat, suscipit magnam, perferendis autem a veritatis maxime ullam, tempora error cumque voluptatibus. Ad commodi consequuntur quasi molestias, vel aspernatur vitae unde eaque repudiandae corrupti velit molestiae consequatur sequi natus quis quod quas recusandae odit quia sapiente provident, animi voluptatibus. Possimus excepturi sequi, sunt sint optio ratione odio corporis laudantium est dicta repellendus, omnis voluptas sapiente quae autem illo dignissimos animi ab pariatur? Harum numquam expedita iusto? Mollitia cumque ex obcaecati minima dolorem porro omnis vitae, harum velit qui quidem debitis, aliquid laudantium possimus a veniam tempora quod quaerat eius deleniti optio pariatur culpa quas? Culpa, deserunt illo! Dolorem voluptatibus quos a quisquam omnis temporibus aut ab dignissimos eligendi in eos, id veniam! Maiores natus cumque explicabo aperiam debitis consequuntur nobis laudantium fugit labore rem, ut expedita autem saepe quidem excepturi odio quam amet. Quae, illum fuga totam voluptates cumque deleniti, nesciunt labore corrupti aliquid repellat optio tenetur incidunt soluta doloremque sunt asperiores harum dolorem ducimus! Blanditiis provident quisquam quidem delectus, autem assumenda, dolorum facilis quasi quibusdam necessitatibus nemo iure? Consequatur, molestiae temporibus praesentium expedita porro facere distinctio aliquam nobis nam officia? Nihil a ab dolores, recusandae facilis necessitatibus, aliquid quibusdam consequuntur, impedit similique maiores quidem? Ratione minima numquam delectus. Excepturi eos molestias, perferendis consectetur nulla numquam voluptates deserunt id officiis vero nobis hic, error, inventore esse quam quos possimus illo adipisci autem quaerat omnis aliquam cupiditate? Unde velit numquam facere illum earum. Tempore distinctio soluta aliquid, delectus aut quisquam, rerum magni sint nam et dolor mollitia ex corporis. Facere, consequuntur? Itaque, eos esse? Consequuntur, veniam? Molestias, quo. Blanditiis odio corporis quasi omnis quibusdam, illum soluta dolorem eius culpa doloremque aliquid explicabo officiis cum? Repudiandae dolores excepturi consectetur doloremque velit, sed voluptatum voluptates qui voluptatibus molestiae nisi et! Nisi, vel! Quo et omnis molestiae, earum sapiente rerum, nulla similique doloremque, sunt cum temporibus numquam! Ullam, eaque iure.</div>
-  )
-}
+    <div className={styles.container}>
+      {/* Navigation */}
+      <nav className={styles.nav}>
+        <div className={styles.logoArea}>
+          <div className={styles.iconBox}><Zap size={20} color="white" fill="white" /></div>
+          <h1>Delta Hire</h1>
+        </div>
+        <div className={styles.navIcons}>
+          <UserCircle size={26} />
+          <LayoutDashboard size={26} />
+        </div>
+      </nav>
 
-export default Home 
+      <motion.main 
+        className={styles.mainContent}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {/* Perfectly Arranged Title */}
+        <div className={styles.titleWrapper}>
+          <motion.h2 className={styles.title}>
+            <div className={styles.row}>
+              {welcomeText.split("").map((char, index) => (
+                <motion.span key={index} variants={letterVariants} className={styles.letter}>
+                  {char}
+                </motion.span>
+              ))}
+            </div>
+            <div className={styles.row}>
+              {nameText.split("").map((char, index) => (
+                <motion.span key={index} variants={letterVariants} className={styles.nameLetter}>
+                  {char}
+                </motion.span>
+              ))}
+            </div>
+          </motion.h2>
+        </div>
+        
+        <motion.p variants={itemVariants} className={styles.subtitle}>
+          The elite AI engine to analyze, match, and prepare you for your dream role.
+        </motion.p>
+
+        <div className={styles.serviceList}>
+          {[{ icon: <UploadCloud size={18}/>, text: "1. Upload Resume" },
+            { icon: <Target size={18}/>, text: "2. Define Target Job" },
+            { icon: <Zap size={18}/>, text: "3. Generate Path" }].map((step, i) => (
+            <motion.div key={i} variants={itemVariants} className={styles.serviceCard} whileHover={{ scale: 1.02, x: 5 }}>
+              <span className={styles.icon}>{step.icon}</span>
+              <span className={styles.cardText}>{step.text}</span>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.button 
+          variants={itemVariants}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.98 }}
+          className={styles.continueBtn}
+          onClick={()=>{
+          navigate("/baase")
+          }}
+        >
+          CONTINUE TO DASHBOARD <ArrowRight size={20} />
+        </motion.button>
+      </motion.main>
+    </div>
+  );
+};
+
+export default HomePage;

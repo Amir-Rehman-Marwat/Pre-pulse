@@ -18,10 +18,9 @@ function Register() {
 
   // submit function :
     const onSubmit = async (data) => {
-     
+     console.log(data)
 try {
   const response= await handleRegister(data.userName,data.email,data.password)
-console.dir(response)
 if(response.user){
   alert(response.message)
 }else if(response.message){
