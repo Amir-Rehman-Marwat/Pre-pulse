@@ -1,64 +1,103 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import { useForm } from "react-hook-form"
-import { useContext } from 'react' 
+import { useContext } from 'react'
 import { AuthContext } from '../../../contexts/auth.context'
 import AuthHook from '../../../hooks/auth.hooks'
+import styles from './Register.module.scss'; 
+
 function Register() {
- const {handleRegister}=AuthHook()
+  console.log("page rendere")
+  const { handleRegister } = AuthHook()
   const context = useContext(AuthContext)
-  const {loading,user}=context
+  const { loading, error, success, setError, setSuccess } = context
+  
+  console.log(error,success)
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm()
 
-  // submit function :
-    const onSubmit = async (data) => {
-     console.log(data)
-try {
-  const response= await handleRegister(data.userName,data.email,data.password)
-if(response.user){
-  alert(response.message)
-}else if(response.message){
-     alert(response.message)
-}else{
-  alert(response)
-}
-} catch (error) {
-  console.log(error)
-}finally{
-  reset()
-}
-                 }
+  // Logic to clear toasters after 2 seconds
+  useEffect(() => {
+    if (error || success) {
+      const timer = setTimeout(() => {
+        setError(null);
+        setSuccess(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, success, setError, setSuccess]);
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await handleRegister(data.userName, data.email, data.password)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      reset()
+    }
+  }
+
   return (
-    <main>
-      <div className="login-form-container">
-        
-        <form className='login-form' onSubmit={handleSubmit(onSubmit)}>
-          {loading && <div>LOADING....</div> }
-          <h3>Create Account</h3>
-             <input type="text"
-           className="login-email" 
-           defaultValue="" {...register("userName")}
-           placeholder='User name'/>
-          <input type="text"
-           className="login-email" 
-           defaultValue="" {...register("email")}
-           placeholder='Email'/>
-          <input type="password" 
-          className="login-password"
-           defaultValue="" {...register("password")}
-           placeholder='Password' />
-          <button disabled={loading} type='submit' className="login-btn">Sign up</button>
-          <span>Already have an account ?</span> <Link className="link" to="/login">Login</Link>
+    <main className={styles.mainWrapper}>
+      {/* ERROR TOASTER */}
+      {error && (
+        <div className='errorMsg'>
+          <h3>{error.type}</h3>
+          <span>{error.message} </span>
+        </div>
+      )}
+
+      {/* SUCCESS TOASTER */}
+      {success && (
+        <div className='successMsg'>{success.message}</div>
+      )}
+
+      <div className={styles.loginFormContainer}>
+        <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
+          {loading && <div className={styles.loadingPulse}>LOADING....</div> }
+          
+          <h3 className={styles.formTitle}>Create Account</h3>
+          
+          <input
+            type="text"
+            className={styles.loginEmail}
+            defaultValue=""
+            {...register("userName")}
+            placeholder='User name'
+          />
+          
+          <input
+            type="text"
+            className={styles.loginEmail}
+            defaultValue=""
+            {...register("email")}
+            placeholder='Email'
+          />
+          
+          <input
+            type="password"
+            className={styles.loginPassword}
+            defaultValue=""
+            {...register("password")}
+            placeholder='Password'
+          />
+          
+          <button disabled={loading} type='submit' className={styles.loginBtn}>
+            Sign up
+          </button>
+          
+          <div className={styles.footerText}>
+            <span>Already have an account?</span>{" "}
+            <Link className={styles.link} to="/login">Login</Link>
+          </div>
         </form>
       </div>
     </main>
   )
 }
 
-export default Register
+export default Register;

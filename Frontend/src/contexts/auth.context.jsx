@@ -6,9 +6,11 @@ import { useState } from 'react'
 function AuthProvider({children}) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false)
+      const [error, setError] = useState(null)
+      const [success, setSuccess] = useState(null)
   return (
 
-       <AuthContext.Provider value={{user,setUser,loading,setLoading}}>
+       <AuthContext.Provider value={{user,setUser,loading,setLoading,error,success,setError,setSuccess}}>
       { children }
        </AuthContext.Provider> 
   )

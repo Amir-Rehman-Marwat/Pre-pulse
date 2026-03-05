@@ -6,13 +6,13 @@ import { useNavigate } from "react-router";
 
 const AuthHook = () => {
 const context=useContext(AuthContext);
-const {setUser,setLoading,user}=context;
+const {setUser,setLoading,user,setError,setSuccess}=context;
 const navigate=useNavigate()
 useEffect(() => {
   if(user){
     setTimeout(() => {
       navigate("/")
-    }, 2000);
+    }, 3500);
     
   }
 }, [user])
@@ -42,14 +42,18 @@ useEffect(() => {
         setLoading(true)
         const response=await registerUser(userName,email,password)
         if(response.status===201){
-          setLoading(false)
+          setSuccess({message:"Registeration successfull ,Welcome to the APP"})
+           setLoading(false)
           setUser(response.data.user)
+
         }else if(response.status!==201){
-            setLoading(false)
-           return  response.response.data
+           console.log(response)
+            setError({type:"Bad request",message:response.response.data.message})
+             setLoading(false)
         }else{
+            
+            setError({type:"Server error!",message:"There is an error in the server ,please try again later "})
             setLoading(false)
-            return  "server error"
         }
     } catch (error) {
         return error
