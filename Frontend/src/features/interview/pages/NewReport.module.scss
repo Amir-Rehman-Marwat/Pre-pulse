@@ -1,0 +1,152 @@
+// NewReport.module.scss
+
+.newReportContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  font-family: 'Inter', sans-serif;
+  color: white;
+  animation: fadeInRight 0.5s ease;
+}
+
+/* --- SECTION HEADER --- */
+.sectionHeader {
+  h2 { font-size: 1.6rem; font-weight: 800; color: #22d3ee; margin-bottom: 0.5rem; }
+  p { color: #64748b; font-size: 0.95rem; line-height: 1.5; }
+}
+
+/* --- THE FORM --- */
+.reportForm {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 3rem;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+}
+
+/* --- INPUT GROUPS --- */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .inputLabel {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+/* --- Text Area and Basic Inputs --- */
+.textArea {
+  width: 100%;
+  padding: 1.25rem;
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: none;
+  transition: 0.3s;
+
+  &::placeholder { color: #334155; }
+  
+  &:focus {
+    outline: none;
+    border-color: #22d3ee;
+    background: rgba(2, 6, 23, 1);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+  }
+}
+
+/* --- FILE UPLOAD AREA (STEP 1) --- */
+.fileUploadArea {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 1rem;
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+
+  // Hides the default ugly browser input
+  .fileInput { opacity: 0; position: absolute; width: 0; height: 0; }
+
+  // Custom File Button
+  .fileCustomBtn {
+    background: #020617;
+    color: #22d3ee;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #22d3ee;
+    transition: 0.3s;
+    &:hover { background: #22d3ee; color: #020617; }
+  }
+
+  // Placeholder file name
+  .fileName { font-size: 0.85rem; color: #475569; }
+}
+
+/* --- FORM ACTIONS --- */
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+// Reset button
+.resetBtn {
+  background: none;
+  color: #64748b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 24px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: 0.3s;
+  &:hover { background: rgba(255, 255, 255, 0.03); color: white; border-color: white; }
+}
+
+// Analyze button (Submit)
+.analyzeBtn {
+  background: white; // Solid white for focus
+  color: #020617;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    background: #22d3ee; // Glows Cyan on hover
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(34, 211, 238, 0.3);
+  }
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
