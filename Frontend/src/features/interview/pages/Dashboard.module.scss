@@ -1,0 +1,146 @@
+// Dashboard.module.scss
+
+.dashboardContainer {
+  min-height: 100vh;
+  width: 100%;
+  background: #020617;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* --- TOP NAV --- */
+.topNav {
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 50;
+
+  .logoSection {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    .logoIcon { background: #22d3ee; color: #020617; padding: 6px; border-radius: 8px; display: flex; }
+    h2 { font-size: 1.1rem; font-weight: 800; letter-spacing: 1px; }
+  }
+
+  .navLinks {
+    display: flex;
+    gap: 2rem;
+    .topLink {
+      text-decoration: none;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.3s;
+      &:hover { color: #22d3ee; }
+    }
+  }
+
+  .profileArea {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    
+    .logoutBtn {
+      background: none; border: none; color: #64748b; cursor: pointer;
+      &:hover { color: #ef4444; }
+    }
+
+    .profileCircle {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+    }
+  }
+}
+
+/* --- LAYOUT --- */
+.mainLayout {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 65px);
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+  width: 260px;
+  background: rgba(2, 6, 23, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+
+  .sectionLabel {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #475569;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    margin-left: 10px;
+  }
+
+  .sidebarContent { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+
+  .sideLink {
+    text-decoration: none;
+    color: #94a3b8;
+    padding: 12px 16px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    transition: 0.3s;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.03);
+      color: white;
+      transform: translateX(5px);
+    }
+  }
+
+  .sidebarFooter { font-size: 0.7rem; color: #334155; text-align: center; }
+}
+
+/* --- CONTENT --- */
+.contentArea {
+  flex: 1;
+  padding: 2.5rem;
+  overflow-y: auto;
+  background: radial-gradient(circle at 10% 10%, rgba(34, 211, 238, 0.03), transparent 50%);
+
+  .welcomeHeader {
+    margin-bottom: 2rem;
+    .welcomeTitle {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      .userName {
+        background: linear-gradient(to right, #22d3ee, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+    .welcomeSubtitle { color: #64748b; font-size: 1rem; }
+  }
+}
+
+.outletWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+

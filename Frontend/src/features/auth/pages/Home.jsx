@@ -95,7 +95,7 @@ const HomePage = ({ userName = "Alex" }) => {
           whileTap={{ scale: 0.98 }}
           className={styles.continueBtn}
           onClick={()=>{
-          navigate("/baase")
+          navigate("/dashboard")
           }}
         >
           CONTINUE TO DASHBOARD <ArrowRight size={20} />

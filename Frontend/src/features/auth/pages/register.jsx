@@ -8,7 +8,7 @@ import styles from './Register.module.scss';
 
 function Register() {
   console.log("page rendere")
-  const { handleRegister } = AuthHook()
+  const { handleRegister } = AuthHook({route:"/"})
   const context = useContext(AuthContext)
   const { loading, error, success, setError, setSuccess } = context
   

@@ -11,7 +11,7 @@ const resumeText=result.text
     const {selfDescription,jobDescription}=req.body;
 
     const user=req.user
-    const aiReport=await generateAireport(selfDescription,resumeText,jobDescription)
+    const aiReport=await generateAireport(selfDescription,resumeText,jobDescription);
     const savedReport=await AiReportModel.create({
         User:user.id,
         selfDescription,

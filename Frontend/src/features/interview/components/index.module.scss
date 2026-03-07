@@ -1,0 +1,19 @@
+.emptyPlaceholder {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(255, 255, 255, 0.05);
+  border-radius: 30px;
+  color: #334155;
+  font-weight: 600;
+  padding-right: 250px;
+  .glowOrb {
+    width: 100px; height: 100px;
+    background: #22d3ee;
+    filter: blur(80px);
+    position: absolute;
+    opacity: 0.1;
+  }
+}

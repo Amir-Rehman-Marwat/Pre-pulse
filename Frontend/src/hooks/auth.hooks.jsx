@@ -1,17 +1,18 @@
 import { useContext, useEffect } from "react";
-import { loginUser,registerUser } from "../services/auth.api";
+import { loginUser,logOutUser,registerUser } from "../services/auth.api";
 import { AuthContext } from "../contexts/auth.context";
 import React from "react";
 import { useNavigate } from "react-router";
 
-const AuthHook = () => {
+const AuthHook = (props) => {
+  console.log(props)
 const context=useContext(AuthContext);
 const {setUser,setLoading,user,setError,setSuccess}=context;
 const navigate=useNavigate()
 useEffect(() => {
   if(user){
     setTimeout(() => {
-      navigate("/")
+      navigate(`${props.route}`)
     }, 3500);
     
   }
@@ -25,13 +26,16 @@ useEffect(() => {
       if (response.status === 201) {
         setUser(response.data.user)
         setLoading(false)
+        setSuccess({message:"Registeration successfull ,Welcome to the APP"})
+        
         
       } else if (response.status === 400) {
         setLoading(false)
-        return response.response.data;
+setError({type:"Bad request",message:response.response.data.message})
       } else {
         setLoading(false)
-        return "Server errror...";
+         setError({type:"Server error!",message:"There is an error in the server ,please try again later "})
+        
       }
     } catch (error) {
       return error;
@@ -60,7 +64,15 @@ useEffect(() => {
     }
 
   }
-  return({handleLogin,handleRegister})
+
+  const handleLogOut=async()=>{
+    const response= await logOutUser()
+    if(response.status===200){
+      setUser(null)
+      navigate("/login")
+    }
+  }
+  return({handleLogin,handleRegister,handleLogOut})
 };
 
 export default AuthHook;
