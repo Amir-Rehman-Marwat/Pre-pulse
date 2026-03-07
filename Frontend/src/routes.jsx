@@ -9,6 +9,7 @@ import Dashboard from "./features/interview/pages/Dashboard";
 import History from "./features/interview/pages/history";
 import Index from "./features/interview/components";
 import NewReport from "./features/interview/pages/newReport";
+import InterviewContextProvider from "./features/interview/interview.context";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -26,7 +27,10 @@ export const router = createBrowserRouter([
   },
   {
     path:"/dashboard",
-    element:<ProtectedRoute><Dashboard/></ProtectedRoute> 
+    element:<ProtectedRoute><InterviewContextProvider>
+      <Dashboard/>
+      </InterviewContextProvider></ProtectedRoute> 
+      
     ,
     children:[
       

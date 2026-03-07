@@ -43,17 +43,20 @@ const [jd, setJd] = useState("")
           <div className={styles.fileUploadArea}>
             <input 
               type="file" 
-               
               accept=".pdf" 
               className={styles.fileInput}
               id="resumeUpload"
               {...register("resume", { required: true })}
+              onChange={(e)=>{
+                console.log(e)
+                setFile(`${e.target.value}`)
+              }}
             />
             <label htmlFor="resumeUpload" className={styles.fileCustomBtn}>
               <FileText size={22} />
               Choose File
             </label>
-            <span className={styles.fileName}>No file selected...</span>
+             {file?<span className={styles.fileName}>{`${file} selected`}</span>:<span className={styles.fileName}>No file selected...</span>}
           </div>
         </div>
 
@@ -88,7 +91,7 @@ const [jd, setJd] = useState("")
         {/* Form Action Buttons */}
         <div className={styles.formActions}>
           <button type="reset" className={styles.resetBtn} onClick={()=>{
-
+setFile(null)
           }}>
             <RefreshCcw size={18} />
             Reset Form

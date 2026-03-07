@@ -16,8 +16,12 @@ import {
 } from 'lucide-react';
 import styles from './Dashboard.module.scss';
 import AuthHook from '../../../hooks/auth.hooks';
+import { InterviewContext } from '../interview.context';
+
 
 const Dashboard = ({ userName = "Alex" }) => {
+ const context= useContext(InterviewContext);
+ console.log(context)
 const {handleLogOut}=AuthHook({route:"/dashboard"})
   const logOutClick=async()=>{
        const response=handleLogOut()
