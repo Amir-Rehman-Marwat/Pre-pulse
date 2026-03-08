@@ -21,7 +21,6 @@ import { InterviewContext } from '../interview.context';
 
 const Dashboard = ({ userName = "Alex" }) => {
  const context= useContext(InterviewContext);
- console.log(context)
 const {handleLogOut}=AuthHook({route:"/dashboard"})
   const logOutClick=async()=>{
        const response=handleLogOut()

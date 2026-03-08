@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form"
 import { 
   FileText, 
@@ -8,21 +8,42 @@ import {
   Send 
 } from 'lucide-react';
 import styles from './NewReport.module.scss';
-
+import InterviewHook from '../interview.hook';
+import { InterviewContext } from '../interview.context';
 const NewReport = () => {
-  const [file, setFile] = useState("")
-  const [sd, setSd] = useState("")
-const [jd, setJd] = useState("")
+
+  const context=useContext(InterviewContext)
+    const {loading,setLoading,report,setReport,reports,setReports}=context
+  console.log()
+  const {handleNewReport}=InterviewHook()
+  const [fileName, setFileName] = useState("")
+  const [pdfFile,setPdfFile] = useState(null)
+ 
  const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm()
   // form submit fuction 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    try {
+      const {selfDescription,jobDescription,resume}=data
+    const response=await handleNewReport(selfDescription,jobDescription,pdfFile)
+    console.dir(response)
+    } catch (error) {
+      console.dir(error)
+    }finally{
+ reset()
+ setFileName(null)
+    }
+    
                          }
+
+                         if(loading){
+                          return <div>LOADING...</div>
+                         }else{
   return (
     <div className={styles.newReportContainer}>
       {/* Header for the Outlet Section */}
@@ -48,15 +69,16 @@ const [jd, setJd] = useState("")
               id="resumeUpload"
               {...register("resume", { required: true })}
               onChange={(e)=>{
-                console.log(e)
-                setFile(`${e.target.value}`)
+                 const files = e.target.files;
+                setFileName(`${files[0].name}`)
+                setPdfFile(files[0])
               }}
             />
             <label htmlFor="resumeUpload" className={styles.fileCustomBtn}>
               <FileText size={22} />
-              Choose File
+              {fileName?"Change file":"Choose file"}
             </label>
-             {file?<span className={styles.fileName}>{`${file} selected`}</span>:<span className={styles.fileName}>No file selected...</span>}
+             {fileName?<span className={styles.fileName}>{`${fileName} selected`}</span>:<span className={styles.fileName}>No file selected...</span>}
           </div>
         </div>
 
@@ -67,7 +89,7 @@ const [jd, setJd] = useState("")
             Step 2: Self Description (Skills, Experience, Goals)
           </label>
           <textarea 
-            name="selfDescription" 
+            {...register("selfDescription", { required: true })}
             placeholder="Write a brief overview of your professional self..."
             className={styles.textArea}
             rows="6"
@@ -81,7 +103,7 @@ const [jd, setJd] = useState("")
             Step 3: Paste the Target Job Description (J.D.)
           </label>
           <textarea 
-            name="jobDescription" 
+           {...register("jobDescription", { required: true })}
             placeholder="Paste the full job description of the role you want..."
             className={styles.textArea}
             rows="8"
@@ -91,7 +113,7 @@ const [jd, setJd] = useState("")
         {/* Form Action Buttons */}
         <div className={styles.formActions}>
           <button type="reset" className={styles.resetBtn} onClick={()=>{
-setFile(null)
+setFileName(null)
           }}>
             <RefreshCcw size={18} />
             Reset Form
@@ -106,6 +128,7 @@ setFile(null)
       </form>
     </div>
   );
-};
+}
+}
 
 export default NewReport;

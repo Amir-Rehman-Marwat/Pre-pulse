@@ -1,28 +1,27 @@
 import generateAireport from "../services/report.ai.js";
 import AiReportModel from "../models/AiReportSchema.js";
 import { PDFParse } from 'pdf-parse';
+import { json } from "zod";
 export const interviewReportController = async (req, res) => {
-    
      const resume = req.file;
 const parser = new PDFParse({ data:resume.buffer});
 const result = await parser.getText();
 const resumeText=result.text
 
-    const {selfDescription,jobDescription}=req.body;
-
-    const user=req.user
-    const aiReport=await generateAireport(selfDescription,resumeText,jobDescription);
-    const savedReport=await AiReportModel.create({
-        User:user.id,
-        selfDescription,
-        Resume:resumeText, 
-        jobDescription,
-        ...aiReport
-    })
-
+    // const {selfDescription,jobDescription}=req.body;
+    // const aiReport=await generateAireport(selfDescription,resumeText,jobDescription);
+    // const savedReport=await AiReportModel.create({
+    //     User:user.id,
+    //     selfDescription,
+    //     Resume:resumeText, 
+    //     jobDescription,
+    //     ...aiReport
+    // })
+    const aiReport=await AiReportModel.findOne({jobTittle:"Senior MERN Stack Developer"})
+console.log(aiReport)
     return res
               .status(201) 
-              .json({message:"Report generated successfully",aiReport})
+              .json({message:"Report generated successfully", aiReport})
 }
 
 

@@ -5,7 +5,6 @@ import React from "react";
 import { useNavigate } from "react-router";
 
 const AuthHook = (props) => {
-  console.log(props)
 const context=useContext(AuthContext);
 const {setUser,setLoading,user,setError,setSuccess}=context;
 const navigate=useNavigate()
