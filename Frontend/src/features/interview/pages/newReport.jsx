@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form"
+import AiLoading from '../components/Loading';
 import { 
   FileText, 
   UserPen, 
@@ -42,7 +43,7 @@ const NewReport = () => {
                          }
 
                          if(loading){
-                          return <div>LOADING...</div>
+                          return <AiLoading/>
                          }else{
   return (
     <div className={styles.newReportContainer}>

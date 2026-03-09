@@ -1,0 +1,155 @@
+// ReportDetails.module.scss
+
+.appContainer {
+  height: 100vh;
+  background: radial-gradient(circle at center, #0a0f1e 0%, #020617 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  font-family: 'JetBrains Mono', 'Inter', monospace;
+  overflow: hidden;
+
+  // Background Grid Effect
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+  }
+}
+
+/* --- COMMAND HEADER --- */
+.commandHeader {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(34, 211, 238, 0.1);
+  z-index: 50;
+}
+
+.headerLeft {
+  display: flex; align-items: center; gap: 1.5rem;
+  .glassBackBtn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #22d3ee; padding: 8px; border-radius: 4px; cursor: pointer;
+    transition: 0.3s;
+    &:hover { background: #22d3ee; color: #000; box-shadow: 0 0 15px rgba(34, 211, 238, 0.4); }
+  }
+  .verticalDivider { width: 1px; height: 30px; background: rgba(255, 255, 255, 0.1); }
+  .systemStatus {
+    display: flex; align-items: center; gap: 10px;
+    .statusDot { width: 8px; height: 8px; background: #22d3ee; border-radius: 50%; box-shadow: 0 0 10px #22d3ee; }
+    .statusText { font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; color: #64748b; }
+  }
+}
+
+.headerRight {
+  .userPilot {
+    display: flex; align-items: center; gap: 1rem;
+    .pilotInfo {
+      display: flex; flex-direction: column; align-items: flex-end;
+      .pilotRole { font-size: 0.6rem; color: #22d3ee; font-weight: 900; }
+      .pilotName { font-size: 0.9rem; font-weight: 800; }
+    }
+    .avatarHex {
+      width: 45px; height: 45px; background: rgba(34, 211, 238, 0.1);
+      border: 1px solid #22d3ee; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; color: #22d3ee;
+    }
+  }
+}
+
+/* --- MAIN LAYOUT --- */
+.mainContent {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* --- ELITE SIDEBAR --- */
+.sidebar {
+  width: 340px;
+  background: rgba(2, 6, 23, 0.8);
+  border-right: 1px solid rgba(34, 211, 238, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 2rem;
+
+  .reportIdentity {
+    margin-bottom: 3rem;
+    .jobBadge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; background: #22d3ee; color: #000;
+      font-size: 0.65rem; font-weight: 900; border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+    .mainJobTitle { font-size: 1.5rem; font-weight: 900; line-height: 1.1; letter-spacing: -0.5px; }
+  }
+
+  .scoreHub {
+    margin-bottom: 4rem;
+    .scoreWrapper {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 2rem; border-radius: 4px; text-align: center;
+      .scoreNumber { font-size: 3rem; font-weight: 900; color: #22d3ee; line-height: 1; margin-bottom: 8px; }
+      .scoreLabel { font-size: 0.7rem; font-weight: 800; color: #475569; letter-spacing: 2px; }
+      
+      .progressTrack {
+        height: 4px; width: 100%; background: rgba(255, 255, 255, 0.05);
+        margin-top: 1.5rem; border-radius: 2px; overflow: hidden;
+        .progressFill { height: 100%; background: #22d3ee; box-shadow: 0 0 10px #22d3ee; }
+      }
+    }
+  }
+
+  .sideLinks {
+    display: flex; flex-direction: column; gap: 15px;
+    .link {
+      text-decoration: none; color: #64748b; font-size: 0.85rem; font-weight: 800;
+      display: flex; align-items: center; gap: 15px; padding: 12px 0;
+      transition: 0.3s;
+      &:hover { color: #fff; transform: translateX(5px); }
+      &.activeLink { color: #22d3ee; border-right: 2px solid #22d3ee; }
+    }
+  }
+
+  .sidebarBottom {
+    margin-top: auto; display: flex; align-items: center; gap: 8px;
+    font-size: 0.6rem; color: #1e293b; font-weight: 900; letter-spacing: 1px;
+  }
+}
+
+/* --- WORKSPACE --- */
+.workspace {
+  flex: 1;
+  padding: 4rem;
+  overflow-y: auto;
+  position: relative;
+}
+
+.viewPort {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.welcomeState {
+  height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  .cyberCircle {
+    width: 80px; height: 80px; border: 2px dashed rgba(34, 211, 238, 0.2);
+    border-radius: 50%; margin-bottom: 2rem; animation: rotate 10s linear infinite;
+  }
+  h2 { font-size: 1.8rem; font-weight: 900; color: #1e293b; text-transform: uppercase; letter-spacing: 4px; }
+  p { color: #1e293b; max-width: 350px; font-size: 0.9rem; margin-top: 1rem; }
+}
+
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
