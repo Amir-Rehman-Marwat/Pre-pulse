@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form"
 import AiLoading from '../components/Loading';
+// import AuthHook from '../../../hooks/auth.hooks';
 import { 
   FileText, 
   UserPen, 
@@ -12,7 +13,7 @@ import styles from './NewReport.module.scss';
 import InterviewHook from '../interview.hook';
 import { InterviewContext } from '../interview.context';
 const NewReport = () => {
-
+// const {handleLogOut}=AuthHook({route:"/dashboard/new-report"})
   const context=useContext(InterviewContext)
     const {loading,setLoading,report,setReport,reports,setReports}=context
   console.log()
@@ -32,7 +33,7 @@ const NewReport = () => {
     try {
       const {selfDescription,jobDescription,resume}=data
     const response=await handleNewReport(selfDescription,jobDescription,pdfFile)
-    console.dir(response)
+    // console.dir(response)
     } catch (error) {
       console.dir(error)
     }finally{

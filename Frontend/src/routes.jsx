@@ -11,6 +11,12 @@ import Index from "./features/interview/components";
 import NewReport from "./features/interview/pages/newReport";
 import InterviewContextProvider from "./features/interview/interview.context";
 import ReportDetails from "./features/interview/pages/ReportDetails";
+import { path } from "framer-motion/client";
+import Behavioral from "./features/interview/pages/childRoutes/Behavioral";
+import RoadMap from "./features/interview/pages/childRoutes/RoadMap";
+import TechnicalQuestions from "./features/interview/pages/childRoutes/TechnicalQuestions";
+import SkillGaps from "./features/interview/pages/childRoutes/SkillGaps";
+import DetailsIndex from "./features/interview/pages/childRoutes/DetailsIndex";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -51,8 +57,35 @@ export const router = createBrowserRouter([
     ]
   },
   {
-    path:"/details",
-    element:<ReportDetails/>
+    path:"/reportDetails/:id",
+    element:<InterviewContextProvider>
+      <ReportDetails/>
+    </InterviewContextProvider> ,
+    children:[{
+      index:true,
+      element:<DetailsIndex/>
+    },
+  {
+    path:"technical",
+    element:<TechnicalQuestions/>
+
+  },
+ {
+    path:"behavioral",
+    element:<Behavioral/>
+
+  },
+ {
+    path:"gaps",
+    element:<SkillGaps/>
+
+  },
+ {
+    path:"roadmap",
+    element:<RoadMap/>
+
+  }]
+   
   }
   
 ]);

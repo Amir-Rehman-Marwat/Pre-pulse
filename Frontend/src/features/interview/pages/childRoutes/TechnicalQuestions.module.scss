@@ -1,0 +1,86 @@
+// TechnicalQuestions.module.scss
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 4rem;
+}
+
+/* --- HEADER --- */
+.header {
+  margin-bottom: 1rem;
+  h1 { font-size: 1.75rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.5rem; }
+  p { color: #64748b; font-size: 1rem; }
+}
+
+/* --- LIST & CARD --- */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: #1e293b; // Match parent's secondary color
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    border-color: rgba(34, 211, 238, 0.3);
+  }
+
+  .cardTop {
+    padding: 1.5rem 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+
+    .count { font-size: 0.75rem; font-weight: 700; color: #22d3ee; text-transform: uppercase; letter-spacing: 1px; }
+    .questionTitle { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-top: 0.5rem; line-height: 1.4; }
+  }
+
+  .cardBody {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .infoRow {
+    .label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 700; color: #94a3b8; margin-bottom: 0.5rem;
+    }
+    .description { font-size: 0.95rem; line-height: 1.6; color: #cbd5e1; }
+  }
+
+  .answerBox {
+    background: rgba(34, 211, 238, 0.03);
+    border: 1px solid rgba(34, 211, 238, 0.1);
+    padding: 1.25rem;
+    border-radius: 12px;
+
+    .label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 700; color: #22d3ee; margin-bottom: 0.5rem;
+    }
+    .description { font-size: 0.95rem; line-height: 1.6; color: #e2e8f0; font-weight: 500; }
+  }
+
+  .cardFooter {
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.1);
+    display: flex; justify-content: flex-end;
+
+    .masteredBtn {
+      background: transparent; border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #64748b; padding: 8px 16px; border-radius: 8px;
+      display: flex; align-items: center; gap: 8px; cursor: pointer;
+      font-size: 0.85rem; font-weight: 600; transition: 0.2s;
+
+      &:hover { color: #10b981; border-color: #10b981; background: rgba(16, 185, 129, 0.05); }
+    }
+  }
+}

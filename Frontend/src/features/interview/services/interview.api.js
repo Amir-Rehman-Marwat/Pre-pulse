@@ -12,7 +12,8 @@ export const createReport=async(selfDescription,jobDescription,resumePdf)=>{
 }
 
 export const reportDetails=async (reportId)=>{
-    const response=await axios.get(`http://localhost:3000/api/interview/details/${reportId}`)
+    const response=await axios.get(`http://localhost:3000/api/interview/details/${reportId}`,{withCredentials:true})
+    console.log("request sent")
     return response
 }
 

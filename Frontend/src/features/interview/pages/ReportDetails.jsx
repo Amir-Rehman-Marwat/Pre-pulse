@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router';
+import React, { useContext, useEffect, useState } from 'react';
+import { NavLink, Outlet, useNavigate, useParams } from 'react-router';
 import { motion } from 'framer-motion';
 import { 
   ChevronLeft, 
@@ -13,6 +13,9 @@ import {
   Zap
 } from 'lucide-react';
 import styles from './ReportDetails.module.scss';
+import { InterviewContext } from '../interview.context';
+import InterviewHook from '../interview.hook';
+import { div } from 'framer-motion/client';
 
 const ReportDetails = ({ 
   jobTitle = "Senior MERN Stack Developer", 
@@ -20,8 +23,31 @@ const ReportDetails = ({
   userName = "Ahmed Raza"
 }) => {
   const navigate = useNavigate();
-
-  return (
+ const {id}=useParams();
+ const {handleReportDetails}=InterviewHook()
+ const [reportDetails, setReportDetails] = useState(null)
+ const [loading, setLoading] = useState(true)
+ console.log("thsi is detail",reportDetails)
+ useEffect(() => {
+  const run=async()=>{
+try {
+   const response=await handleReportDetails(id)
+   if(response.status===200){
+    setLoading(false)
+    setReportDetails(response.data.reportDetails)
+   }
+ console.dir(response)
+} catch (error) {
+  console.dir(error)
+}
+  }
+  run();
+ }, [])
+ 
+ if(loading){
+  return <div>LOADING</div>
+ }else{
+   return (
     <div className={styles.appContainer}>
       {/* --- ELITE COMMAND TOP BAR --- */}
       <header className={styles.commandHeader}>
@@ -56,19 +82,19 @@ const ReportDetails = ({
             <div className={styles.jobBadge}>
               <Globe size={12} /> <span>CORE_ANALYSIS_01</span>
             </div>
-            <h1 className={styles.mainJobTitle}>{jobTitle}</h1>
+            <h1 className={styles.mainJobTitle}>{reportDetails.jobTittle}</h1>
           </div>
 
           <div className={styles.scoreHub}>
             <div className={styles.scoreWrapper}>
-              <div className={styles.scoreNumber}>{matchScore}%</div>
+              <div className={styles.scoreNumber}>{reportDetails.matchScore}%</div>
               <div className={styles.scoreLabel}>MATCH INDEX</div>
               {/* Animated Progress Bar */}
               <div className={styles.progressTrack}>
                 <motion.div 
                   className={styles.progressFill}
                   initial={{ width: 0 }}
-                  animate={{ width: `${matchScore}%` }}
+                  animate={{ width: `${reportDetails.matchScore}%` }}
                   transition={{ duration: 1.5, ease: "easeOut" }}
                 />
               </div>
@@ -76,16 +102,16 @@ const ReportDetails = ({
           </div>
 
           <nav className={styles.sideLinks}>
-            <NavLink to="technical" className={({isActive}) => isActive ? `${styles.link} ${styles.activeLink}` : styles.link}>
+            <NavLink to={`/reportDetails/${id}/technical`}  className={({isActive}) => isActive ? `${styles.link} ${styles.activeLink}` : styles.link}>
               <Terminal size={18} /> <span>TECHNICAL_QUESTIONS</span>
             </NavLink>
-            <NavLink to="behavioral" className={({isActive}) => isActive ? `${styles.link} ${styles.activeLink}` : styles.link}>
+            <NavLink to={`/reportDetails/${id}/behavioral`} className={({isActive}) => isActive ? `${styles.link} ${styles.activeLink}` : styles.link}>
               <Cpu size={18} /> <span>BEHAVIORAL_INSIGHTS</span>
             </NavLink>
-            <NavLink to="gaps" className={({isActive}) => isActive ? `${styles.link} ${styles.activeLink}` : styles.link}>
+            <NavLink to={`/reportDetails/${id}/gaps`} className={({isActive}) => isActive ? `${styles.link} ${styles.activeLink}` : styles.link}>
               <Activity size={18} /> <span>SKILL_GAP_MATRIX</span>
             </NavLink>
-            <NavLink to="roadmap" className={({isActive}) => isActive ? `${styles.link} ${styles.activeLink}` : styles.link}>
+            <NavLink to={`/reportDetails/${id}/roadmap`} className={({isActive}) => isActive ? `${styles.link} ${styles.activeLink}` : styles.link}>
               <Compass size={18} /> <span>PREPARATION_ROADMAP</span>
             </NavLink>
           </nav>
@@ -101,16 +127,13 @@ const ReportDetails = ({
             <Outlet />
             
             {/* Initial Welcome/Empty State */}
-            <div className={styles.welcomeState}>
-               <div className={styles.cyberCircle}></div>
-               <h2>Awaiting Selection...</h2>
-               <p>Initialize a module from the sidebar to begin deep-diving into your report.</p>
-            </div>
+            
           </div>
         </main>
       </div>
     </div>
   );
+ }
 };
 
 export default ReportDetails;

@@ -17,11 +17,23 @@ const resumeText=result.text
     //     jobDescription,
     //     ...aiReport
     // })
-    const aiReport=await AiReportModel.findOne({jobTittle:"Senior MERN Stack Developer"})
+    const aiReport=await AiReportModel.aggregate([
+        {
+            $match:{jobTittle:"Senior MERN Stack Developer"}
+        },
+        {
+            $project:{
+            selfDescription:0,
+            jobDescription:0,
+            Resume:0,
+            __v:0
+            }
+        }
+    ])
 console.log(aiReport)
     return res
               .status(201) 
-              .json({message:"Report generated successfully", aiReport})
+              .json({message:"Report generated successfully", aiReport:aiReport[0]})
 }
 
 
@@ -63,18 +75,20 @@ console.log(aiReport)
 
 
 export const getDetails=async(req,res)=>{
-const reportId=req.params.reportId
+const reportId=req.params.id
+console.log(reportId)
 const user=req.user
 
 
 try {
-    const reportDetails=await AiReportModel.findOneById({_id:reportId},{_id:0, selfDescription:0,Resume:0,jobDescription:0})
+    const reportDetails=await AiReportModel.findOne({_id:reportId})
+    console.log(reportDetails)
     if(reportDetails){
         return res
         .status(200)
         .json({message:"Report details fetched successfully",reportDetails})
 
-    }else{
+    }else{ 
         return res
         .status(404)
         .json({message:"No details found for this report "})

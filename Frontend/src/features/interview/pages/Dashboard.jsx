@@ -21,10 +21,10 @@ import { InterviewContext } from '../interview.context';
 
 const Dashboard = ({ userName = "Alex" }) => {
  const context= useContext(InterviewContext);
-const {handleLogOut}=AuthHook({route:"/dashboard"})
-  const logOutClick=async()=>{
-       const response=handleLogOut()
-  }
+// const {handleLogOut}=AuthHook({route:"/dashboard"})
+  // const logOutClick=async()=>{
+  //      const response=handleLogOut()
+  // }
   // Entrance animation variants
   const sidebarVariants = {
     hidden: { x: -100, opacity: 0 },
@@ -53,7 +53,7 @@ const {handleLogOut}=AuthHook({route:"/dashboard"})
 
         <div className={styles.profileArea}>
           <button className={styles.logoutBtn} onClick={()=>{
-            logOutClick()
+            // logOutClick()
           }} ><LogOut size={18} /></button>
           <div className={styles.profileCircle}>
             <User size={20} color="white" />

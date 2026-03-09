@@ -1,0 +1,93 @@
+// SkillGaps.module.scss
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* --- HEADER --- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  .titleGroup {
+    h1 { font-size: 1.75rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.5rem; }
+    p { color: #64748b; font-size: 1rem; max-width: 500px; line-height: 1.5; }
+  }
+
+  .alertCount {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(239, 68, 68, 0.1); color: #ef4444;
+    padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+}
+
+/* --- GRID & CARDS --- */
+.gapGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.gapCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: translateX(8px);
+    background: #23304a;
+  }
+
+  .cardContent {
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+
+  .iconArea {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .textArea {
+    .severityTag {
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 4px; display: block;
+    }
+    .skillName { font-size: 1.15rem; font-weight: 700; color: #f1f5f9; }
+  }
+
+  // Severity Logic
+  &.high {
+    border-left: 5px solid #ef4444; // Red
+    .iconArea { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+    .severityTag { color: #ef4444; }
+  }
+
+  &.medium {
+    border-left: 5px solid #f59e0b; // Amber
+    .iconArea { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+    .severityTag { color: #f59e0b; }
+  }
+}
+
+.resourceBtn {
+  background: transparent; border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8; padding: 10px 18px; border-radius: 10px;
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+  font-size: 0.85rem; font-weight: 600; transition: 0.2s;
+
+  &:hover {
+    border-color: #22d3ee; color: #22d3ee;
+    background: rgba(34, 211, 238, 0.05);
+  }
+}
