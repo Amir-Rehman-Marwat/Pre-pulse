@@ -4,19 +4,19 @@ import {
 import Login from "./features/auth/pages/login";
 import Register from "./features/auth/pages/register";
 import Home from "./features/auth/pages/Home";
-import ProtectedRoute from "./hooks/protected";
+import ProtectedRoute from "./features/auth/hooks/protected";
 import Dashboard from "./features/interview/pages/Dashboard";
 import History from "./features/interview/pages/history";
 import Index from "./features/interview/components";
 import NewReport from "./features/interview/pages/newReport";
-import InterviewContextProvider from "./features/interview/interview.context";
+import InterviewContextProvider from "./features/interview/interviewContexts/interview.context";
 import ReportDetails from "./features/interview/pages/ReportDetails";
 import { path } from "framer-motion/client";
-import Behavioral from "./features/interview/pages/childRoutes/Behavioral";
-import RoadMap from "./features/interview/pages/childRoutes/RoadMap";
-import TechnicalQuestions from "./features/interview/pages/childRoutes/TechnicalQuestions";
-import SkillGaps from "./features/interview/pages/childRoutes/SkillGaps";
-import DetailsIndex from "./features/interview/pages/childRoutes/DetailsIndex";
+import Behavioral from "./features/interview/pages/ReportDetailschildRoutes/Behavioral";
+import RoadMap from "./features/interview/pages/ReportDetailschildRoutes/RoadMap";
+import TechnicalQuestions from "./features/interview/pages/ReportDetailschildRoutes/TechnicalQuestions";
+import SkillGaps from "./features/interview/pages/ReportDetailschildRoutes/SkillGaps";
+import DetailsIndex from "./features/interview/pages/ReportDetailschildRoutes/DetailsIndex";
 export const router = createBrowserRouter([
   {
     path: "/login",

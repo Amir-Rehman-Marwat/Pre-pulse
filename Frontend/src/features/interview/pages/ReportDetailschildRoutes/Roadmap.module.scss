@@ -1,0 +1,91 @@
+// Roadmap.module.scss
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-bottom: 5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  .titleGroup {
+    h1 { font-size: 1.8rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.5rem; }
+    p { color: #94a3b8; font-size: 1rem; }
+  }
+
+  .metaBadge {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255, 255, 255, 0.03); color: #94a3b8;
+    padding: 8px 16px; border-radius: 8px; font-weight: 700;
+    font-size: 0.8rem; border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  display: flex;
+  gap: 2rem;
+  
+  // Remove line from the very last item in the list
+  &:last-child .verticalLine { display: none; }
+
+  .indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .numberCircle {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: #1e293b; border: 2px solid #22d3ee;
+      display: flex; align-items: center; justify-content: center;
+      color: #22d3ee; font-weight: 800; font-size: 0.9rem;
+      z-index: 2;
+    }
+
+    .verticalLine {
+      flex: 1; width: 2px;
+      background: rgba(34, 211, 238, 0.15);
+      margin: 10px 0;
+    }
+  }
+
+  .contentCard {
+    flex: 1; padding-bottom: 3rem;
+    
+    .cardHeader {
+      margin-bottom: 1rem;
+      .dayLabel { 
+        font-size: 0.7rem; font-weight: 800; color: #64748b; 
+        text-transform: uppercase; letter-spacing: 0.1em;
+      }
+      .focusTitle { font-size: 1.25rem; font-weight: 700; color: #f1f5f9; margin-top: 2px; }
+    }
+
+    .taskList {
+      list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;
+
+      li {
+        position: relative;
+        padding-left: 1.5rem;
+        font-size: 0.95rem; color: #94a3b8; line-height: 1.6;
+
+        &::before {
+          content: "";
+          position: absolute; left: 0; top: 10px;
+          width: 6px; height: 6px; border-radius: 50%;
+          background: #22d3ee; opacity: 0.6;
+        }
+      }
+    }
+  }
+}

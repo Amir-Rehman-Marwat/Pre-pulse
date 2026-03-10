@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { loginUser,logOutUser,registerUser } from "../services/auth.api";
+import { loginUser,logOutUser,registerUser  } from "../services/auth.api";
 import { AuthContext } from "../contexts/auth.context";
 import React from "react";
 import { useNavigate } from "react-router";

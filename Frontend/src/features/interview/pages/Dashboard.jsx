@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Outlet } from 'react-router'; // v7 uses 'react-router'
 import { motion } from 'framer-motion';
 import { useContext ,useEffect} from "react";
-import { AuthContext } from "../../../contexts/auth.context";
+import { AuthContext } from "../../auth/contexts/auth.context";
 
 import { 
   Home, 
@@ -15,8 +15,8 @@ import {
   LogOut
 } from 'lucide-react';
 import styles from './Dashboard.module.scss';
-import AuthHook from '../../../hooks/auth.hooks';
-import { InterviewContext } from '../interview.context';
+import AuthHook from '../../auth/hooks/auth.hooks';
+import { InterviewContext } from '../interviewContexts/interview.context';
 
 
 const Dashboard = ({ userName = "Alex" }) => {

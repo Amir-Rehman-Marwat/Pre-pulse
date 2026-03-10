@@ -1,0 +1,111 @@
+// TechnicalQuestions.module.scss
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* --- HEADER --- */
+.header {
+  h1 { 
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    color: #f8fafc; 
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  p { 
+    color: #94a3b8; 
+    font-size: 1rem; 
+  }
+}
+
+/* --- LIST --- */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* --- CARD --- */
+.card {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+
+  .cardTop {
+    padding: 2rem 2.5rem;
+    background: rgba(255, 255, 255, 0.015);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+
+    .count { 
+      font-size: 0.7rem; 
+      font-weight: 800; 
+      color: #22d3ee; 
+      text-transform: uppercase; 
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    
+    .questionTitle { 
+      font-size: 1.25rem; 
+      font-weight: 700; 
+      color: #f1f5f9; 
+      line-height: 1.5; 
+    }
+  }
+
+  .cardBody {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .infoRow {
+    .label {
+      display: flex; 
+      align-items: center; 
+      gap: 10px;
+      font-size: 0.85rem; 
+      font-weight: 700; 
+      color: #64748b; 
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .description { 
+      font-size: 1rem; 
+      line-height: 1.7; 
+      color: #94a3b8; 
+    }
+  }
+
+  .answerBox {
+    background: rgba(34, 211, 238, 0.04);
+    border: 1px solid rgba(34, 211, 238, 0.1);
+    padding: 1.75rem;
+    border-radius: 14px;
+
+    .label {
+      display: flex; 
+      align-items: center; 
+      gap: 10px;
+      font-size: 0.85rem; 
+      font-weight: 700; 
+      color: #22d3ee; 
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .description { 
+      font-size: 1rem; 
+      line-height: 1.7; 
+      color: #cbd5e1; 
+    }
+  }
+}

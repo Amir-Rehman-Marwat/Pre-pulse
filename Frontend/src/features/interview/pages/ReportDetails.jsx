@@ -13,9 +13,10 @@ import {
   Zap
 } from 'lucide-react';
 import styles from './ReportDetails.module.scss';
-import { InterviewContext } from '../interview.context';
-import InterviewHook from '../interview.hook';
+import { InterviewContext } from '../interviewContexts/interview.context';
+import InterviewHook from '../interviewHooks/interview.hook';
 import { div } from 'framer-motion/client';
+import { ReportDetailsContext } from '../interviewContexts/ReportDetailsContext';
 
 const ReportDetails = ({ 
   jobTitle = "Senior MERN Stack Developer", 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import { useForm } from "react-hook-form"
 import { useContext } from 'react'
-import { AuthContext } from '../../../contexts/auth.context'
-import AuthHook from '../../../hooks/auth.hooks'
+import { AuthContext } from '../contexts/auth.context'
+import AuthHook from '../hooks/auth.hooks'
 import styles from './Register.module.scss'; 
 
 function Register() {

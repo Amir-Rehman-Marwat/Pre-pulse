@@ -1,0 +1,87 @@
+// SkillGaps.module.scss
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* --- HEADER --- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  .titleGroup {
+    h1 { font-size: 1.8rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.5rem; }
+    p { color: #94a3b8; font-size: 1rem; }
+  }
+
+  .alertCount {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #94a3b8; padding: 10px 18px; border-radius: 12px;
+    font-weight: 700; font-size: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* --- LIST --- */
+.gapList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.gapCard {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 2.5rem;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: #23304a;
+    transform: scale(1.01);
+  }
+
+  .cardContent {
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+
+  .iconArea {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .textArea {
+    .severityTag {
+      font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 4px; display: block;
+    }
+    .skillName { font-size: 1.1rem; font-weight: 700; color: #f1f5f9; }
+  }
+
+  /* --- SEVERITY VARIANTS --- */
+  &.high {
+    border-left: 4px solid #ef4444; 
+    .iconArea { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+    .severityTag { color: #ef4444; }
+  }
+
+  &.medium {
+    border-left: 4px solid #f59e0b; 
+    .iconArea { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+    .severityTag { color: #f59e0b; }
+  }
+
+  &.low {
+    border-left: 4px solid #10b981; 
+    .iconArea { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .severityTag { color: #10b981; }
+  }
+}

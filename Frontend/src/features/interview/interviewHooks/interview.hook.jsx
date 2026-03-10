@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
-import { createReport, reportDetails, reportsHistory } from './services/interview.api'
-import { InterviewContext } from './interview.context'
+import {createReport, reportDetails, reportsHistory} from "../services/interview.api"
+import { InterviewContext } from '../interviewContexts/interview.context'
 import { useNavigate } from 'react-router'
 function InterviewHook() {
 

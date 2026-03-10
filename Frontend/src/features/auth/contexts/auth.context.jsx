@@ -1,7 +1,7 @@
 import React from 'react'
 import { createContext } from 'react'
 export const AuthContext=createContext("hhh")
-import Login from '../features/auth/pages/login'
+import Login from '../pages/login'
 import { useState } from 'react'
 function AuthProvider({children}) {
     const [user, setUser] = useState(null);

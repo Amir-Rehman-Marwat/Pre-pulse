@@ -10,8 +10,8 @@ import {
   Send 
 } from 'lucide-react';
 import styles from './NewReport.module.scss';
-import InterviewHook from '../interview.hook';
-import { InterviewContext } from '../interview.context';
+import InterviewHook from '../interviewHooks/interview.hook';
+import { InterviewContext } from '../interviewContexts/interview.context';
 const NewReport = () => {
 // const {handleLogOut}=AuthHook({route:"/dashboard/new-report"})
   const context=useContext(InterviewContext)

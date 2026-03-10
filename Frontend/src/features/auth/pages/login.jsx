@@ -1,8 +1,8 @@
 import { Link } from "react-router";
 import { useForm } from "react-hook-form";
 import { useContext ,useEffect} from "react";
-import { AuthContext } from "../../../contexts/auth.context";
-import AuthHook from "../../../hooks/auth.hooks";
+import { AuthContext } from "../contexts/auth.context";
+import AuthHook from "../hooks/auth.hooks";
 import styles from "./Login.module.scss"; // Import the SCSS module
 
 function Login() {
