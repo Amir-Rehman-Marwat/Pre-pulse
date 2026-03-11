@@ -17,6 +17,7 @@ import { InterviewContext } from '../interviewContexts/interview.context';
 import InterviewHook from '../interviewHooks/interview.hook';
 import { div } from 'framer-motion/client';
 import { ReportDetailsContext } from '../interviewContexts/ReportDetailsContext';
+import { getMe } from '../../auth/services/auth.api';
 
 const ReportDetails = ({ 
   jobTitle = "Senior MERN Stack Developer", 
@@ -28,6 +29,7 @@ const ReportDetails = ({
  const {handleReportDetails}=InterviewHook()
  const [reportDetails, setReportDetails] = useState(null)
  const [loading, setLoading] = useState(true)
+ const [user, setUser] = useState(null)
  console.log("thsi is detail",reportDetails)
  useEffect(() => {
   const run=async()=>{
@@ -44,6 +46,17 @@ try {
   }
   run();
  }, [])
+ useEffect(() => {
+ const run=async ()=>{
+ if(!user){
+const response=await getMe()
+setUser(response.data.user.userName)
+console.log(response)
+  }
+ }
+ run()
+ }, [])
+ 
  
  if(loading){
   return <div>LOADING</div>
@@ -67,7 +80,7 @@ try {
           <div className={styles.userPilot}>
             <div className={styles.pilotInfo}>
               <span className={styles.pilotRole}>CANDIDATE</span>
-              <span className={styles.pilotName}>{userName}</span>
+              <span className={styles.pilotName}>{user.toUpperCase()}</span>
             </div>
             <div className={styles.avatarHex}>
               <Fingerprint size={20} />

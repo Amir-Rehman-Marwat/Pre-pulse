@@ -4,6 +4,7 @@ import { Calendar, Clock } from "lucide-react";
 import styles from "./Roadmap.module.scss";
 import { useParams } from "react-router";
 import InterviewHook from "../../interviewHooks/interview.hook";
+import AnalysisLoader from "../../components/reportDetailsLoading";
 
 const Roadmap = () => {
   const { id } = useParams();
@@ -27,7 +28,7 @@ const Roadmap = () => {
     run();
   }, []);
   if (loading) {
-    return <div>Loading ...</div>;
+    return <AnalysisLoader/>
   } else {
     return (
       <motion.div

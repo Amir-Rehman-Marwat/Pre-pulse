@@ -4,88 +4,84 @@
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  padding-bottom: 5rem;
+  padding-bottom: 4rem;
 }
 
+/* --- HEADER --- */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 2rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
-  .titleArea {
-    h1 { font-size: 1.8rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.5rem; }
-    p { color: #94a3b8; font-size: 1rem; }
-  }
+  h1 { font-size: 1.8rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.5rem; }
+  p { color: #64748b; font-size: 1rem; }
 
-  .badge {
+  .indicator {
     display: flex; align-items: center; gap: 8px;
-    background: rgba(139, 92, 246, 0.1); // Soft Purple
-    color: #a78bfa; padding: 10px 20px; border-radius: 50px;
-    font-size: 0.85rem; font-weight: 700; border: 1px solid rgba(139, 92, 246, 0.2);
+    background: rgba(34, 211, 238, 0.05); color: #22d3ee;
+    padding: 8px 16px; border-radius: 10px; font-weight: 700; font-size: 0.8rem;
   }
 }
 
-.questionList {
+/* --- LIST & CARDS --- */
+.list {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
 .card {
-  position: relative;
   background: #1e293b;
-  border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 2.5rem;
+  border-radius: 20px;
   overflow: hidden;
-  transition: transform 0.2s ease;
+  transition: border-color 0.2s ease;
 
   &:hover {
-    transform: translateY(-4px);
-    border-color: rgba(167, 139, 250, 0.3);
+    border-color: rgba(34, 211, 238, 0.2);
   }
 
-  .cardHeader {
-    display: flex; align-items: flex-start; gap: 1.5rem;
-    margin-bottom: 2rem;
+  .cardTop {
+    padding: 1.75rem 2.5rem;
+    background: rgba(255, 255, 255, 0.015);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 
-    .qIcon {
-      width: 44px; height: 44px; background: rgba(167, 139, 250, 0.1);
-      border-radius: 12px; display: flex; align-items: center;
-      justify-content: center; color: #a78bfa; flex-shrink: 0;
+    .count { 
+      font-size: 0.75rem; font-weight: 800; color: #22d3ee; 
+      text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 0.5rem;
     }
-
-    h3 { font-size: 1.3rem; font-weight: 700; color: #f1f5f9; line-height: 1.4; }
+    .questionTitle { font-size: 1.25rem; font-weight: 700; color: #f1f5f9; line-height: 1.5; }
   }
 
-  .content {
-    display: flex; flex-direction: column; gap: 1.5rem;
-    position: relative; z-index: 2;
+  .cardBody {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
   }
 
-  .label {
-    display: block; font-size: 0.75rem; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    color: #64748b; margin-bottom: 0.75rem;
+  .infoRow {
+    .label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; font-weight: 800; color: #64748b; 
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.75rem;
+    }
+    .description { font-size: 1rem; line-height: 1.7; color: #94a3b8; }
   }
-
-  .section p { font-size: 1rem; color: #94a3b8; line-height: 1.7; }
 
   .strategyBox {
-    background: rgba(167, 139, 250, 0.04);
-    border: 1px solid rgba(167, 139, 250, 0.1);
-    padding: 1.5rem; border-radius: 16px;
+    background: rgba(34, 211, 238, 0.03);
+    border: 1px solid rgba(34, 211, 238, 0.08);
+    padding: 1.5rem;
+    border-radius: 14px;
 
-    .label { color: #a78bfa; display: flex; align-items: center; gap: 8px; }
-    p { font-size: 1rem; color: #cbd5e1; line-height: 1.7; }
-  }
-
-  .quoteDecoration {
-    position: absolute; right: -10px; top: -10px;
-    color: rgba(255, 255, 255, 0.02);
-    transform: rotate(15deg);
-    pointer-events: none;
+    .label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; font-weight: 800; color: #22d3ee; 
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.75rem;
+    }
+    .description { font-size: 1rem; line-height: 1.7; color: #cbd5e1; font-weight: 500; }
   }
 }

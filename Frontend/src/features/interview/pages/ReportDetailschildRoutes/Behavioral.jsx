@@ -1,10 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MessageSquare, Quote, ShieldQuestion, Sparkles } from 'lucide-react';
+import { Target, Sparkles} from 'lucide-react';
 import styles from './BehavioralPrep.module.scss';
-
+import { useState } from 'react';
+import { useEffect } from 'react';
+import InterviewHook from "../../interviewHooks/interview.hook";
+import { useParams } from "react-router";
+import AnalysisLoader from '../../components/reportDetailsLoading';
 const BehavioralPrep = () => {
-  // Common behavioral schema based on typical AI analysis outputs
   const behavioralQuestions = [
     {
       Question: 'Describe a time you had to deal with a significant technical debt.',
@@ -23,54 +26,74 @@ const BehavioralPrep = () => {
     }
   ];
 
-  return (
+ const { id } = useParams();
+  const { handleReportDetails } = InterviewHook();
+  const [reportDetails, setReportDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+   useEffect(() => {
+      const run = async () => {
+        try {
+          const response = await handleReportDetails(id);
+          if (response.status === 200) {
+            setLoading(false);
+            setReportDetails(response.data.reportDetails);
+          }
+          console.dir(response);
+        } catch (error) {
+          console.dir(error);
+        }
+      };
+      run();
+    }, []);
+ if(loading){
+  return <AnalysisLoader/>
+ }else{
+   return (
     <motion.div 
       className={styles.container}
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.4 }}
     >
       <header className={styles.header}>
-        <div className={styles.titleArea}>
+        <div className={styles.titleGroup}>
           <h1>Behavioral Strategy</h1>
-          <p>Prepare your stories using the STAR method to demonstrate soft skills and leadership.</p>
+          <p>Structured situational questions to evaluate your soft skills and leadership.</p>
         </div>
-        <div className={styles.badge}>
-          <MessageSquare size={16} />
-          <span>Soft Skills Focus</span>
-        </div>
+        
       </header>
 
-      <div className={styles.questionList}>
-        {behavioralQuestions.map((item, index) => (
+      <div className={styles.list}>
+        {reportDetails.behavioralQuestions.map((item, index) => (
           <div key={index} className={styles.card}>
-            <div className={styles.cardHeader}>
-              <div className={styles.qIcon}><ShieldQuestion size={20} /></div>
-              <h3>{item.Question}</h3>
+            <div className={styles.cardTop}>
+              <span className={styles.count}>Question {index + 1}</span>
+              <h3 className={styles.questionTitle}>{item.Question}</h3>
             </div>
 
-            <div className={styles.content}>
-              <div className={styles.section}>
-                <span className={styles.label}>Interviewer's Objective</span>
-                <p>{item.Intention}</p>
+            <div className={styles.cardBody}>
+              {/* Interviewer's Intent */}
+              <div className={styles.infoRow}>
+                <div className={styles.label}>
+                  <Target size={16} /> <span>Interviewer's Objective</span>
+                </div>
+                <p className={styles.description}>{item.Intention}</p>
               </div>
 
+              {/* Strategy Answer */}
               <div className={styles.strategyBox}>
                 <div className={styles.label}>
-                  <Sparkles size={16} /> <span>Recommended Strategy</span>
+                  <Sparkles size={16} /> <span>Preparation Strategy</span>
                 </div>
-                <p>{item.Strategy}</p>
+                <p className={styles.description}>{item.Strategy}</p>
               </div>
-            </div>
-
-            <div className={styles.quoteDecoration}>
-              <Quote size={40} />
             </div>
           </div>
         ))}
       </div>
     </motion.div>
   );
+ }
 };
 
 export default BehavioralPrep;

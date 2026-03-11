@@ -4,6 +4,7 @@ import { Target, Lightbulb } from 'lucide-react';
 import styles from './TechnicalQuestions.module.scss';
 import { useParams } from 'react-router';
 import InterviewHook from '../../interviewHooks/interview.hook';
+import AnalysisLoader from '../../components/reportDetailsLoading';
 
 const TechnicalQuestions = () => {
 
@@ -29,7 +30,7 @@ try {
  }, [])
 
  if(loading){
-  return <div>LOADING</div>
+  return <AnalysisLoader/>
  }else{
 
   return (

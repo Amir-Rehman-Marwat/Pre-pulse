@@ -4,6 +4,7 @@ import { AlertTriangle, ShieldAlert, Info, CheckCircle } from 'lucide-react';
 import styles from './SkillGaps.module.scss';
 import InterviewHook from '../../interviewHooks/interview.hook';
 import { useParams } from 'react-router';
+import AnalysisLoader from '../../components/reportDetailsLoading';
 
 const SkillGaps = () => {
     const {handleReportDetails}=InterviewHook()
@@ -47,7 +48,7 @@ const SkillGaps = () => {
   };
 
  if(loading){
-  <div>LOADING</div>
+  return <AnalysisLoader/>
  }else{
    return (
     <motion.div 
