@@ -47,7 +47,7 @@ const skillGapsSchema=new mongoose.Schema({
     },
     severity:{
         type:String,
-        enum:["high","medium","low"]
+        enum:["High","Medium","Low"]
     }
 },{
     _id:false

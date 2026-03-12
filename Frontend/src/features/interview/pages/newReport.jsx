@@ -33,7 +33,7 @@ const NewReport = () => {
     try {
       const {selfDescription,jobDescription,resume}=data
     const response=await handleNewReport(selfDescription,jobDescription,pdfFile)
-    // console.dir(response)
+    console.dir(response)
     } catch (error) {
       console.dir(error)
     }finally{
