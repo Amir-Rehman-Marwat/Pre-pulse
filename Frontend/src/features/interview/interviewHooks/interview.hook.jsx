@@ -29,7 +29,19 @@ const response=await reportDetails(reportId)
 return response
     }
     const handleReportsHistory=async()=>{
+        setLoading(true)
         const response=await reportsHistory()
+        if(response.status===200){
+            setLoading(false)
+            setReports(response.data.history)
+        }else if(response.status===400){
+            setLoading(false)
+              setReports(null)
+
+        }else{
+            setLoading(false)
+            setReports(null)
+        }
         return response
     }
     return {handleNewReport,handleReportDetails,handleReportsHistory}

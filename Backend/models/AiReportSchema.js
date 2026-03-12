@@ -110,6 +110,8 @@ const AiReportSchema = mongoose.Schema({
     min: 0,
     max: 100,
   }
+}, {
+  timestamps: true 
 });
 
 

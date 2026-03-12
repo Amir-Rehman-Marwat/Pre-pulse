@@ -18,6 +18,11 @@ export const reportDetails=async (reportId)=>{
 }
 
 export const reportsHistory=async ()=>{
-    const response=await axios.get(`http://localhost:3000/api/interview/history`)
+try {
+    const response=await axios.get(`http://localhost:3000/api/interview/history`,{withCredentials:true})
     return response
+    
+} catch (error) {
+    return error
+}
 }

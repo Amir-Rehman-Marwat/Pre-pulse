@@ -120,7 +120,7 @@ const prompt = `
 Generate an interview report.
 
 Return ONLY valid JSON.
-incude details ;
+incude details and make the 7 days detailed plane  and create more questionns and gaps for more presice report and use easyand understandale words ;
 Follow the provided json schema strictly.
 selfDescription: ${selfDescription}
 resumeText: ${resumeText}

@@ -1,0 +1,122 @@
+// History.module.scss
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.header {
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #dc143c;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #dc143c;
+  }
+
+  p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin: 0;
+
+    // The "Reports Generated" Number Styling
+    span { 
+      color: #dc143c; 
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin: 0 4px;
+      text-shadow: 0 0 15px rgba(220, 20, 60, 0.3);
+    }
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(220, 20, 60, 0.4); 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+
+    .actionBtn {
+      background: #dc143c;
+      color: white;
+      border-color: #dc143c;
+      box-shadow: 0 0 15px rgba(220, 20, 60, 0.2);
+    }
+
+    .title { color: #fff; }
+  }
+
+  .mainInfo {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    
+    .title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      width: 280px; 
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.3s ease;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #64748b;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.actionBtn {
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

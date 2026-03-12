@@ -61,7 +61,7 @@ try {
 
 }
 export const logineUserController=async (req,res)=>{
- 
+ console.log("login started")
     const {email,password}=req.body
     const user=await userModel.findOne({email});
     if(!user){

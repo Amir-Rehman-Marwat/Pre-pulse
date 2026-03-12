@@ -35,24 +35,11 @@ return res
 
 
  export const getHistoryController=async(req,res)=>{
+    console.log("got the req")
     const user=req.user
-
+    console.log(user)
     try {
-        const history=await AiReportModel.aggregate([
-        {
-            $match:{
-                
- "_id": "69a85c1ee67b0fd4d7cc1078"
-            }
-        }
-            ,{
-            $project:{
-                jobTittle:1,
-                _id:1
-            }
-        }
-    ])
-
+        const history=await AiReportModel.find({User:user.id},{jobTittle:1})
   if(history.length<1){
     return res 
                  .status(400)
