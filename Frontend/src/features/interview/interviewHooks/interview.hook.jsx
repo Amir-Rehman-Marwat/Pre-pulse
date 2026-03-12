@@ -18,7 +18,8 @@ const navigate= useNavigate()
         setLoading(true)
 const response=await createReport(selfDescription,jobDescription,resumePdf)
 if(response.status===201){
-    setReport(response.data.aiReport)
+    console.log("complete response details",response)
+    setReport(response.data.responseData)
     setLoading(false)
 
 }

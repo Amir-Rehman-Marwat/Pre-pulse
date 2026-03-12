@@ -30,7 +30,7 @@ return res
     }
     return res
               .status(201) 
-              .json({message:"Report generated successfully", aiReport})
+              .json({message:"Report generated successfully", responseData:savedReport})
 }
 
 

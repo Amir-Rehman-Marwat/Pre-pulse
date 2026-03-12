@@ -72,7 +72,7 @@ const aiReportResponseSchema = {
           },
           severity: {
             type: "string",
-            enum: ["High", "Medium", "Low"],
+            enum: ["high", "medium", "low"],
             description: "severity will describe the severity of te skill tha user can learn ,it must  be one of them [high ,medium ,low] if he can learn in short time it will be low and if it will take some time it will be medium and if i will take much more time then it will be high "
           }
         },
@@ -120,7 +120,7 @@ const prompt = `
 Generate an interview report.
 
 Return ONLY valid JSON.
-Do not include explanations.
+incude details ;
 Follow the provided json schema strictly.
 selfDescription: ${selfDescription}
 resumeText: ${resumeText}

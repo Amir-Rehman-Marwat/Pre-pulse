@@ -51,7 +51,6 @@ try {
  if(!user){
 const response=await getMe()
 setUser(response.data.user.userName)
-console.log(response)
   }
  }
  run()
@@ -80,7 +79,7 @@ console.log(response)
           <div className={styles.userPilot}>
             <div className={styles.pilotInfo}>
               <span className={styles.pilotRole}>CANDIDATE</span>
-              <span className={styles.pilotName}>{user.toUpperCase()}</span>
+              <span className={styles.pilotName}>{user}</span>
             </div>
             <div className={styles.avatarHex}>
               <Fingerprint size={20} />
