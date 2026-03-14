@@ -14,7 +14,7 @@ const navigate= useNavigate()
 
   useEffect(() => {
   if(report){
-    navigate(`/reportDetails/${report._id}`)
+    navigate(`/reportDetails/${report._id}/gaps`)
   }  
   }, [report])
   

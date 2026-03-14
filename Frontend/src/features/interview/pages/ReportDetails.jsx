@@ -49,7 +49,7 @@ const ReportDetails = () => {
       if (!user) {
         try {
           const response = await getMe();
-          setUser(response.data.user.userName || "GUEST_PILOT");
+          setUser(response.data.user.userName.split(" ")[0]|| "GUEST_PILOT");
         } catch (e) {
           setUser("GUEST_PILOT");
         }

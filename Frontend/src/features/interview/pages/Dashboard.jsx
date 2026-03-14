@@ -25,7 +25,7 @@ const {handleLogOut}=InterviewHook()
       try {
         const response = await getMe();
         const lowerCaseName = response.data.user.userName;
-        setuserName(lowerCaseName.toUpperCase());
+        setuserName(lowerCaseName.split(" ")[0].toUpperCase());
       } catch (e) {
         setuserName("GUEST_PILOT");
       }

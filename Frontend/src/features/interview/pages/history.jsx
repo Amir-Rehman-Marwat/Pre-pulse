@@ -43,7 +43,7 @@ return <NoHistory/>
             <h4 className={styles.title}>{report.jobTittle}</h4>
             <div className={styles.meta}>
               <Calendar size={12} />
-              <span>Oct 24, 2025</span>
+              <span>{report._id}</span>
             </div>
           </div>
           

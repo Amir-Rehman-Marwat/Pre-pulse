@@ -14,7 +14,7 @@ console.log(name)
     const run=async()=>{
 const response=await getMe()
 const lowerCaseName=response.data.user.userName
-setName(lowerCaseName.toUpperCase())
+setName(lowerCaseName.split(" ")[0].toUpperCase())
 console.log(response)
 
     }

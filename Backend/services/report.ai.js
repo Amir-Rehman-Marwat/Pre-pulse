@@ -117,15 +117,32 @@ const generateAireport=async(selfDescription,resumeText,targetJobDescription)=>{
 // console.log(JSON.stringify(jsonSchema, null, 2));
 console.log("getting the data ...")
 const prompt = `
-Generate an interview report.
-
-Return ONLY valid JSON.
-incude details and make the 7 days detailed plane  and create more questionns and gaps for more presice report and use easyand understandale words ;
-Follow the provided json schema strictly.
+Role: Expert Career Coach for kids.
+Task: Create a simple Interview Report & 7-day plan in JSON.
+Data: 
 selfDescription: ${selfDescription}
 resumeText: ${resumeText}
 targetJobDescription: ${targetJobDescription}
+
+Rules:
+1. Use ONLY 5th-grade English (very simple words).
+2. JSON schema must be strictly followed.
+3. Include:
+   - "Gaps": What is missing? (Simple terms).
+   - "Questions": 10 easy-to-read practice questions.
+   - "DayPlan": 7 small daily tasks (e.g., "Day 1: Read about React hooks").
+4. Return ONLY JSON. No intro/outro.
 `;
+// const prompt = `
+// Generate an interview report.
+
+// Return ONLY valid JSON.
+// incude details and make the 7 days detailed plane  and create more questionns and gaps for more presice report and use easyand understandale words ;
+// Follow the provided json schema strictly.
+// selfDescription: ${selfDescription}
+// resumeText: ${resumeText}
+// targetJobDescription: ${targetJobDescription}
+// `;
 const response=await ai.models.generateContent({
     model:"gemini-3-flash-preview",
     contents:prompt,
