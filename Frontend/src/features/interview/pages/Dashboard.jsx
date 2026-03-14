@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -9,12 +9,29 @@ import {
   History, 
   LogOut, 
   Menu, 
-  X 
+  X,
+  Fingerprint
 } from 'lucide-react';
 import styles from './Dashboard.module.scss';
+import { getMe } from '../../auth/services/auth.api';
+import InterviewHook from '../interviewHooks/interview.hook';
 
-const Dashboard = ({ userName = "Alex" }) => {
+const Dashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userName, setuserName] = useState(".");
+const {handleLogOut}=InterviewHook()
+  useEffect(() => {
+    const run = async () => {
+      try {
+        const response = await getMe();
+        const lowerCaseName = response.data.user.userName;
+        setuserName(lowerCaseName.toUpperCase());
+      } catch (e) {
+        setuserName("GUEST_PILOT");
+      }
+    };
+    run();
+  }, []);
 
   return (
     <div className={styles.dashboardContainer}>
@@ -34,6 +51,15 @@ const Dashboard = ({ userName = "Alex" }) => {
         </div>
 
         <div className={styles.profileArea}>
+          {/* Candidate Portion Integrated Here */}
+          <div className={styles.userPilot}>
+            <div className={styles.pilotInfo}>
+              <span className={styles.pilotRole}>CANDIDATE</span>
+              <span className={styles.pilotName}>{userName}</span>
+            </div>
+            <div className={styles.avatarHex}><Fingerprint size={18} /></div>
+          </div>
+
           <button 
             className={styles.menuBtn} 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -41,7 +67,13 @@ const Dashboard = ({ userName = "Alex" }) => {
             {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
           
-          <button className={styles.logoutBtn} aria-label="Logout">
+          <button className={styles.logoutBtn} aria-label="Logout" onClick={()=>{
+            const run =async()=>{
+    await   handleLogOut()
+           
+            }
+            run()
+          }}>
             <LogOut size={20} />
           </button>
         </div>
@@ -55,19 +87,26 @@ const Dashboard = ({ userName = "Alex" }) => {
             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
             animate={{ opacity: 1, backdropFilter: "blur(12px)" }}
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            onClick={() => setIsMenuOpen(false)}
           >
             <motion.div 
               className={styles.menuCard}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
             >
               <div className={styles.mobileMenuLinks}>
                 <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
                 <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
                 <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
                 <div className={styles.menuDivider} />
-                <button className={styles.mobileLogout}>
+                <button className={styles.mobileLogout}  onClick={()=>{
+            const run =async()=>{
+    await   handleLogOut()
+            }
+            run()
+          }}  >
                    <LogOut size={18} /> Logout
                 </button>
               </div>
@@ -90,10 +129,7 @@ const Dashboard = ({ userName = "Alex" }) => {
         </aside>
 
         <section className={styles.contentArea}>
-          <header className={styles.welcomeHeader}>
-            <h1 className={styles.welcomeTitle}>Welcome, <span className={styles.userName}>{userName}</span></h1>
-            <p className={styles.welcomeSubtitle}>Ready for your next analysis?</p>
-          </header>
+          {/* Welcome Portions Removed as Requested */}
           <div className={styles.outletWrapper}><Outlet /></div>
         </section>
       </div>

@@ -18,7 +18,11 @@ const { loading, error, success, setError, setSuccess } = context
     }
   }, [error, success, setError, setSuccess]);
 
-  const { handleLogin } = AuthHook({route:"/"});
+
+    const { handleLogin } = AuthHook();
+
+
+ 
   const {
     register,
     handleSubmit,
@@ -50,7 +54,7 @@ const { loading, error, success, setError, setSuccess } = context
       {success && (
         <div className='successMsg'>{success.message}</div>
       )}
-      <div className={styles.loginFormContainer}>
+      {!success && <div className={styles.loginFormContainer}>
         <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
           {loading && <div className={styles.loadingPulse}>LOADING....</div>}
           
@@ -83,7 +87,7 @@ const { loading, error, success, setError, setSuccess } = context
             </Link>
           </div>
         </form>
-      </div>
+      </div> }
     </main>
   );
 }

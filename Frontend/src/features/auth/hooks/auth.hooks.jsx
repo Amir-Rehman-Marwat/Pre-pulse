@@ -11,8 +11,9 @@ const navigate=useNavigate()
 useEffect(() => {
   if(user){
     setTimeout(() => {
-      navigate(`${props.route}`)
-    }, 3500);
+      setSuccess(null)
+      navigate(`/`)
+    }, 1500);
     
   }
 }, [user])

@@ -2,7 +2,11 @@ import React, { useContext, useEffect } from 'react'
 import {createReport, reportDetails, reportsHistory} from "../services/interview.api"
 import { InterviewContext } from '../interviewContexts/interview.context'
 import { useNavigate } from 'react-router'
+import { logOutUser } from '../../auth/services/auth.api'
+import { AuthContext } from '../../auth/contexts/auth.context'
 function InterviewHook() {
+  const authContext= useContext(AuthContext)
+  const{setUser}=authContext
 
  const context =useContext(InterviewContext)
   const {loading,setLoading,report,setReport,reports,setReports}=context
@@ -44,7 +48,16 @@ return response
         }
         return response
     }
-    return {handleNewReport,handleReportDetails,handleReportsHistory}
+    const handleLogOut=async()=>{
+        const response= await logOutUser()
+       if(response.status===200){
+       setTimeout(() => {
+         setUser(null)
+        navigate("/login")
+       }, 1500);
+       }
+    }
+    return {handleNewReport,handleReportDetails,handleReportsHistory,handleLogOut}
 }
 
 export default InterviewHook

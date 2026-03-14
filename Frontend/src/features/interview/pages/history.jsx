@@ -48,7 +48,7 @@ return <NoHistory/>
           </div>
           
           <button className={styles.actionBtn} onClick={()=>{
-navigate(`/reportDetails/${report._id}/technical`)
+navigate(`/reportDetails/${report._id}/gaps`)
           }}>
             View Details
             <ChevronRight size={14} />
