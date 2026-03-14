@@ -1,33 +1,52 @@
+/* NoHistory.module.scss */
+
+$mobile: 768px;
+$crimson: #dc143c;
+$slate-dark: #0f172a;
+$slate-light: #64748b;
+
 .emptyContainer {
   width: 100%;
-  height: 100%;
-  min-height: 400px;
+  // Calculation to fill the available height in the outlet area
+  min-height: 60vh; 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 200px;
-  padding-right: 400px;
   text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
   animation: fadeIn 0.8s ease-out;
+
+  /* We remove the padding-right: 400px and padding-bottom: 200px */
+  
+  @media (min-width: $mobile) {
+    // If you want it aligned slightly to the left to match the header:
+    align-items: flex-start;
+    text-align: left;
+    padding-left: 0; // It will inherit alignment from Dashboard's 10% margin
+  }
 }
 
 .iconWrapper {
   position: relative;
   color: #334155;
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  // The subtle crimson pulse behind the icon
+  svg {
+    color: rgba(255, 255, 255, 0.2);
+  }
+
   .pulse {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 60px;
     height: 60px;
-    background: #dc143c;
+    background: $crimson;
     border-radius: 50%;
-    filter: blur(30px);
+    filter: blur(35px);
     opacity: 0.15;
     z-index: -1;
     animation: glow 3s infinite ease-in-out;
@@ -36,51 +55,58 @@
 
 .title {
   color: #f1f5f9;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.5px;
+
+  @media (min-width: $mobile) {
+    font-size: 1.8rem;
+  }
 }
 
 .subtitle {
-  color: #64748b;
-  font-size: 0.95rem;
-  max-width: 320px;
+  color: $slate-light;
+  font-size: 1rem;
+  max-width: 400px;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .createBtn {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  background: rgba(220, 20, 60, 0.1);
-  border: 1px solid rgba(220, 20, 60, 0.3);
-  color: #dc143c;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: rgba($crimson, 0.1);
+  border: 1px solid rgba($crimson, 0.3);
+  color: white;
   text-decoration: none;
-  border-radius: 12px;
-  font-size: 0.9rem;
+  border-radius: 14px;
+  font-size: 0.95rem;
   font-weight: 700;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   &:hover {
-    background: #dc143c;
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(220, 20, 60, 0.2);
+    background: $crimson;
+    border-color: $crimson;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba($crimson, 0.3);
   }
 
   &:active {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
   }
 }
 
+/* --- ANIMATIONS --- */
 @keyframes glow {
-  0%, 100% { opacity: 0.1; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 0.25; transform: translate(-50%, -50%) scale(1.3); }
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(1.4); }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

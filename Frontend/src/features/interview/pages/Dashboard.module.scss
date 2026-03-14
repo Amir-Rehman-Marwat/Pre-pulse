@@ -1,29 +1,47 @@
+/* Dashboard.module.scss */
+
+/* --- VARIABLES --- */
+$mobile: 768px;
+$bg-dark: #020617;
+$crimson: #dc143c;
+$cyan: #22d3ee;
+$purple: #a855f7;
+$text-dim: #94a3b8;
+$text-muted: #64748b;
+
 .dashboardContainer {
   height: 100vh;
   width: 100%;
-  background: #020617;
+  background: $bg-dark;
   color: white;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
 }
 
-/* --- TOP NAV --- */
+/* --- TOP NAVBAR --- */
 .topNav {
   height: 65px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(12px);
+  padding: 0 1.5rem;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  z-index: 50;
+  z-index: 1000;
+  flex-shrink: 0;
+
+  @media (min-width: $mobile) {
+    padding: 0 2rem;
+  }
 
   .logoSection {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    
     .logoIcon { 
       background: rgba(255, 255, 255, 0.03); 
       padding: 6px; 
@@ -31,135 +49,292 @@
       display: flex;
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    h2 { font-size: 1.1rem; font-weight: 800; letter-spacing: 1px; color: white; }
+    
+    h2 { 
+      font-size: 1rem; 
+      font-weight: 800; 
+      letter-spacing: 0.5px; 
+      margin: 0;
+    }
   }
 
   .navLinks {
-    display: flex;
-    gap: 2rem;
+    display: none; 
+    @media (min-width: $mobile) {
+      display: flex;
+      gap: 2.5rem;
+    }
+    
     .topLink {
       text-decoration: none;
-      color: #94a3b8;
-      font-size: 0.9rem;
+      color: $text-dim;
+      font-size: 0.85rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: 0.3s;
-      &:hover { color: #22d3ee; } // Back to original cyan
+      transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      &:hover { color: $cyan; }
     }
   }
 
   .profileArea {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    .menuBtn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      @media (min-width: $mobile) { display: none; }
+    }
+
     .logoutBtn {
-      background: none; border: none; color: #64748b; cursor: pointer;
-      &:hover { color: #ef4444; }
+      background: none;
+      border: none;
+      color: $text-muted;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      
+      &:hover { color: $crimson; transform: scale(1.1); }
     }
   }
 }
 
-/* --- LAYOUT --- */
+/* --- AESTHETIC MOBILE OVERLAY --- */
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(2, 6, 23, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+
+  .menuCard {
+    width: 100%;
+    max-width: 320px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    padding: 3rem 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    
+    .mobileMenuLinks {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+
+      a {
+        text-decoration: none;
+        color: white;
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        transition: 0.2s;
+        
+        &:active { color: $cyan; transform: scale(0.95); }
+      }
+
+      .menuDivider { 
+        width: 30px; 
+        height: 2px; 
+        background: rgba(255, 255, 255, 0.1); 
+        border-radius: 10px;
+      }
+
+      .mobileLogout {
+        background: none;
+        border: none;
+        color: $crimson;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 10px;
+      }
+    }
+  }
+}
+
+/* --- MAIN LAYOUT --- */
 .mainLayout {
   display: flex;
   flex: 1;
   height: calc(100vh - 65px);
   overflow: hidden;
+  flex-direction: column;
+
+  @media (min-width: $mobile) {
+    flex-direction: row;
+  }
 }
 
-/* --- SIDEBAR --- */
+/* --- SIDEBAR / BOTTOM DOCK --- */
 .sidebar {
-  width: 260px;
-  background: rgba(2, 6, 23, 0.5);
-  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  width: 100%;
+  height: 75px;
+  background: rgba(15, 23, 42, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
-  flex-direction: column;
-  padding: 1.5rem;
-  flex-shrink: 0;
+  order: 2;
+  z-index: 100;
 
-  .sectionLabel {
-    font-size: 0.7rem;
-    font-weight: 800;
-    color: #475569;
-    letter-spacing: 2px;
-    margin-bottom: 1.5rem;
-    margin-left: 10px;
+  @media (min-width: $mobile) {
+    width: 260px;
+    height: 100%;
+    flex-direction: column;
+    order: 0;
+    padding: 1.5rem;
+    border-top: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.03);
   }
 
-  .sidebarContent { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .sidebarContent { 
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    @media (min-width: $mobile) {
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+  }
+
+  .sectionLabel {
+    display: none;
+    @media (min-width: $mobile) {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #475569;
+      letter-spacing: 2px;
+      margin: 0 0 1.5rem 10px;
+    }
+  }
 
   .sideLink {
     text-decoration: none;
-    color: #94a3b8;
-    padding: 14px 16px;
+    color: $text-muted;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    position: relative;
-    
-    &:hover {
-      color: white;
-      transform: translateX(3px);
+    gap: 4px;
+    transition: 0.3s;
+
+    @media (min-width: $mobile) {
+      flex-direction: row;
+      width: 100%;
+      padding: 12px 16px;
+      gap: 12px;
     }
 
-    // Underline logic for Active Tab
-    &.active {
-      color: white;
+    .linkText {
+      font-size: 0.65rem;
+      font-weight: 700;
+      position: relative;
       
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 16px;
-        right: 16px;
-        height: 2px;
-        background: #dc143c; // Crimson Underline
-        border-radius: 10px;
-        box-shadow: 0 0 8px rgba(220, 20, 60, 0.5);
+      @media (min-width: $mobile) {
+        font-size: 0.9rem;
+        padding-bottom: 6px;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          width: 0;
+          height: 2px;
+          background: $crimson;
+          transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+          transform: translateX(-50%);
+          opacity: 0;
+        }
       }
     }
-  }
 
-  .sidebarFooter { 
-    font-size: 0.75rem; 
-    color: #334155; 
-    padding: 10px;
-    
-    .statusBadge {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        color: #64748b;
-        font-weight: 500;
+    &.active {
+      color: $crimson;
+      
+      @media (min-width: $mobile) {
+        color: white;
+        svg { 
+          color: $crimson; 
+          filter: drop-shadow(0 0 5px rgba(220, 20, 60, 0.4));
+        }
+        .linkText::after {
+          width: 100%;
+          opacity: 1;
+          box-shadow: 0 2px 8px rgba(220, 20, 60, 0.5);
+        }
+      }
     }
   }
 }
 
-/* --- CONTENT AREA (SCROLLABLE) --- */
+/* --- SCROLLABLE CONTENT --- */
 .contentArea {
   flex: 1;
-  padding: 2.5rem;
-  overflow-y: auto; 
+  padding: 1.5rem;
+  overflow-y: auto;
+  order: 1;
   background: radial-gradient(circle at 10% 10%, rgba(34, 211, 238, 0.03), transparent 50%);
+  
+  @media (min-width: $mobile) {
+    padding: 2.5rem;
+  }
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-thumb { 
+    background: rgba(255, 255, 255, 0.1); 
+    border-radius: 10px; 
+  }
 
   .welcomeHeader {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+   
+    
     .welcomeTitle {
-      font-size: 2.2rem;
+      font-size: 1.6rem;
       font-weight: 900;
-      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+      
+      @media (min-width: $mobile) { font-size: 2.2rem; }
+      
       .userName {
-        background: linear-gradient(to right, #22d3ee, #a855f7); // Original Theme
+        background: linear-gradient(to right, $cyan, $purple);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
     }
-    .welcomeSubtitle { color: #64748b; font-size: 1rem; }
+    
+    .welcomeSubtitle {
+      color: $text-muted;
+      font-size: 0.9rem;
+    }
   }
 }
 
 .outletWrapper {
   width: 100%;
   position: relative;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
 }

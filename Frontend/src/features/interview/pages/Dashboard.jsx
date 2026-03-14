@@ -1,31 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router'; 
-import { motion } from 'framer-motion';
-import { useContext } from "react";
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Home, 
   Layers, 
   Info, 
   FilePlus, 
   History, 
-  LogOut,
-  Zap
+  LogOut, 
+  Menu, 
+  X 
 } from 'lucide-react';
 import styles from './Dashboard.module.scss';
-import { InterviewContext } from '../interviewContexts/interview.context';
 
 const Dashboard = ({ userName = "Alex" }) => {
-  const context = useContext(InterviewContext);
-
-  const sidebarVariants = {
-    hidden: { x: -100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { type: "spring", stiffness: 100, damping: 20 } }
-  };
-
-  const contentVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { delay: 0.2, duration: 0.5 } }
-  };
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <div className={styles.dashboardContainer}>
@@ -45,66 +34,68 @@ const Dashboard = ({ userName = "Alex" }) => {
         </div>
 
         <div className={styles.profileArea}>
+          <button 
+            className={styles.menuBtn} 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+          
           <button className={styles.logoutBtn} aria-label="Logout">
             <LogOut size={20} />
           </button>
         </div>
       </nav>
 
+      {/* --- AESTHETIC MOBILE MENU --- */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            className={styles.mobileOverlay}
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(12px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+          >
+            <motion.div 
+              className={styles.menuCard}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+            >
+              <div className={styles.mobileMenuLinks}>
+                <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
+                <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
+                <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
+                <div className={styles.menuDivider} />
+                <button className={styles.mobileLogout}>
+                   <LogOut size={18} /> Logout
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className={styles.mainLayout}>
-        {/* --- LEFT SIDEBAR --- */}
-        <motion.aside 
-          className={styles.sidebar}
-          initial="hidden"
-          animate="visible"
-          variants={sidebarVariants}
-        >
+        <aside className={styles.sidebar}>
           <div className={styles.sidebarContent}>
             <p className={styles.sectionLabel}>ANALYTICS</p>
-            
-            <NavLink 
-  to="new-report" 
-  className={({ isActive }) => isActive ? `${styles.sideLink} ${styles.active}` : styles.sideLink}
->
-  <FilePlus size={20} />
-  <span className={styles.linkText}>New Report</span>
-</NavLink>
-
-<NavLink 
-  to="history" 
-  className={({ isActive }) => isActive ? `${styles.sideLink} ${styles.active}` : styles.sideLink}
->
-  <History size={20} />
-  <span className={styles.linkText}>History</span>
-</NavLink>
+            <NavLink to="new-report" className={({ isActive }) => isActive ? `${styles.sideLink} ${styles.active}` : styles.sideLink}>
+              <FilePlus size={22} /><span className={styles.linkText}>New Report</span>
+            </NavLink>
+            <NavLink to="history" className={({ isActive }) => isActive ? `${styles.sideLink} ${styles.active}` : styles.sideLink}>
+              <History size={22} /><span className={styles.linkText}>History</span>
+            </NavLink>
           </div>
-          
-          <div className={styles.sidebarFooter}>
-            <div className={styles.statusBadge}>
-              <Zap size={12} />
-              <span>System Operational</span>
-            </div>
-          </div>
-        </motion.aside>
+        </aside>
 
-        {/* --- RIGHT CONTENT AREA --- */}
-        <motion.section 
-          className={styles.contentArea}
-          initial="hidden"
-          animate="visible"
-          variants={contentVariants}
-        >
+        <section className={styles.contentArea}>
           <header className={styles.welcomeHeader}>
-            <h1 className={styles.welcomeTitle}>
-              Welcome to the Dashboard, <span className={styles.userName}>{userName}</span>
-            </h1>
-            <p className={styles.welcomeSubtitle}>Select a tool from the left to begin your AI analysis.</p>
+            <h1 className={styles.welcomeTitle}>Welcome, <span className={styles.userName}>{userName}</span></h1>
+            <p className={styles.welcomeSubtitle}>Ready for your next analysis?</p>
           </header>
-
-          <div className={styles.outletWrapper}>
-            <Outlet />
-          </div>
-        </motion.section>
+          <div className={styles.outletWrapper}><Outlet /></div>
+        </section>
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ console.dir(response)
 
     
   }, [])
-  if(reports.length<1){
+  if(!reports){
 return <NoHistory/>
   }else{
     return (

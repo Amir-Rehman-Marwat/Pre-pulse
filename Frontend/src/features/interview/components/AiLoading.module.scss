@@ -1,35 +1,53 @@
 // AiLoading.module.scss
 
+$mobile: 768px;
+$cyan: #22d3ee;
+$purple: #a855f7;
+$bg-dark: #020617;
+
 .loadingContainer {
   width: 100%;
   height: 100%;
-  min-height: 400px;
+  min-height: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: 2rem;
   font-family: 'Inter', sans-serif;
   color: white;
-  padding-right:300px ;
-  padding-bottom: 200px;
+  
+  // Responsive Padding: Auto-centers content
+  padding: 2rem;
+  box-sizing: border-box;
+
+  @media (min-width: $mobile) {
+    gap: 3.5rem;
+    padding: 0; // Padding handled by Dashboard outlet wrapper
+  }
 }
 
 /* --- THE ANIMATION STAGE --- */
 .animationStage {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 160px; // Slightly smaller for mobile
+  height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: $mobile) {
+    width: 220px;
+    height: 220px;
+  }
 }
 
 /* 1. Deep Background Glow */
 .deepGlow {
   position: absolute;
-  width: 250px; height: 250px;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.08) 0%, transparent 70%);
+  width: 150%; 
+  height: 150%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, transparent 70%);
   filter: blur(40px);
 }
 
@@ -41,26 +59,25 @@
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.03);
   
-  // Creates the segmented "data" look
-  border-top-color: rgba(34, 211, 238, 0.4);
-  border-bottom-color: rgba(168, 85, 247, 0.4); // Subtle purple hint
-  box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+  border-top-color: rgba($cyan, 0.4);
+  border-bottom-color: rgba($purple, 0.4);
+  box-shadow: 0 0 15px rgba($cyan, 0.1);
 
   &.innerRing {
-    width: 80%;
-    height: 80%;
-    border-top-color: rgba(168, 85, 247, 0.3);
-    border-bottom-color: rgba(34, 211, 238, 0.3);
+    width: 75%;
+    height: 75%;
+    border-top-color: rgba($purple, 0.3);
+    border-bottom-color: rgba($cyan, 0.3);
   }
 }
 
 /* 3. Core Orb */
 .coreOrb {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  background: #020617;
+  background: $bg-dark;
   border: 2px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
@@ -68,63 +85,102 @@
   overflow: hidden;
   z-index: 10;
 
+  @media (min-width: $mobile) {
+    width: 100px;
+    height: 100px;
+  }
+
   .orbContent {
     position: relative;
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 8px;
     
-    .aiIcon { color: #22d3ee; filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.5)); }
+    .aiIcon { 
+      width: 30px;
+      height: 30px;
+      color: $cyan; 
+      filter: drop-shadow(0 0 10px rgba($cyan, 0.5)); 
 
-    // Moving scanline effect
+      @media (min-width: $mobile) {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
     .orbScanLine {
       position: absolute;
       top: -100%; left: 0;
       width: 100%; height: 2px;
-      background: linear-gradient(to right, transparent, #22d3ee, transparent);
+      background: linear-gradient(to right, transparent, $cyan, transparent);
       animation: scanline 1.5s linear infinite;
     }
   }
 
-  // Neon glow layer
   .orbGlow {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     border-radius: 50%;
-    box-shadow: inset 0 0 30px rgba(34, 211, 238, 0.2), 
-                0 0 40px rgba(34, 211, 238, 0.3);
+    box-shadow: inset 0 0 30px rgba($cyan, 0.2), 
+                0 0 40px rgba($cyan, 0.3);
   }
 }
 
 /* --- MESSAGE AREA --- */
 .messageArea {
   text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  max-width: 400px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 8px;
+  width: 100%;
+  max-width: 300px;
 
-  h3 {
-    font-size: 0.8rem;
-    font-weight: 900;
-    color: #a855f7; // Purple accent for status
-    letter-spacing: 4px;
-    margin-bottom: 5px;
+  @media (min-width: $mobile) {
+    max-width: 450px;
+    gap: 12px;
   }
 
-  p { color: #94a3b8; font-size: 0.95rem; font-weight: 500; }
+  h3 {
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: $purple;
+    letter-spacing: 3px;
+    margin: 0;
 
-  /* Loading Bar */
+    @media (min-width: $mobile) {
+      font-size: 0.85rem;
+      letter-spacing: 5px;
+    }
+  }
+
+  p { 
+    color: #94a3b8; 
+    font-size: 0.85rem; 
+    font-weight: 500;
+    margin: 0;
+
+    @media (min-width: $mobile) {
+      font-size: 1rem;
+    }
+  }
+
   .loadingBar {
-    width: 100%; height: 4px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 2px;
-    margin-top: 15px;
+    width: 100%; 
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-top: 10px;
     overflow: hidden;
 
     .barProgress {
       height: 100%;
-      width: 40%; // Placeholder width
-      background: linear-gradient(to right, #22d3ee, #a855f7);
+      width: 40%; 
+      background: linear-gradient(to right, $cyan, $purple);
       animation: infiniteLoad 1.8s ease infinite;
-      border-radius: 2px;
+      border-radius: 10px;
     }
   }
 }
@@ -136,7 +192,7 @@
 }
 
 @keyframes infiniteLoad {
-  0% { transform: translateX(-100%); width: 30%; }
-  50% { width: 60%; }
-  100% { transform: translateX(200%); width: 30%; }
+  0% { transform: translateX(-100%); width: 20%; }
+  50% { width: 50%; }
+  100% { transform: translateX(250%); width: 20%; }
 }

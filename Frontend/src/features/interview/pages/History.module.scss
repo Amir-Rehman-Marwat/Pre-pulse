@@ -1,14 +1,22 @@
-// History.module.scss
+/* History.module.scss */
+
+$mobile: 768px; // Matches your Dashboard variable
+$crimson: #dc143c;
 
 .container {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
+  padding: 0 0.5rem; // Prevents touching screen edges on mobile
   animation: fadeIn 0.5s ease-out;
+
+  @media (min-width: $mobile) {
+    padding: 0;
+  }
 }
 
 .header {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   padding: 0.5rem 0;
   display: flex;
   align-items: center;
@@ -18,19 +26,23 @@
     content: '';
     width: 8px;
     height: 8px;
-    background: #dc143c;
+    background: $crimson;
     border-radius: 50%;
-    box-shadow: 0 0 10px #dc143c;
+    box-shadow: 0 0 10px $crimson;
+    flex-shrink: 0;
   }
 
   p {
     color: #94a3b8;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin: 0;
 
-    // The "Reports Generated" Number Styling
+    @media (min-width: $mobile) {
+      font-size: 0.95rem;
+    }
+
     span { 
-      color: #dc143c; 
+      color: $crimson; 
       font-weight: 800;
       font-size: 1.1rem;
       margin: 0 4px;
@@ -42,32 +54,40 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .card {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 70px;
-  padding: 0 1.5rem;
+  flex-direction: column; // Stack on mobile
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  border-radius: 16px; // Slightly rounder for modern feel
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 
+  @media (min-width: $mobile) {
+    flex-direction: row; // Row on laptop
+    align-items: center;
+    justify-content: space-between;
+    height: 75px;
+    padding: 0 1.5rem;
+    border-radius: 12px;
+  }
+
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(220, 20, 60, 0.4); 
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba($crimson, 0.4); 
     transform: translateY(-2px);
 
     .actionBtn {
-      background: #dc143c;
+      background: $crimson;
       color: white;
-      border-color: #dc143c;
-      box-shadow: 0 0 15px rgba(220, 20, 60, 0.2);
+      border-color: $crimson;
+      box-shadow: 0 4px 12px rgba($crimson, 0.3);
     }
 
     .title { color: #fff; }
@@ -75,18 +95,30 @@
 
   .mainInfo {
     display: flex;
-    align-items: center;
-    flex: 1;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%; // Take full width on mobile
+
+    @media (min-width: $mobile) {
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+      flex: 1;
+    }
     
     .title {
       font-size: 1rem;
       font-weight: 600;
       color: #cbd5e1;
-      width: 280px; 
+      margin: 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       transition: color 0.3s ease;
+
+      @media (min-width: $mobile) {
+        width: 280px; // Only restrict width on desktop
+      }
     }
 
     .meta {
@@ -94,25 +126,40 @@
       align-items: center;
       gap: 8px;
       color: #64748b;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
+      
+      svg { flex-shrink: 0; }
     }
   }
 }
 
 .actionBtn {
-  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%; // Full width button on mobile
+  height: 42px;
   padding: 0 18px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
-  color: #94a3b8;
-  font-size: 0.8rem;
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.04);
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  font-weight: 700;
   transition: all 0.2s ease;
   white-space: nowrap;
 
+  @media (min-width: $mobile) {
+    width: auto;
+    height: 36px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.97);
   }
 }
 
