@@ -1,31 +1,22 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router'; // v7 uses 'react-router'
+import { Link, NavLink, Outlet } from 'react-router'; 
 import { motion } from 'framer-motion';
-import { useContext ,useEffect} from "react";
-import { AuthContext } from "../../auth/contexts/auth.context";
-
+import { useContext } from "react";
 import { 
   Home, 
   Layers, 
   Info, 
-  User, 
   FilePlus, 
   History, 
-  LayoutDashboard,
-  LogOut
+  LogOut,
+  Zap
 } from 'lucide-react';
 import styles from './Dashboard.module.scss';
-import AuthHook from '../../auth/hooks/auth.hooks';
 import { InterviewContext } from '../interviewContexts/interview.context';
 
-
 const Dashboard = ({ userName = "Alex" }) => {
- const context= useContext(InterviewContext);
-// const {handleLogOut}=AuthHook({route:"/dashboard"})
-  // const logOutClick=async()=>{
-  //      const response=handleLogOut()
-  // }
-  // Entrance animation variants
+  const context = useContext(InterviewContext);
+
   const sidebarVariants = {
     hidden: { x: -100, opacity: 0 },
     visible: { x: 0, opacity: 1, transition: { type: "spring", stiffness: 100, damping: 20 } }
@@ -41,7 +32,9 @@ const Dashboard = ({ userName = "Alex" }) => {
       {/* --- TOP NAVBAR --- */}
       <nav className={styles.topNav}>
         <div className={styles.logoSection}>
-          <div className={styles.logoIcon}><LayoutDashboard size={18} /></div>
+          <div className={styles.logoIcon}>
+            <Layers size={18} color="#dc143c" />
+          </div>
           <h2>Delta Hire</h2>
         </div>
         
@@ -52,17 +45,14 @@ const Dashboard = ({ userName = "Alex" }) => {
         </div>
 
         <div className={styles.profileArea}>
-          <button className={styles.logoutBtn} onClick={()=>{
-            // logOutClick()
-          }} ><LogOut size={18} /></button>
-          <div className={styles.profileCircle}>
-            <User size={20} color="white" />
-          </div>
+          <button className={styles.logoutBtn} aria-label="Logout">
+            <LogOut size={20} />
+          </button>
         </div>
       </nav>
 
       <div className={styles.mainLayout}>
-        {/* --- LEFT SIDEBAR (SIDE DOCK) --- */}
+        {/* --- LEFT SIDEBAR --- */}
         <motion.aside 
           className={styles.sidebar}
           initial="hidden"
@@ -71,18 +61,29 @@ const Dashboard = ({ userName = "Alex" }) => {
         >
           <div className={styles.sidebarContent}>
             <p className={styles.sectionLabel}>ANALYTICS</p>
-            <Link to="new-report" className={styles.sideLink}>
-              <FilePlus size={20} />
-              <span>New Report</span>
-            </Link>
-            <Link to="history" className={styles.sideLink}>
-              <History size={20} />
-              <span>History</span>
-            </Link>
+            
+            <NavLink 
+  to="new-report" 
+  className={({ isActive }) => isActive ? `${styles.sideLink} ${styles.active}` : styles.sideLink}
+>
+  <FilePlus size={20} />
+  <span className={styles.linkText}>New Report</span>
+</NavLink>
+
+<NavLink 
+  to="history" 
+  className={({ isActive }) => isActive ? `${styles.sideLink} ${styles.active}` : styles.sideLink}
+>
+  <History size={20} />
+  <span className={styles.linkText}>History</span>
+</NavLink>
           </div>
           
           <div className={styles.sidebarFooter}>
-            <span>v1.0.4 Stable</span>
+            <div className={styles.statusBadge}>
+              <Zap size={12} />
+              <span>System Operational</span>
+            </div>
           </div>
         </motion.aside>
 
@@ -101,11 +102,7 @@ const Dashboard = ({ userName = "Alex" }) => {
           </header>
 
           <div className={styles.outletWrapper}>
-            {/* React Router 7 Outlet for sub-routes */}
             <Outlet />
-            
-            {/* This is the empty state before a child route is picked */}
-           
           </div>
         </motion.section>
       </div>

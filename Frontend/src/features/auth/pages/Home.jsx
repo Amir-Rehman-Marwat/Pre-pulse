@@ -1,24 +1,37 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, UserCircle, UploadCloud, Target, Zap, ArrowRight } from 'lucide-react';
+import { LayoutDashboard, UploadCloud, Target, Zap, ArrowRight, Layers } from 'lucide-react';
 import styles from './HomePage.module.scss';
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../contexts/auth.context';
+import { getMe } from '../services/auth.api';
 
-const HomePage = ({ userName = "Alex" }) => {
-  const navigate=useNavigate()
+const HomePage = () => {
+  const context=useContext(AuthContext)
+  const [name, setName] = useState(".")
+console.log(name)
+  useEffect(() => {
+    const run=async()=>{
+const response=await getMe()
+const lowerCaseName=response.data.user.userName
+setName(lowerCaseName.toUpperCase())
+console.log(response)
+
+    }
+    run()
+  }, [])
+  
+  const navigate = useNavigate();
   const welcomeText = "Welcome,";
-  const nameText = `${userName}!`;
 
-  // Faster, snappier stagger
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.04, delayChildren: 0.1 } // Reduced delay for speed
+      transition: { staggerChildren: 0.04, delayChildren: 0.1 }
     }
   };
 
-  // Snappy pop-in animation
   const letterVariants = {
     hidden: { opacity: 0, x: -10, filter: "blur(5px)" },
     visible: { 
@@ -38,13 +51,22 @@ const HomePage = ({ userName = "Alex" }) => {
     <div className={styles.container}>
       {/* Navigation */}
       <nav className={styles.nav}>
-        <div className={styles.logoArea}>
-          <div className={styles.iconBox}><Zap size={20} color="white" fill="white" /></div>
-          <h1>Delta Hire</h1>
-        </div>
-        <div className={styles.navIcons}>
-          <UserCircle size={26} />
-          <LayoutDashboard size={26} />
+       <div className={styles.logoArea}>
+  <div className={styles.iconBox}>
+    <Layers size={22} color="#dc143c" />
+  </div>
+  <h1>Delta Hire</h1>
+</div>
+        
+        {/* Profile removed, Dashboard made attractive */}
+        <div className={styles.navActions}>
+          <button 
+            className={styles.dashboardLink} 
+            onClick={() => navigate("/dashboard/new-report")}
+          >
+            <LayoutDashboard size={18} />
+            <span>Dashboard</span>
+          </button>
         </div>
       </nav>
 
@@ -54,7 +76,6 @@ const HomePage = ({ userName = "Alex" }) => {
         initial="hidden"
         animate="visible"
       >
-        {/* Perfectly Arranged Title */}
         <div className={styles.titleWrapper}>
           <motion.h2 className={styles.title}>
             <div className={styles.row}>
@@ -65,7 +86,7 @@ const HomePage = ({ userName = "Alex" }) => {
               ))}
             </div>
             <div className={styles.row}>
-              {nameText.split("").map((char, index) => (
+              {name.split("").map((char, index) => (
                 <motion.span key={index} variants={letterVariants} className={styles.nameLetter}>
                   {char}
                 </motion.span>
@@ -94,9 +115,7 @@ const HomePage = ({ userName = "Alex" }) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.98 }}
           className={styles.continueBtn}
-          onClick={()=>{
-          navigate("/dashboard")
-          }}
+          onClick={() => navigate("/dashboard/new-report")}
         >
           CONTINUE TO DASHBOARD <ArrowRight size={20} />
         </motion.button>

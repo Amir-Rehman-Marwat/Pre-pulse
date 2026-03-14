@@ -1,4 +1,5 @@
 // HomePage.module.scss
+
 .container {
   min-height: 100vh;
   width: 100%;
@@ -7,9 +8,10 @@
   align-items: center;
   justify-content: center;
   background: #020617;
-  overflow: hidden;
+  overflow-x: hidden; // Prevent horizontal scroll on mobile
   color: white;
   position: relative;
+  padding: 80px 20px 40px; // Padding for nav and bottom space
 }
 
 .nav {
@@ -19,10 +21,76 @@
   max-width: 1200px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1.5rem 2rem;
   z-index: 50;
-  .logoArea { display: flex; align-items: center; gap: 10px; h1 { font-size: 1.3rem; font-weight: 800; } }
-  .navIcons { display: flex; gap: 20px; color: #64748b; }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
+
+ .logoArea {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  h1 {
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: white;
+  }
+
+  .iconBox {
+    /* Removed the solid crimson background */
+    background: rgba(255, 255, 255, 0.03); 
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.08); // Subtle glass border
+    backdrop-filter: blur(5px);
+    
+    // The crimson is now just a subtle glow behind the icon
+    box-shadow: 0 0 15px rgba(220, 20, 60, 0.1); 
+    
+    svg {
+      filter: drop-shadow(0 0 5px rgba(220, 20, 60, 0.4));
+    }
+  }
+}
+
+  .navActions {
+    .dashboardLink {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(220, 20, 60, 0.3);
+      border-radius: 100px;
+      color: #f1f5f9;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+
+      @media (max-width: 480px) {
+        padding: 6px 12px;
+        span { display: none; } // Icon only on very small phones
+      }
+
+      svg { color: #dc143c; }
+
+      &:hover {
+        background: rgba(220, 20, 60, 0.08);
+        border-color: #dc143c;
+        transform: translateY(-2px);
+      }
+    }
+  }
 }
 
 .mainContent {
@@ -31,74 +99,80 @@
   align-items: center;
   text-align: center;
   z-index: 10;
+  width: 100%;
 }
 
 .titleWrapper {
   margin-bottom: 1rem;
+  width: 100%;
 }
 
 .title {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: clamp(3rem, 10vw, 5rem);
+  font-size: clamp(2.2rem, 12vw, 5rem); // Responsive fluid typography
   font-weight: 900;
   line-height: 1.1;
 
   .row {
     display: flex;
     justify-content: center;
-    gap: 2px;
+    gap: 1px;
+    flex-wrap: wrap; // Allows text to wrap if name is very long
   }
 
-  .letter {
+  .letter, .nameLetter {
     display: inline-block;
-    transition: transform 0.2s ease, color 0.2s ease;
-    &:hover { color: #22d3ee; transform: scale(1.1); }
   }
 
   .nameLetter {
-    display: inline-block;
     background: linear-gradient(to right, #22d3ee, #a855f7);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: transform 0.2s ease;
-    &:hover { transform: scale(1.15) rotate(-2deg); filter: brightness(1.2); }
   }
 }
 
 .subtitle {
   color: #94a3b8;
-  font-size: 1.1rem;
-  margin-bottom: 2.5rem;
-  max-width: 400px;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  max-width: 350px;
+  padding: 0 10px;
+
+  @media (min-width: 768px) {
+    font-size: 1.1rem;
+    max-width: 400px;
+  }
 }
 
 .serviceList {
   width: 100%;
   max-width: 350px;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  padding: 0 15px;
 }
 
 .serviceCard {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1.25rem;
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  margin-bottom: 0.8rem;
+  border-radius: 16px;
+  margin-bottom: 0.7rem;
   cursor: pointer;
+
   .icon { color: #22d3ee; }
-  .cardText { font-weight: 600; font-size: 0.95rem; }
+  .cardText { font-weight: 600; font-size: 0.9rem; }
 }
 
 .continueBtn {
   background: white;
   color: black;
-  padding: 1rem 3rem;
+  padding: 1rem 2.5rem;
   border-radius: 100px;
   font-weight: 800;
   border: none;
@@ -106,6 +180,17 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  transition: box-shadow 0.3s ease;
-  &:hover { box-shadow: 0 0 25px rgba(34, 211, 238, 0.4); }
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+
+  @media (max-width: 480px) {
+    width: 90%; // Wider button on mobile for easier tapping
+    justify-content: center;
+    padding: 0.8rem 1.5rem;
+  }
+
+  &:hover { 
+    box-shadow: 0 0 25px rgba(220, 20, 60, 0.4); 
+    transform: translateY(-3px);
+  }
 }
