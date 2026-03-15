@@ -23,10 +23,13 @@ app.use(cookieParser())
 // ROUTERS
 import authRouter from "./routes/auth.routes.js";
 import interviewRouter from "./routes/interview.routes.js";
+import aiResumerouter from "./routes/aiResume.routes.js";
 // routes 
 app.use("/api/auth",authRouter)
 // http://localhost:3000/api/interview/createReport
 app.use("/api/interview",interviewRouter)
+// http://localhost:3000/aiResumePdf/generateResume/:id
+app.use("/api/aiResumePdf",aiResumerouter)
 
 const PORT=process.env.PORT || 4000
 app.listen(PORT ,()=>{

@@ -1,8 +1,9 @@
 import generateAireport from "../services/report.ai.js";
-import AiReportModel from "../models/AiReportSchema.js";
+import AiReportModel from "../models/AiReportModel.js";
 import { PDFParse } from 'pdf-parse';
 import { json } from "zod";
 export const interviewReportController = async (req, res) => {
+    console.log("creating the report for U ")
      const resume = req.file;
 const parser = new PDFParse({ data:resume.buffer});
 const result = await parser.getText();
@@ -39,7 +40,7 @@ return res
     const user=req.user
     console.log(user)
     try {
-        const history=await AiReportModel.find({User:user.id},{jobTittle:1})
+        const history=await AiReportModel.find({User:user.id})
   if(history.length<1){
     return res 
                  .status(400)
