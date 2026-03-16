@@ -1,0 +1,175 @@
+as i explained user give self job desrption and old resume and wwe will give new resuume . we willl get the content of the resume templete from geminii ai api and wil inject that content or data in the ejs templete  and will use the zod schemas to gett the exact data from ai that the resume template needs and uses. so analyze this templete code and create a zod schema which will have all the things that this templete needs like skills and also specify each feild as array or something else keeping in view its usecage  so that ai gives us usable data . 
+here is the templete ejs code ;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Template</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif; /* Clean sans-serif similar to the PDF */
+            line-height: 1.4;
+            color: #333;
+            padding: 40px; /* Standard PDF margin */
+            background-color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .contact-info {
+            font-size: 11px;
+            color: #555;
+        }
+
+        .section {
+            margin-top: 15px;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: bolder;
+            color: rgb(143, 139, 139);
+            /* border-bottom: 1px solid #000; */
+            margin-bottom: 8px;
+            padding-bottom: 2px;
+            text-transform: uppercase;
+        }
+
+        .profile-text {
+            font-size: 11px;
+        }
+
+        .entry {
+            margin-bottom: 10px;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .entry-sub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-style: italic;
+            font-size: 11px;
+            margin-bottom: 3px;
+        }
+
+        .location-date {
+            font-weight: normal;
+            font-size: 11px;
+        }
+
+        ul {
+            margin-left: 18px;
+            font-size: 11px;
+        }
+
+        li {
+            margin-bottom: 2px;
+        }
+
+        .skills-container, .achievements-container {
+            font-size: 11px;
+        }
+
+        .skills-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Rishabh Mishra</h1> <div class="contact-info">
+            +91-0123456789 | rmishra.connect@gmail.com | portfolio | github | linkedin.com/in/rishabhnmishra/ </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Profile</div> <p class="profile-text">
+            Detail-oriented Data Analyst with Bachelors/Masters in jo bhi and Google certified... (max 2 lines) </p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Education</div> <div class="entry">
+            <div class="entry-header">
+                <span>Visvesvaraya Technological University</span> <span class="location-date">2014-2018</span> </div>
+            <div class="entry-sub-header">
+                <span>Bachelor of Engineering in Mechanical Engineering</span> <span class="location-date">Bangalore, India</span> </div>
+            <ul>
+                <li>Among the top 5% of the batch</li> <li>Relevant coursework in [Relevant Subjects: Data Science, ML, etc.]</li> </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Skills</div> <div class="skills-container">
+            <div><span class="skills-label">Technical:</span> SQL, Python, Statistics, ETL, Data Visualization, Al Automation, Machine Learning, NLP</div> <div><span class="skills-label">Tools:</span> GCP, AWS (S3, Athena, EC2), dbt, Tableau, Power BI, Excel, GA4</div> </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Certifications</div> <div class="achievements-container">
+            <ul>
+                <li>Google Data Analytics Specialization - Jan 24 (link)</li> <li>Applied Data Science with Python Specialization by University of Michigan - Nov'24 (link)</li> </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Experience</div> <div class="entry">
+            <div class="entry-header">
+                <span>Company_NameB</span> <span class="location-date">start_dt - Present</span> </div>
+            <div class="entry-sub-header">
+                <span>Senior Data Analyst</span> <span class="location-date">Bangalore, India</span> </div>
+            <ul>
+                <li>Developed interactive Power BI dashboard using automated reporting data in GCP, reducing reporting time by 50%.</li> <li>Forged strong stakeholder relationships by driving new initiatives, achieved project goals and annual renewals. Show qualities like problem solving, collaboration, planning, agile, productivity and communication (Max 5-7 points).</li> </ul>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <span>Company_NameA</span> <span class="location-date">start_dt-end_dt</span> </div>
+            <div class="entry-sub-header">
+                <span>Data Analyst</span> <span class="location-date">Bangalore, India</span> </div>
+            <ul>
+                <li>Built multiple predictive models to forecast weekly sales demand, leading to a 10% reduction in inventory costs.</li> <li>Optimized Tableau dashboards for 10+ products, improving efficiency and cutting turnaround time by 15%.</li> <li>Mentored new teammates and created SOPs to streamline the reporting process. (Max 5-7 points)</li> </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Projects</div> <div class="entry">
+            <div class="entry-header">
+                <span>Music Store Database Analysis</span> <span class="location-date">04/24-05/24</span> </div>
+            <ul>
+                <li>Analyzed customer behavior and revenue trends using complex SQL queries to optimize sales and marketing.</li> <li>Provided actionable insights on product performance to drive business decisions. (Max 3 points)</li> </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Achievements</div> <div class="achievements-container">
+            <ul>
+                <li>Established a 2500+ member community - GitHub</li> <li>'ABC Award' for abc outstanding task using abc, achieving 50% reduction in manual work - company/org</li> <li>Runner-up in $xyz$ competition among 2000+ participants-xyz (Max 3 points)</li> </ul>
+        </div>
+    </div>
+
+</body>
+</html>

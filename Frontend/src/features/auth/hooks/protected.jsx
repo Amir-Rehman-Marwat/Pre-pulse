@@ -6,25 +6,35 @@ import {getMe}  from "../services/auth.api"
 function ProtectedRoute({children}) {
     const navigate=useNavigate()
     const context = useContext(AuthContext)
-    const {user,loading,setUser}=context
+    const {user,loading,setUser,setLoading}=context
 
 useEffect(() => {
  const getUser=getMe()
  getUser.then(res=>{
-    if(res.status===200){
+    try {
+        if(res.status===200){
+        setLoading(false)
         setUser(res.data.user)
+        
        
     }else{
+        setLoading(false)
         navigate("/login")
+    }
+    } catch (error) {
+        setLoading(false)
+    }finally{
+          setLoading(false)
     }
  })
  
 }, [])
 
 if(loading){
-    <div>loadning ...</div>
+    return <div>LOADING ....</div>
 }else{
-    return children
+     return children
+   
 }
 }
 
