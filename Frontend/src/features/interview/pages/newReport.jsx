@@ -32,8 +32,7 @@ const NewReport = () => {
   const onSubmit = async (data) => {
     try {
       const {selfDescription,jobDescription,resume}=data
-    const response=await handleNewReport(selfDescription,jobDescription,pdfFile)
-    console.dir(response)
+      await handleNewReport(selfDescription,jobDescription,pdfFile)
     } catch (error) {
       console.dir(error)
     }finally{

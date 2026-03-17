@@ -15,6 +15,8 @@ import {
 import styles from './Dashboard.module.scss';
 import { getMe } from '../../auth/services/auth.api';
 import InterviewHook from '../interviewHooks/interview.hook';
+import { InterviewContext } from '../interviewContexts/interview.context';
+import { useContext } from 'react';
 
 const Dashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,7 +34,6 @@ const {handleLogOut}=InterviewHook()
     };
     run();
   }, []);
-
   return (
     <div className={styles.dashboardContainer}>
       {/* --- TOP NAVBAR --- */}

@@ -5,33 +5,16 @@ import styles from './TechnicalQuestions.module.scss';
 import { useParams } from 'react-router';
 import InterviewHook from '../../interviewHooks/interview.hook';
 import AnalysisLoader from '../../components/reportDetailsLoading';
+import { useContext } from 'react';
+import { InterviewContext } from '../../interviewContexts/interview.context';
 
 const TechnicalQuestions = () => {
 
   const {id}=useParams()
-  const {handleReportDetails}=InterviewHook()
-  const [reportDetails, setReportDetails] = useState(null)
-   const [loading, setLoading] = useState(true)
-  
- useEffect(() => {
-  const run=async()=>{
-try {
-   const response=await handleReportDetails(id)
-   if(response.status===200){
-    setLoading(false)
-    setReportDetails(response.data.reportDetails)
-   }
- console.dir(response)
-} catch (error) {
-  console.dir(error)
-}
-  }
-  run();
- }, [])
+  const context= useContext(InterviewContext)
+     const {report}=context
 
- if(loading){
-  return <AnalysisLoader/>
- }else{
+
 
   return (
     <motion.div 
@@ -46,7 +29,7 @@ try {
       </header>
 
       <div className={styles.list}>
-        {reportDetails.technicalQuestions.map((item, index) => (
+        {report.technicalQuestions.map((item, index) => (
           <div key={index} className={styles.card}>
             <div className={styles.cardTop}>
               <span className={styles.count}>Question {index + 1}</span>
@@ -73,6 +56,5 @@ try {
       </div>
     </motion.div>
   );}
-};
 
 export default TechnicalQuestions;

@@ -5,27 +5,13 @@ import styles from './SkillGaps.module.scss';
 import InterviewHook from '../../interviewHooks/interview.hook';
 import { useParams } from 'react-router';
 import AnalysisLoader from '../../components/reportDetailsLoading';
+import { useContext } from 'react';
+import { InterviewContext } from '../../interviewContexts/interview.context';
 
 const SkillGaps = () => {
-    const {handleReportDetails}=InterviewHook()
-  const [reportDetails, setReportDetails] = useState(null)
-   const [loading, setLoading] = useState(true)
+   const context= useContext(InterviewContext)
+ const {report}=context
   const {id}=useParams()
-   useEffect(() => {
-     const run=async()=>{
-   try {
-      const response=await handleReportDetails(id)
-      if(response.status===200){
-       setLoading(false)
-       setReportDetails(response.data.reportDetails)
-      }
-    console.dir(response)
-   } catch (error) {
-     console.dir(error)
-   }
-     }
-     run();
-    }, [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -47,9 +33,7 @@ const SkillGaps = () => {
     }
   };
 
- if(loading){
-  return <AnalysisLoader/>
- }else{
+
    return (
     <motion.div 
       className={styles.container}
@@ -64,12 +48,12 @@ const SkillGaps = () => {
         </div>
         <div className={styles.alertCount}>
           <AlertTriangle size={18} />
-          <span>{reportDetails.skillGaps.length} Requirements Found</span>
+          <span>{report.skillGaps.length} Requirements Found</span>
         </div>
       </header>
 
       <div className={styles.gapList}>
-        {reportDetails.skillGaps.map((item, index) => (
+        {report.skillGaps.map((item, index) => (
           <motion.div 
             key={index} 
             className={`${styles.gapCard} ${styles[item.severity]}`}
@@ -91,6 +75,4 @@ const SkillGaps = () => {
     </motion.div>
   );
  }
-};
-
 export default SkillGaps;

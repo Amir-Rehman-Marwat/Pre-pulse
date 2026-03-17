@@ -12,16 +12,12 @@ const History = () => {
   const navigate=useNavigate()
   const context=useContext(InterviewContext)
   const {loading,reports}=context
-  console.log(reports )
   const {handleReportsHistory}= InterviewHook()
   useEffect(() => {
  const run =async ()=>{
-const response=await handleReportsHistory()
-console.dir(response)
+ await handleReportsHistory()
  } 
  run()
-
-    
   }, [])
   if(!reports){
 return <NoHistory/>

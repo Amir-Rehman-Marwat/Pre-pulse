@@ -5,31 +5,14 @@ import styles from "./Roadmap.module.scss";
 import { useParams } from "react-router";
 import InterviewHook from "../../interviewHooks/interview.hook";
 import AnalysisLoader from "../../components/reportDetailsLoading";
+import { InterviewContext } from "../../interviewContexts/interview.context";
+import { useContext } from "react";
 
 const Roadmap = () => {
   const { id } = useParams();
-  const { handleReportDetails } = InterviewHook();
-  const [reportDetails, setReportDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
+ const context= useContext(InterviewContext)
+   const {report}=context
 
-  useEffect(() => {
-    const run = async () => {
-      try {
-        const response = await handleReportDetails(id);
-        if (response.status === 200) {
-          setLoading(false);
-          setReportDetails(response.data.reportDetails);
-        }
-        console.dir(response);
-      } catch (error) {
-        console.dir(error);
-      }
-    };
-    run();
-  }, []);
-  if (loading) {
-    return <AnalysisLoader/>
-  } else {
     return (
       <motion.div
         className={styles.container}
@@ -45,12 +28,12 @@ const Roadmap = () => {
           </div>
           <div className={styles.metaBadge}>
             <Clock size={16} />
-            <span>{reportDetails.preperationPlane.length} Day Schedule</span>
+            <span>{report.preperationPlane.length} Day Schedule</span>
           </div>
         </header>
 
         <div className={styles.timeline}>
-          {reportDetails.preperationPlane.map((item, index) => (
+          {report.preperationPlane.map((item, index) => (
             <motion.div
               key={index}
               className={styles.step}
@@ -82,6 +65,4 @@ const Roadmap = () => {
       </motion.div>
     );
   }
-};
-
 export default Roadmap;

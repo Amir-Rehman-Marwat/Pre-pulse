@@ -18,13 +18,16 @@ import {
 import styles from './ReportDetails.module.scss';
 import InterviewHook from '../interviewHooks/interview.hook';
 import { getMe } from '../../auth/services/auth.api';
+import { useContext } from 'react';
+import { InterviewContext } from '../interviewContexts/interview.context';
 
 const ReportDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { handleReportDetails } = InterviewHook();
-  
-  const [reportDetails, setReportDetails] = useState(null);
+  const context=useContext(InterviewContext)
+  const {report}=context;
+  // console.log(report)
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,17 +35,16 @@ const ReportDetails = () => {
   useEffect(() => {
     const run = async () => {
       try {
-        const response = await handleReportDetails(id);
-        if (response.status === 200) {
-          setLoading(false);
-          setReportDetails(response.data.reportDetails);
-        }
+        
+         await handleReportDetails(id);
+         setLoading(false)
+        
       } catch (error) {
         console.error(error);
       }
     };
     run();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     const run = async () => {
@@ -62,7 +64,7 @@ const ReportDetails = () => {
 
   const radius = 72;
   const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (reportDetails.matchScore / 100) * circumference;
+  const strokeDashoffset = circumference - (report.matchScore / 100) * circumference;
 
   return (
     <div className={styles.appContainer}>
@@ -112,7 +114,7 @@ const ReportDetails = () => {
       <div className={styles.mainContent}>
         <aside className={`${styles.sidebar} ${isMenuOpen ? styles.sidebarActive : ''}`}>
           <div className={styles.reportIdentity}>
-            <h1 className={styles.mainJobTitle}>{reportDetails.jobTittle}</h1>
+            <h1 className={styles.mainJobTitle}>{report.jobTittle}</h1>
           </div>
 
           <div className={styles.scoreHub}>
@@ -136,7 +138,7 @@ const ReportDetails = () => {
                 />
               </svg>
               <div className={styles.scoreContent}>
-                <span className={styles.scoreNum}>{reportDetails.matchScore}%</span>
+                <span className={styles.scoreNum}>{report.matchScore}%</span>
                 <span className={styles.scoreLabel}>MATCH INDEX</span>
               </div>
             </div>
