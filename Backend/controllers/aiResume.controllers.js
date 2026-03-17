@@ -1,6 +1,7 @@
+// Some required modules:
 import AiReportModel from "../models/AiReportModel.js";
 import {  generateResumePdf } from "../services/resumePdf.ai.js";
-import puppeteer from 'puppeteer-core';
+// The controller:
 export const aiResumeController=async(req,res)=>{
 
     const{id}=req.params;
@@ -13,14 +14,20 @@ export const aiResumeController=async(req,res)=>{
     .status(404)
     .json({message:"No such report founded"})
    }else{
-    const {selfDescription,jobDescription,resume}=report
+    const {selfDescription,jobDescription,Resume}=report
     // ai content generating function and pdf generating function
 try {
     
-    const pdfBuffer=await generateResumePdf(selfDescription,jobDescription,resume,template)
+    const pdfBuffer=await generateResumePdf(selfDescription,jobDescription,Resume,template)
+    res.set({
+    'Content-Type': 'application/pdf',
+    'Content-Disposition': "inline",
+    'Content-Length': pdfBuffer.length
+  });
 return res
-.json({pdfBuffer})
-}catch (error) {
+.send(pdfBuffer)
+}catch  (error) {
+   
     return res
     .status(500)
     .json({message:"There is an error in the server while generating Resume ,please try again later." ,error})

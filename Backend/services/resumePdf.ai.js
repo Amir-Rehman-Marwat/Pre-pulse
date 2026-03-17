@@ -3,49 +3,65 @@ import { config } from "dotenv";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import puppeteer from "puppeteer-core";
-import { proffesionalZodSchema } from "./proffesionalZodSchema.js";
+import { professionalZodSchema } from "./templatesZodSchema.js";
 import ejs from "ejs"
+import path from "path"
+import { fileURLToPath } from "url";
+
+
 const ai = new GoogleGenAI({key:process.env.GEMINI_API_KEY});
-const resumeContentSchema=z.object({
-    HTML:z.string().describe("The html content of the new resume which will be used in new puppeter pdf ,keepinng inn view in old data of the user along with job description")
-})
  const generateResumeContent=async(selfDescription,jobDescription,resume,template)=>{
+    let templateSchema={}
+    if(template==="professional"){
+ templateSchema=z.toJSONSchema(professionalZodSchema)
+    }
     console.log("generatinng the resume conntent")
-const prompt=`generate the json content for the new modified resume of the user which will be used to create html and will be used in puppetter pdf keeping inn vview the following data of the user;
-Note:Never fabricate dates, locations, or company names. If the user didn't provide a date for a project, the dateRange in your JSON must be null.
+const prompt=`generate the json content for the new modified resume of the user ,keeping in view the following data of the user;
 selfDescription:${selfDescription},
 jobDescription:${jobDescription},
 resume:${resume}
+Note:You are strictly forbidden from inventing dates, locations, or descriptions. If a field in the JSON is marked as optional or nullable and the information is missing from the source, you MUST return null or "".Before finalizing the JSON, verify that every date and name matches the "Current Resume" exactly.
 `
 const response=await  ai.models.generateContent({
     model:"gemini-3-flash-preview",
     contents:prompt,
     config:{
         responseMimeType:"application/json",
-        responseSchema:z.toJSONSchema(proffesionalZodSchema)
+        responseSchema:templateSchema
     }
 })
 console.log(JSON.parse(response.text))
 return JSON.parse(response.text)
 }
+// The pdf generator function;
+export const generateResumePdf=async(selfDescription,jobDescription,Resume,template)=>{
 
-export const generateResumePdf=async(selfDescription,jobDescription,resume,template)=>{
-   
-  const content= await generateResumeContent(selfDescription,jobDescription,resume,template)
-  return content
+  const content= await generateResumeContent(selfDescription,jobDescription,Resume,template)
+  console.log(content)
+   const __filename=fileURLToPath(import.meta.url)
+  const __dirname=path.dirname(__filename)
+  const templatePath=path.join(__dirname,`../templates/${template}.ejs`)
+ const html=await ejs.renderFile(
+    templatePath,
+    content
+)
+ console.log(html)
 
-//   const browser = await puppeteer.launch({
-//      executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
-//   })
 
-// const page = await browser.newPage();
-// await page.setContent(html)
-// const pdfBuffer= await page.pdf({
-//   format: "A4",
+  const browser = await puppeteer.launch({
+     executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
+  })
+
+const page = await browser.newPage();
+await page.setContent(html)
+const pdfBuffer= await page.pdf({
+    path:`${template}.pdf`,
+  format: "A4",
+  printBackground:true
   
-// })
-// console.log(pdfBuffer)
-// await browser.close();
-// return pdfBuffer
+})
+console.log(pdfBuffer)
+await browser.close();
+return pdfBuffer
 
 }

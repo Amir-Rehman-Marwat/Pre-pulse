@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Template</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.4;
+            color: #333;
+            padding: 40px;
+            background-color: white;
+            /* Ensures colors appear correctly when saving as PDF */
+            -webkit-print-color-adjust: exact; 
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        .contact-info {
+            font-size: 11px;
+            color: #555;
+        }
+
+        .section {
+            margin-top: 15px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #666; /* Improved contrast for gray text */
+            border-bottom: 1px solid #eee; /* Light divider for visual structure */
+            margin-bottom: 8px;
+            padding-bottom: 2px;
+            text-transform: uppercase;
+        }
+
+        .profile-text {
+            font-size: 11px;
+            text-align: justify;
+        }
+
+        .entry {
+            margin-bottom: 12px;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-weight: bold;
+            font-size: 12px;
+            color: #000;
+        }
+
+        .entry-sub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-style: italic;
+            font-size: 11px;
+            margin-bottom: 3px;
+        }
+
+        .location-date {
+            font-weight: normal;
+            font-size: 11px;
+            color: #444;
+        }
+
+        ul {
+            margin-left: 20px;
+            font-size: 11px;
+        }
+
+        li {
+            margin-bottom: 3px;
+        }
+
+        .skills-container, .achievements-container {
+            font-size: 11px;
+        }
+
+        .skills-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Rishabh Mishra</h1>
+        <div class="contact-info">
+            +91-0123456789 | rmishra.connect@gmail.com | portfolio | github | linkedin.com/in/rishabhnmishra/
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Profile</div>
+        <p class="profile-text">
+            Detail-oriented Data Analyst with Bachelors/Masters in engineering and Google certification. Expert in translating complex datasets into actionable business insights through automated reporting and predictive modeling.
+        </p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Education</div>
+        <div class="entry">
+            <div class="entry-header">
+                <span>Visvesvaraya Technological University</span>
+                <span class="location-date">2014 - 2018</span>
+            </div>
+            <div class="entry-sub-header">
+                <span>Bachelor of Engineering in Mechanical Engineering</span>
+                <span class="location-date">Bangalore, India</span>
+            </div>
+            <ul>
+                <li>Among the top 5% of the batch</li>
+                <li>Relevant coursework in Data Science, Machine Learning, and Statistics</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Skills</div>
+        <div class="skills-container">
+            <div><span class="skills-label">Technical:</span> SQL, Python, Statistics, ETL, Data Visualization, AI Automation, Machine Learning, NLP</div>
+            <div><span class="skills-label">Tools:</span> GCP, AWS (S3, Athena, EC2), dbt, Tableau, Power BI, Excel, GA4</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Certifications</div>
+        <div class="achievements-container">
+            <ul>
+                <li>Google Data Analytics Specialization - Jan 2024</li>
+                <li>Applied Data Science with Python Specialization by University of Michigan - Nov 2024</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Experience</div>
+        <div class="entry">
+            <div class="entry-header">
+                <span>Company Name B</span>
+                <span class="location-date">Jan 2022 - Present</span>
+            </div>
+            <div class="entry-sub-header">
+                <span>Senior Data Analyst</span>
+                <span class="location-date">Bangalore, India</span>
+            </div>
+            <ul>
+                <li>Developed interactive Power BI dashboard using automated reporting data in GCP, reducing reporting time by 50%.</li>
+                <li>Forged strong stakeholder relationships by driving new initiatives, achieving project goals and 100% annual renewals.</li>
+                <li>Led cross-functional teams using Agile methodologies to improve data productivity and team communication.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <span>Company Name A</span>
+                <span class="location-date">June 2018 - Dec 2021</span>
+            </div>
+            <div class="entry-sub-header">
+                <span>Data Analyst</span>
+                <span class="location-date">Bangalore, India</span>
+            </div>
+            <ul>
+                <li>Built multiple predictive models to forecast weekly sales demand, leading to a 10% reduction in inventory costs.</li>
+                <li>Optimized Tableau dashboards for 10+ products, improving efficiency and cutting turnaround time by 15%.</li>
+                <li>Mentored new teammates and created SOPs to streamline the reporting process across the department.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Projects</div>
+        <div class="entry">
+            <div class="entry-header">
+                <span>Music Store Database Analysis</span>
+                <span class="location-date">04/24 - 05/24</span>
+            </div>
+            <ul>
+                <li>Analyzed customer behavior and revenue trends using complex SQL queries to optimize sales and marketing strategies.</li>
+                <li>Provided actionable insights on product performance to drive key business decisions and inventory management.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Achievements</div>
+        <div class="achievements-container">
+            <ul>
+                <li>Established a 2500+ member open-source community on GitHub.</li>
+                <li>Received the 'Excellence Award' for automating manual tasks, achieving a 50% reduction in workload.</li>
+                <li>Runner-up in a National Level Data Competition among 2000+ participants.</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
