@@ -17,6 +17,7 @@ import RoadMap from "./features/interview/pages/ReportDetailschildRoutes/RoadMap
 import TechnicalQuestions from "./features/interview/pages/ReportDetailschildRoutes/TechnicalQuestions";
 import SkillGaps from "./features/interview/pages/ReportDetailschildRoutes/SkillGaps";
 import DetailsIndex from "./features/interview/pages/ReportDetailschildRoutes/DetailsIndex";
+import NewResume from "./features/interview/pages/NewResume";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -84,7 +85,11 @@ export const router = createBrowserRouter([
     path:"roadmap",
     element:<RoadMap/>
 
-  }]
+  },
+{
+  path:"new-resume",
+  element:<NewResume/>
+}]
    
   }
   

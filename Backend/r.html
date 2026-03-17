@@ -3,216 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Template</title>
+    <title>Sophia Brown - Single Column Compact</title>
     <style>
+        @page {
+            size: A4;
+            margin: 0.5in; /* Professional visible margin on all sides */
+        }
+        
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-print-color-adjust: exact;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.4;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.25; /* Tightened for single-page fit */
             color: #333;
-            padding: 40px;
             background-color: white;
-            /* Ensures colors appear correctly when saving as PDF */
-            -webkit-print-color-adjust: exact; 
+            font-size: 10px; /* Optimal size for high data density */
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            border-bottom: 1.5px solid #1e40af;
+            padding-bottom: 6px;
         }
 
         .header h1 {
-            font-size: 26px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+            font-size: 22px;
+            font-weight: 700;
             color: #000;
+            text-transform: none;
         }
 
-        .contact-info {
+        .subtitle {
             font-size: 11px;
-            color: #555;
+            color: #444;
+            margin-bottom: 3px;
+        }
+
+        .contact-bar {
+            font-size: 9px;
+            color: #1e40af;
+            display: flex;
+            gap: 15px;
         }
 
         .section {
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .section-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #666; /* Improved contrast for gray text */
-            border-bottom: 1px solid #eee; /* Light divider for visual structure */
-            margin-bottom: 8px;
-            padding-bottom: 2px;
-            text-transform: uppercase;
-        }
-
-        .profile-text {
             font-size: 11px;
-            text-align: justify;
+            font-weight: 700;
+            color: #666; /* Slate Gray */
+            text-transform: uppercase;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 5px;
+            padding-bottom: 1px;
         }
 
         .entry {
-            margin-bottom: 12px;
+            margin-bottom: 6px;
         }
 
         .entry-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            font-weight: bold;
-            font-size: 12px;
+        }
+
+        .role-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #1e40af; /* Requested Blue Accent */
+        }
+
+        .org-name {
+            font-size: 10px;
+            font-weight: 600;
             color: #000;
         }
 
-        .entry-sub-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            font-style: italic;
-            font-size: 11px;
-            margin-bottom: 3px;
-        }
-
         .location-date {
+            font-size: 9px;
+            color: #666;
             font-weight: normal;
-            font-size: 11px;
-            color: #444;
         }
 
         ul {
-            margin-left: 20px;
-            font-size: 11px;
+            margin-left: 15px;
+            margin-top: 2px;
         }
 
         li {
-            margin-bottom: 3px;
+            margin-bottom: 1px;
         }
 
-        .skills-container, .achievements-container {
-            font-size: 11px;
+        .bold-label {
+            font-weight: 700;
+            color: #000;
         }
 
-        .skills-label {
-            font-weight: bold;
+        .training-item {
+            margin-bottom: 4px;
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>Rishabh Mishra</h1>
-        <div class="contact-info">
-            +91-0123456789 | rmishra.connect@gmail.com | portfolio | github | linkedin.com/in/rishabhnmishra/
+        <h1>Sophia Brown</h1>
+        <div class="subtitle">Computer Science Educator | Researcher | Mentor | Innovator</div>
+        <div class="contact-bar">
+            <span>s.brown@enhancv.com</span>
+            <span>LinkedIn</span>
+            <span>GitHub</span>
+            <span style="color: #666;">San Diego, California</span>
         </div>
     </div>
 
     <div class="section">
-        <div class="section-title">Profile</div>
-        <p class="profile-text">
-            Detail-oriented Data Analyst with Bachelors/Masters in engineering and Google certification. Expert in translating complex datasets into actionable business insights through automated reporting and predictive modeling.
-        </p>
+        <div class="section-title">Summary</div>
+        <p>With over 6 years of experience in academia, I excel in machine learning and student mentorship, having achieved a notable publication record and improved student retention rates through innovative teaching strategies.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Experience</div>
+        
+        <div class="entry">
+            <div class="entry-header">
+                <span class="role-title">Assistant Professor of Computer Science</span>
+                <span class="location-date">San Diego, CA | 09/2021 - Present</span>
+            </div>
+            <div class="org-name">University of California, San Diego</div>
+            <ul>
+                <li>Developed and taught advanced machine learning courses, increasing enrollment by 40%.</li>
+                <li>Conducted AI research resulting in four publications in top-tier journals.</li>
+                <li>Mentored 30+ students, achieving 90% placement within leading tech companies.</li>
+                <li>Led curriculum review and redesign, improving course retention rates by 25%.</li>
+                <li>Collaborated on interdisciplinary projects resulting in grants exceeding $500,000.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <span class="role-title">Lecturer in Computer Science</span>
+                <span class="location-date">Los Angeles, CA | 01/2018 - 08/2021</span>
+            </div>
+            <div class="org-name">University of Southern California</div>
+            <ul>
+                <li>Designed engaging online course materials improving feedback ratings by 30%.</li>
+                <li>Implemented interactive teaching techniques cultivating an inclusive classroom atmosphere.</li>
+                <li>Published educational papers focused on innovative teaching methodologies.</li>
+                <li>Supervised 15 capstone projects fostering innovative solutions to real-world problems.</li>
+            </ul>
+        </div>
     </div>
 
     <div class="section">
         <div class="section-title">Education</div>
         <div class="entry">
             <div class="entry-header">
-                <span>Visvesvaraya Technological University</span>
-                <span class="location-date">2014 - 2018</span>
+                <span class="role-title">Ph.D. in Computer Science</span>
+                <span class="location-date">Los Angeles, CA | 01/2017 - 01/2021</span>
             </div>
-            <div class="entry-sub-header">
-                <span>Bachelor of Engineering in Mechanical Engineering</span>
-                <span class="location-date">Bangalore, India</span>
-            </div>
-            <ul>
-                <li>Among the top 5% of the batch</li>
-                <li>Relevant coursework in Data Science, Machine Learning, and Statistics</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Skills</div>
-        <div class="skills-container">
-            <div><span class="skills-label">Technical:</span> SQL, Python, Statistics, ETL, Data Visualization, AI Automation, Machine Learning, NLP</div>
-            <div><span class="skills-label">Tools:</span> GCP, AWS (S3, Athena, EC2), dbt, Tableau, Power BI, Excel, GA4</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Certifications</div>
-        <div class="achievements-container">
-            <ul>
-                <li>Google Data Analytics Specialization - Jan 2024</li>
-                <li>Applied Data Science with Python Specialization by University of Michigan - Nov 2024</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Experience</div>
-        <div class="entry">
-            <div class="entry-header">
-                <span>Company Name B</span>
-                <span class="location-date">Jan 2022 - Present</span>
-            </div>
-            <div class="entry-sub-header">
-                <span>Senior Data Analyst</span>
-                <span class="location-date">Bangalore, India</span>
-            </div>
-            <ul>
-                <li>Developed interactive Power BI dashboard using automated reporting data in GCP, reducing reporting time by 50%.</li>
-                <li>Forged strong stakeholder relationships by driving new initiatives, achieving project goals and 100% annual renewals.</li>
-                <li>Led cross-functional teams using Agile methodologies to improve data productivity and team communication.</li>
-            </ul>
-        </div>
-
-        <div class="entry">
-            <div class="entry-header">
-                <span>Company Name A</span>
-                <span class="location-date">June 2018 - Dec 2021</span>
-            </div>
-            <div class="entry-sub-header">
-                <span>Data Analyst</span>
-                <span class="location-date">Bangalore, India</span>
-            </div>
-            <ul>
-                <li>Built multiple predictive models to forecast weekly sales demand, leading to a 10% reduction in inventory costs.</li>
-                <li>Optimized Tableau dashboards for 10+ products, improving efficiency and cutting turnaround time by 15%.</li>
-                <li>Mentored new teammates and created SOPs to streamline the reporting process across the department.</li>
-            </ul>
+            <div class="org-name">University of California, Los Angeles</div>
         </div>
     </div>
 
     <div class="section">
         <div class="section-title">Projects</div>
         <div class="entry">
-            <div class="entry-header">
-                <span>Music Store Database Analysis</span>
-                <span class="location-date">04/24 - 05/24</span>
-            </div>
-            <ul>
-                <li>Analyzed customer behavior and revenue trends using complex SQL queries to optimize sales and marketing strategies.</li>
-                <li>Provided actionable insights on product performance to drive key business decisions and inventory management.</li>
-            </ul>
+            <p><span class="bold-label text-blue">Open Source AI Toolkit:</span> Developed an open source toolkit for beginner-friendly AI projects, available on GitHub at github.com/sophiabrown/ai-toolkit.</p>
+        </div>
+        <div class="entry">
+            <p><span class="bold-label text-blue">Interactive Educational Platform:</span> Contributed to the development of an interactive learning platform aimed at enhancing computer science education for K-12 students.</p>
         </div>
     </div>
 
     <div class="section">
-        <div class="section-title">Achievements</div>
-        <div class="achievements-container">
-            <ul>
-                <li>Established a 2500+ member open-source community on GitHub.</li>
-                <li>Received the 'Excellence Award' for automating manual tasks, achieving a 50% reduction in workload.</li>
-                <li>Runner-up in a National Level Data Competition among 2000+ participants.</li>
-            </ul>
+        <div class="section-title">Key Achievements</div>
+        <ul>
+            <li><span class="bold-label">Top Instructor Award:</span> High student engagement and feedback scores influencing future policies.</li>
+            <li><span class="bold-label">Published Research:</span> Authored five peer-reviewed papers during tenure in top-tier journals.</li>
+            <li><span class="bold-label">Grant Award:</span> Secured $50,000 for integrating technology in classroom settings for over 200 students.</li>
+            <li><span class="bold-label">Capstone Supervision:</span> 15 projects led to student internships at leading tech firms.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Technical Skills</div>
+        <p>Machine Learning, Artificial Intelligence, Data Science, Cybersecurity, Curriculum Development, Research Methodologies</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Training & Courses</div>
+        <div class="training-item">
+            <span class="bold-label">Deep Learning Specialization:</span> Provided comprehensive overview of deep learning and neural networks (Coursera).
+        </div>
+        <div class="training-item">
+            <span class="bold-label">Data Science Professional Certificate:</span> Solidified skills in statistical methods and advanced data analysis (edX).
         </div>
     </div>
 

@@ -20,7 +20,9 @@ const prompt=`generate the json content for the new modified resume of the user 
 selfDescription:${selfDescription},
 jobDescription:${jobDescription},
 resume:${resume}
-Note:You are strictly forbidden from inventing dates, locations, or descriptions. If a field in the JSON is marked as optional or nullable and the information is missing from the source, you MUST return null or "".Before finalizing the JSON, verify that every date and name matches the "Current Resume" exactly.
+Note#1:You are strictly forbidden from inventing dates, locations, or descriptions. If a field in the JSON is marked as optional or nullable and the information is missing from the source, you MUST return null or "".Before finalizing the JSON, verify that every date and name matches the "Current Resume" exactly.
+Note#2 :avoid repition of same words ,grammer and spelling mistakes strictly for ats passing 
+Note#3:add quantifiable achievements from previous positions that user have held. this is must 
 `
 const response=await  ai.models.generateContent({
     model:"gemini-3-flash-preview",
@@ -30,6 +32,7 @@ const response=await  ai.models.generateContent({
         responseSchema:templateSchema
     }
 })
+console.log("content generatd ")
 console.log(JSON.parse(response.text))
 return JSON.parse(response.text)
 }

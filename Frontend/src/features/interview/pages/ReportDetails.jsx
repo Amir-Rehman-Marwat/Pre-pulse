@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -13,21 +13,21 @@ import {
   Fingerprint,
   Zap,
   Menu,
-  X
+  X,
+  FilePlus 
 } from 'lucide-react';
 import styles from './ReportDetails.module.scss';
 import InterviewHook from '../interviewHooks/interview.hook';
 import { getMe } from '../../auth/services/auth.api';
-import { useContext } from 'react';
 import { InterviewContext } from '../interviewContexts/interview.context';
 
 const ReportDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { handleReportDetails } = InterviewHook();
-  const context=useContext(InterviewContext)
-  const {report}=context;
-  // console.log(report)
+  const context = useContext(InterviewContext);
+  const { report } = context;
+  
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,30 +35,28 @@ const ReportDetails = () => {
   useEffect(() => {
     const run = async () => {
       try {
-        
-         await handleReportDetails(id);
-         setLoading(false)
-        
+        await handleReportDetails(id);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
     run();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const run = async () => {
       if (!user) {
         try {
           const response = await getMe();
-          setUser(response.data.user.userName.split(" ")[0]|| "GUEST_PILOT");
+          setUser(response.data.user.userName.split(" ")[0] || "GUEST_PILOT");
         } catch (e) {
           setUser("GUEST_PILOT");
         }
       }
     };
     run();
-  }, []);
+  }, [user]);
 
   if (loading) return <div className={styles.initialLoading}>SYSTEM_INITIALIZING...</div>;
 
@@ -75,15 +73,12 @@ const ReportDetails = () => {
           </button>
           
           <div className={styles.navGroup}>
-            {/* Always visible on Mobile & Laptop */}
             <button onClick={() => navigate(-1)} className={styles.glassBtn}>
               <ChevronLeft size={18} />
             </button>
             <button onClick={() => navigate('/dashboard/history')} className={styles.glassBtn}>
               <LayoutDashboard size={18} />
             </button>
-
-            {/* Laptop Only Icons */}
             <button onClick={() => navigate('/')} className={`${styles.glassBtn} ${styles.desktopOnly}`}>
               <Home size={18} />
             </button>
@@ -156,9 +151,23 @@ const ReportDetails = () => {
                 {path === 'behavioral' && <Cpu size={18} />}
                 {path === 'gaps' && <Activity size={18} />}
                 {path === 'roadmap' && <Compass size={18} />}
-                <span>{path.toUpperCase().replace('_', ' ')}</span>
+                <span>{path.toUpperCase()}</span>
               </NavLink>
             ))}
+
+            {/* --- COMPACT AI RESUME CTA --- */}
+            <div className={styles.compactCta}>
+              <NavLink 
+                to={`/reportDetails/${id}/new-resume`} 
+                onClick={() => setIsMenuOpen(false)}
+                className={({isActive}) => isActive ? `${styles.miniResumeBtn} ${styles.miniActive}` : styles.miniResumeBtn}
+              >
+                <div className={styles.glowLayer} />
+                <FilePlus size={16} />
+                <span>AI RESUME GEN</span>
+                <Zap size={12} className={styles.miniZap} />
+              </NavLink>
+            </div>
           </nav>
         </aside>
 

@@ -15,6 +15,8 @@ useEffect(() => {
       navigate(`/`)
     }, 1500);
     
+  }else{
+    setLoading(false)
   }
 }, [user])
 

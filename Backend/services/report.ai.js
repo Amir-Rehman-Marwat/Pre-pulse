@@ -9,8 +9,8 @@ const ai = new GoogleGenAI({key:process.env.GEMINI_API_KEY});
 
 const generateAireport=async(selfDescription,resumeText,targetJobDescription)=>{
 
-const prompts = `
-Role: Expert career coach for kids.
+const prompt = `
+Role: Expert career coach for kids which will be easy in words but will be detailed .
 
 Task: Generate an interview report and 7-day preparation plan in JSON.
 
@@ -23,8 +23,8 @@ Rules:
 1. Use very simple English (5th-grade level).
 2. Follow the JSON schema strictly.
 3. Include:
-   - Gaps (missing skills in simple words)
-   - Questions (10 easy interview questions)
+   - Gaps (missing skills in simple words) a
+   - Questions (10 easy interview questions) for technical and behavioral 
    - DayPlan (7 small daily tasks)
 4. Return ONLY JSON.
 `;
