@@ -1,5 +1,6 @@
 // Some required modules:
 import AiReportModel from "../models/AiReportModel.js";
+import templatesModel from "../models/templatesModel.js";
 import {  generateResumePdf } from "../services/resumePdf.ai.js";
 // The controller:
 export const aiResumeController=async(req,res)=>{
@@ -38,4 +39,16 @@ return res
 
    }
 
+}
+
+export const getAllTemplatesController=async(req,res)=>{
+
+    try {
+        const allTemplates=await templatesModel.find() 
+    return res
+    .status(200)
+    .json({message:"Data of all templates fetched successfully",allTemplates})
+    } catch (error) {
+        return res.status(500).json({message:"Internal server error "})
+    }
 }
