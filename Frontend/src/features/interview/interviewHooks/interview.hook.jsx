@@ -1,21 +1,23 @@
 import React, { useContext, useEffect } from 'react'
-import {createReport, reportDetails, reportsHistory} from "../services/interview.api"
+import {createReport, newResume, reportDetails, reportsHistory} from "../services/interview.api"
 import { InterviewContext } from '../interviewContexts/interview.context'
 import { useNavigate } from 'react-router'
 import { logOutUser } from '../../auth/services/auth.api'
 import { AuthContext } from '../../auth/contexts/auth.context'
+import { ReportDetailsContext } from '../interviewContexts/ReportDetailsContext'
 function InterviewHook(props) {
-    console.log()
+    console.log(props)
   const authContext= useContext(AuthContext)
   const{setUser}=authContext
 
  const context =useContext(InterviewContext)
-  const {loading,setLoading,report,setReport,reports,setReports}=context
+  const {loading,setLoading,report,setReport,reports,setReports,newResumeLoading,setNewResumeLoading,setTemplates}=context
+   
 const navigate= useNavigate()
 
   useEffect(() => {
   if(report){
-    navigate(`/reportDetails/${report._id}/gaps`)
+    navigate(`/reportDetails/${report._id}/gaps` )
   }
   }, [report])
   
@@ -62,7 +64,16 @@ if(response.status===200){
        }, 1500);
        }
     }
-    return {handleNewReport,handleReportDetails,handleReportsHistory,handleLogOut}
+    const handleNewResume=async()=>{
+        setNewResumeLoading(true)
+        const response=await newResume()
+        if(response.status===200){
+            setNewResumeLoading(false)
+ setTemplates(response.data.allTemplates)
+return response
+        }
+    }
+    return {handleNewReport,handleReportDetails,handleReportsHistory,handleLogOut,handleNewResume}
 }
 
 export default InterviewHook

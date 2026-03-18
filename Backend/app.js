@@ -28,7 +28,7 @@ import aiResumerouter from "./routes/aiResume.routes.js";
 app.use("/api/auth",authRouter)
 // http://localhost:3000/api/interview/createReport
 app.use("/api/interview",interviewRouter)
-// http://localhost:3000/aiResumePdf/generateResume/:id
+// http://localhost:3000/api/aiResumePdf/generateResume/:id
 app.use("/api/aiResumePdf",aiResumerouter)
 
 const PORT=process.env.PORT || 4000

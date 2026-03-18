@@ -4,6 +4,7 @@ export  const ReportDetailsContext=createContext()
 
 function ReportDetailsContextProvider({children}) {
     const [reportDetails, setReportDetails] = useState(null)
+    
   
     return(
         <ReportDetailsContext.Provider value={{reportDetails,setReportDetails}}>
