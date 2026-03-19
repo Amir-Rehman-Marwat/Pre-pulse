@@ -36,9 +36,9 @@ return res
 
 
  export const getHistoryController=async(req,res)=>{
-    console.log("got the req")
+    
     const user=req.user
-    console.log(user)
+    
     try {
         const history=await AiReportModel.find({User:user.id})
   if(history.length<1){
@@ -61,13 +61,11 @@ return res
 
 export const getDetails=async(req,res)=>{
 const reportId=req.params.id
-console.log(reportId)
 const user=req.user
 
 
 try {
     const reportDetails=await AiReportModel.findOne({_id:reportId})
-    console.log(reportDetails)
     if(reportDetails){
         return res
         .status(200)

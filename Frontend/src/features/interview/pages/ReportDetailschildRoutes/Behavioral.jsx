@@ -14,6 +14,7 @@ const BehavioralPrep = () => {
  const { id } = useParams();
   const context= useContext(InterviewContext)
    const {report}=context
+   InterviewHook("behavioral")
 
    return (
     <motion.div 

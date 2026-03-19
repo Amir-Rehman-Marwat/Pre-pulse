@@ -13,7 +13,7 @@ const TechnicalQuestions = () => {
   const {id}=useParams()
   const context= useContext(InterviewContext)
      const {report}=context
-
+InterviewHook("technical")
 
 
   return (

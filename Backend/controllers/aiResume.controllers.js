@@ -4,12 +4,10 @@ import templatesModel from "../models/templatesModel.js";
 import {  generateResumePdf } from "../services/resumePdf.ai.js";
 // The controller:
 export const aiResumeController=async(req,res)=>{
-
-    const{id}=req.params;
     const user=req.user;
-    const template=req.body.template
-    console.log(template)
-    const report=await AiReportModel.findById({_id:id})
+    const {layoutId,reportId}=req.body
+    console.log(layoutId)
+    const report=await AiReportModel.findById({_id:reportId})
    if(!report){
     return res
     .status(404)
@@ -19,13 +17,14 @@ export const aiResumeController=async(req,res)=>{
     // ai content generating function and pdf generating function
 try {
     
-    const pdfBuffer=await generateResumePdf(selfDescription,jobDescription,Resume,template)
+    const pdfBuffer=await generateResumePdf(selfDescription,jobDescription,Resume,layoutId)
     res.set({
     'Content-Type': 'application/pdf',
     'Content-Disposition': "inline",
     'Content-Length': pdfBuffer.length
   });
 return res
+.status(201)
 .send(pdfBuffer)
 }catch  (error) {
    

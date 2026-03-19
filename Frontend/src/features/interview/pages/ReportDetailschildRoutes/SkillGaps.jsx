@@ -12,7 +12,7 @@ const SkillGaps = () => {
    const context= useContext(InterviewContext)
  const {report}=context
   const {id}=useParams()
-
+InterviewHook("gaps")
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1 } }

@@ -7,7 +7,7 @@ import templatesModel from './models/templatesModel.js';
 const templates = [
   {
     name: "EXECUTIVE_PRO", 
-    layoutId: "pro_v1",    
+    layoutId: "Pro_v1",    
     thumbnail: "https://res.cloudinary.com/djsmx24lx/image/upload/v1773803366/SharedScreenshot_yjavhx.jpg", 
     description: "A refined, high-performance layout optimized for ATS compatibility and executive-level readability."
   }

@@ -13,7 +13,6 @@ export const createReport=async(selfDescription,jobDescription,resumePdf)=>{
 
 export const reportDetails=async (reportId)=>{
     const response=await axios.get(`http://localhost:3000/api/interview/details/${reportId}`,{withCredentials:true})
-    console.log("request sent")
     return response
 }
 
@@ -27,11 +26,23 @@ try {
 }
 }
 
-export const newResume=async(reportId,layoutId)=>{
+export const allTemplates=async(reportId,layoutId)=>{
 try {
     const response=await axios.get(`http://localhost:3000/api/aiResumePdf/allTemplates`,{withCredentials:true})
     return response
 } catch (error) {
     return error
 }
+
+
+    
+}
+
+export const newResume =async (reportId,layoutId)=>{
+    try {
+        const response =await axios.post(`http://localhost:3000/api/aiResumePdf/generateResume`,{withCredentials:true},{reportId,layoutId})
+    return  response
+    } catch (error) {
+        return error
+    }
 }

@@ -3,17 +3,17 @@ import { config } from "dotenv";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import puppeteer from "puppeteer-core";
-import { professionalZodSchema } from "./templatesZodSchema.js";
+import { Pro_v1ZodSchema } from "./templatesZodSchema.js";
 import ejs from "ejs"
 import path from "path"
 import { fileURLToPath } from "url";
 
 
 const ai = new GoogleGenAI({key:process.env.GEMINI_API_KEY});
- const generateResumeContent=async(selfDescription,jobDescription,resume,template)=>{
+ const generateResumeContent=async(selfDescription,jobDescription,resume,layoutId)=>{
     let templateSchema={}
-    if(template==="professional"){
- templateSchema=z.toJSONSchema(professionalZodSchema)
+    if(layoutId==="Pro_v1"){
+ templateSchema=z.toJSONSchema(Pro_v1ZodSchema)
     }
     console.log("generatinng the resume conntent")
 const prompt=`generate the json content for the new modified resume of the user ,keeping in view the following data of the user;
@@ -37,13 +37,13 @@ console.log(JSON.parse(response.text))
 return JSON.parse(response.text)
 }
 // The pdf generator function;
-export const generateResumePdf=async(selfDescription,jobDescription,Resume,template)=>{
+export const generateResumePdf=async(selfDescription,jobDescription,Resume,layoutId)=>{
 
-  const content= await generateResumeContent(selfDescription,jobDescription,Resume,template)
+  const content= await generateResumeContent(selfDescription,jobDescription,Resume,layoutId)
   console.log(content)
    const __filename=fileURLToPath(import.meta.url)
   const __dirname=path.dirname(__filename)
-  const templatePath=path.join(__dirname,`../templates/${template}.ejs`)
+  const templatePath=path.join(__dirname,`../templates/${layoutId}.ejs`)
  const html=await ejs.renderFile(
     templatePath,
     content
@@ -58,7 +58,7 @@ export const generateResumePdf=async(selfDescription,jobDescription,Resume,templ
 const page = await browser.newPage();
 await page.setContent(html)
 const pdfBuffer= await page.pdf({
-    path:`${template}.pdf`,
+    path:`${layoutId}.pdf`,
   format: "A4",
   printBackground:true
   

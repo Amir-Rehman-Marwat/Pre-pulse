@@ -1,25 +1,20 @@
 import React, { useContext, useEffect } from 'react'
-import {createReport, newResume, reportDetails, reportsHistory} from "../services/interview.api"
+import {allTemplates, createReport, newResume, reportDetails, reportsHistory} from "../services/interview.api"
 import { InterviewContext } from '../interviewContexts/interview.context'
 import { useNavigate } from 'react-router'
 import { logOutUser } from '../../auth/services/auth.api'
 import { AuthContext } from '../../auth/contexts/auth.context'
-import { ReportDetailsContext } from '../interviewContexts/ReportDetailsContext'
+
 function InterviewHook(props) {
-    console.log(props)
   const authContext= useContext(AuthContext)
   const{setUser}=authContext
 
  const context =useContext(InterviewContext)
-  const {loading,setLoading,report,setReport,reports,setReports,newResumeLoading,setNewResumeLoading,setTemplates}=context
+  const {loading,setLoading,report,setReport,reports,setReports,newResumeLoading,setNewResumeLoading,setTemplates,newResume,setNewResume}=context
    
 const navigate= useNavigate()
 
-  useEffect(() => {
-  if(report){
-    navigate(`/reportDetails/${report._id}/gaps` )
-  }
-  }, [report])
+ 
   
   
     const handleNewReport=async(selfDescription,jobDescription,resumePdf)=>{
@@ -64,16 +59,24 @@ if(response.status===200){
        }, 1500);
        }
     }
-    const handleNewResume=async()=>{
-        setNewResumeLoading(true)
-        const response=await newResume()
+    const handleAllTemplates=async()=>{
+        
+        const response=await allTemplates()
         if(response.status===200){
-            setNewResumeLoading(false)
  setTemplates(response.data.allTemplates)
+ setNewResumeLoading(false)
+ 
 return response
         }
     }
-    return {handleNewReport,handleReportDetails,handleReportsHistory,handleLogOut,handleNewResume}
+     const handleNewResume=async(reportId,layoutId)=>{
+setNewResumeLoading(true);
+const response=await newResume(reportId,layoutId)
+if(response.status===201){
+setNewResume(response)
+}
+     }
+    return {handleNewReport,handleReportDetails,handleReportsHistory,handleLogOut,handleAllTemplates,handleNewResume}
 }
 
 export default InterviewHook

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const professionalZodSchema = z.object({
+export const Pro_v1ZodSchema = z.object({
   personalInfo: z.object({
     fullName: z.string().describe("The user's exact legal name as it appears in the source resume. DO NOT change spelling or casing."),
     contactBar: z.string().describe("Phone, Email, and Links formatted with pipes (e.g., +92-XXX | email@example.com | github.com/user). Use only provided contact details."),
