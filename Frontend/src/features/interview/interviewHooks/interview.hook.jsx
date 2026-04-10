@@ -73,6 +73,7 @@ return response
 setNewResumeLoading(true);
 const response=await newResume(reportId,layoutId)
 if(response.status===201){
+    setNewResumeLoading(false)
 setNewResume(response)
 }
      }
