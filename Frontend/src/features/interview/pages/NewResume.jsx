@@ -10,16 +10,25 @@ import ResumeGeneratingLoader from '../components/resumeGeneratingLoader';
 const NewResume = () => {
   const { id } = useParams();
   const context = useContext(InterviewContext);
-  const { handleAllTemplates } = InterviewHook();
-  const { templates, newResumeLoading } = context;
+  const { handleAllTemplates,handleNewResume } = InterviewHook();
+  const { templates, newResumeLoading ,NewResumeUrl} = context;
   const [selectedLayout, setSelectedLayout] = useState(null);
-
+console.log(NewResumeUrl)
   useEffect(() => {
     const run = async () => {
       await handleAllTemplates();
     };
     run();
   }, []);
+
+  const generateNewPdf=async ()=>{
+ try {
+  const response =await handleNewResume(id,selectedLayout)
+ console.dir(response)
+ } catch (error) {
+  console.dir(error)
+ }
+  }
 
   if (newResumeLoading) {
     return (
@@ -91,6 +100,9 @@ const NewResume = () => {
         <button
           className={styles.initBtn}
           disabled={!selectedLayout}
+          onClick={()=>{
+           generateNewPdf()
+          }}
         >
           <span>BUILD_PDF</span>
           <Zap size={14} fill={selectedLayout ? "currentColor" : "none"} />

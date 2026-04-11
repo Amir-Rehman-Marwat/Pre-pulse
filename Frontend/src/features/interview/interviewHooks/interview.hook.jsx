@@ -10,7 +10,7 @@ function InterviewHook(props) {
   const{setUser}=authContext
 
  const context =useContext(InterviewContext)
-  const {loading,setLoading,report,setReport,reports,setReports,newResumeLoading,setNewResumeLoading,setTemplates,newResume,setNewResume}=context
+  const {loading,setLoading,report,setReport,reports,setReports,newResumeLoading,setNewResumeLoading,setTemplates,NewResumeUrl,setNewResumeUrl}=context
    
 const navigate= useNavigate()
 
@@ -64,7 +64,6 @@ if(response.status===200){
         const response=await allTemplates()
         if(response.status===200){
  setTemplates(response.data.allTemplates)
- setNewResumeLoading(false)
  
 return response
         }
@@ -73,8 +72,13 @@ return response
 setNewResumeLoading(true);
 const response=await newResume(reportId,layoutId)
 if(response.status===201){
-    setNewResumeLoading(false)
-setNewResume(response)
+    const blob = new Blob([response.data], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    setNewResumeUrl(url);
+setNewResumeLoading(false)
+
+}else{
+    return response
 }
      }
     return {handleNewReport,handleReportDetails,handleReportsHistory,handleLogOut,handleAllTemplates,handleNewResume}

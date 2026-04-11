@@ -4,11 +4,11 @@ function InterviewContextProvider({children}) {
     const [loading, setLoading] = useState(false)
     const [report, setReport] = useState(null)
     const [reports, setReports] = useState([])
-     const [newResumeLoading, setNewResumeLoading] = useState(true)
+     const [newResumeLoading, setNewResumeLoading] = useState(false)
         const [templates, setTemplates] = useState(null)
-        const [newResume, setNewResume] = useState(null)
+        const [NewResumeUrl, setNewResumeUrl] = useState(null)
   return (
-    <InterviewContext.Provider value={{loading,setLoading,report,setReport,reports,setReports,templates, setTemplates,newResumeLoading, setNewResumeLoading,newResume,setNewResume}}>
+    <InterviewContext.Provider value={{loading,setLoading,report,setReport,reports,setReports,templates, setTemplates,newResumeLoading, setNewResumeLoading,NewResumeUrl,setNewResumeUrl}}>
         {children}
     </InterviewContext.Provider>
   )

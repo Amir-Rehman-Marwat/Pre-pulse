@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken"
 export const isLogedIn  = async(req,res,next)=>{
 const token=req.cookies.token
 if(!token){
+    console.log(req.cookies.token)
     return res 
     .status(404)
     .json({message:"token not provided"})
