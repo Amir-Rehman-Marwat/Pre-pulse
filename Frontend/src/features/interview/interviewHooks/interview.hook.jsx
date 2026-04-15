@@ -24,6 +24,9 @@ if(response.status===201){
     setReport(response.data.responseData)
     setLoading(false)
 
+}else{
+    setLoading(false)
+    
 }
     }
     const handleReportDetails=async(reportId)=>{
@@ -72,13 +75,19 @@ return response
 setNewResumeLoading(true);
 const response=await newResume(reportId,layoutId)
 if(response.status===201){
-    const blob = new Blob([response.data], { type: 'application/pdf' });
-    const url = URL.createObjectURL(blob);
-    setNewResumeUrl(url);
-setNewResumeLoading(false)
+    // --- CORRECTED HOOK LAYER ---
+const blob = new Blob([response.data], { type: 'application/pdf' });
+const url = URL.createObjectURL(blob);
+
+setNewResumeUrl(url);
+setNewResumeLoading(false);
+navigate(`/reportDetails/${reportId}/PreviewDownload`);
 
 }else{
-    return response
+    
+    setNewResumeLoading(false)
+navigate(`/reportDetails/${reportId}/PreviewDownload`);
+    
 }
      }
     return {handleNewReport,handleReportDetails,handleReportsHistory,handleLogOut,handleAllTemplates,handleNewResume}

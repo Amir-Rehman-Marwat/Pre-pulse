@@ -1,0 +1,126 @@
+$cyan: #22d3ee;
+$border: rgba(255, 255, 255, 0.08);
+$bg-glass: rgba(15, 23, 42, 0.85);
+
+.viewerContainer {
+  display: flex;
+  flex-direction: column;
+  // We use 100% and flex-grow so it fills the parent .workspace
+  flex: 1;
+  width: 100%;
+  gap: 1rem;
+  min-height: 0; // Crucial for nested flex scrolling
+}
+
+.viewerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1.2rem;
+  background: $bg-glass;
+  border: 1px solid $border;
+  border-radius: 10px;
+  backdrop-filter: blur(12px);
+
+  @media (max-width: 768px) {
+    padding: 0.6rem 1rem;
+    .center { display: none; } // Hide middle badge on tablets/mobile
+  }
+
+  .backBtn {
+    background: transparent; border: none; color: #64748b;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.65rem; font-weight: 900; letter-spacing: 1px; cursor: pointer;
+    &:hover { color: #fff; }
+  }
+
+  .docBadge {
+    display: flex; align-items: center; gap: 8px; color: $cyan;
+    font-size: 0.6rem; font-weight: 900; letter-spacing: 2px;
+    background: rgba($cyan, 0.05); padding: 6px 16px; border-radius: 6px;
+    border: 1px solid rgba($cyan, 0.1);
+  }
+
+  .right {
+    display: flex; gap: 1rem;
+    .actionIcon {
+      background: transparent; border: none; color: #64748b; cursor: pointer;
+      display: flex; align-items: center;
+      &:hover { color: $cyan; transform: translateY(-1px); }
+    }
+  }
+}
+
+.pdfViewport {
+  flex: 1;
+  background: #0f172a;
+  border: 1px solid $border;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  // This ensures the container doesn't overflow the viewport height
+  min-height: 450px; 
+
+  .pdfContent {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white; // Required for PDF readability
+    z-index: 1;
+  }
+
+  .scanline {
+    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: rgba($cyan, 0.2); z-index: 10;
+    pointer-events: none; animation: scan 6s linear infinite;
+  }
+}
+
+.viewerFooter {
+  display: flex; justify-content: space-between;
+  padding: 0 5px;
+  
+  .footItem {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.55rem; font-weight: 900; color: #475569; letter-spacing: 1px;
+
+    .pulse {
+      width: 6px; height: 6px; background: $cyan; border-radius: 50%;
+      box-shadow: 0 0 8px $cyan; animation: glow 2s infinite;
+    }
+  }
+}
+
+/* --- ADJUSTING FOR PARENT PADDING --- */
+@media (max-width: 1024px) {
+  .viewerContainer {
+    // If you want it to take more space on mobile, 
+    // we can use negative margins to counter the parent's padding
+    // but usually, it's safer to just let it fill 100%
+    gap: 0.75rem;
+  }
+  .pdfViewport {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 640px) {
+  .viewerHeader {
+    .backBtn span { display: none; } // Icon only on tiny screens
+  }
+}
+
+/* --- ANIMATIONS --- */
+@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+@keyframes glow { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.emptyState {
+  height: 60vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 1rem; color: #475569;
+  h2 { color: #fff; font-size: 0.85rem; letter-spacing: 3px; }
+  button {
+    background: transparent; border: 1px solid $cyan; color: $cyan;
+    padding: 10px 20px; font-size: 0.65rem; font-weight: 900; cursor: pointer;
+  }
+}

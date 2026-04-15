@@ -29,7 +29,9 @@ return <NoHistory/>
         <div className={styles.statsIcon}>
           <Sparkles size={16} />
         </div>
-        <p>You have generated <span>{reports.length} reports</span></p>
+        {reports.length===1 && <p>You have generated <span>{reports.length} report</span></p> }
+        {reports.length !==1 && <p>You have generated <span>{reports.length} reports</span></p> }
+        
       </div>
 
       <div className={styles.list}>

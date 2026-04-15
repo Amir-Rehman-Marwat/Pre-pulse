@@ -134,7 +134,7 @@ const ReportDetails = () => {
               </svg>
               <div className={styles.scoreContent}>
                 <span className={styles.scoreNum}>{report.matchScore}%</span>
-                <span className={styles.scoreLabel}>MATCH INDEX</span>
+                <span className={styles.scoreLabel}>MATCH SCORE</span>
               </div>
             </div>
           </div>

@@ -18,6 +18,9 @@ import TechnicalQuestions from "./features/interview/pages/ReportDetailschildRou
 import SkillGaps from "./features/interview/pages/ReportDetailschildRoutes/SkillGaps";
 import DetailsIndex from "./features/interview/pages/ReportDetailschildRoutes/DetailsIndex";
 import NewResume from "./features/interview/pages/NewResume";
+import FullPreview from "./features/interview/pages/FullPreview";
+import PreviewDownload from "./features/interview/pages/PreviewDownload";
+
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -89,7 +92,16 @@ export const router = createBrowserRouter([
 {
   path:"new-resume",
   element:<NewResume/>
-}]
+},
+{
+  path:"PreviewDownload",
+  element:<PreviewDownload/>
+},
+{
+  path:"full-preview",
+  element:<FullPreview/>
+}
+]
    
   }
   

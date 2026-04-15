@@ -40,7 +40,14 @@ try {
 
 export const newResume =async (reportId,layoutId)=>{
     try {
-        const response =await axios.post(`http://localhost:3000/api/aiResumePdf/generateResume`,{reportId,layoutId},{withCredentials:true},{responseType: 'blob'})
+const response = await axios.post(
+  `http://localhost:3000/api/aiResumePdf/generateResume`,
+  { reportId, layoutId }, 
+  { 
+    withCredentials: true, 
+    responseType: 'arraybuffer' 
+  }
+);
     return  response
     } catch (error) {
         return error
