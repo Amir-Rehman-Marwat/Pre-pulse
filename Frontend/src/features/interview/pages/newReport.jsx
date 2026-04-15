@@ -110,7 +110,6 @@ const NewReport = () => {
           />
         </div>
 
-        {/* Form Action Buttons */}
         <div className={styles.formActions}>
           <button type="reset" className={styles.resetBtn} onClick={()=>{
 setFileName(null)
@@ -118,7 +117,7 @@ setFileName(null)
             <RefreshCcw size={18} />
             Reset Form
           </button>
-          {/* Non-functional submit button as requested */}
+
           <button type="submit" className={styles.analyzeBtn} >
             <Send size={18} />
             Analyze Profile

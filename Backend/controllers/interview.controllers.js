@@ -14,7 +14,7 @@ const resumeText=result.text
     if(!aiReport){
         return res 
         .status(500)
-        .json({message:"Internal server error , try gain later "})
+        .json({message:"Internal server error ,Please try again later "})
     }
     const savedReport=await AiReportModel.create({
         User:req.user.id,
@@ -27,7 +27,7 @@ const resumeText=result.text
     if(!savedReport){
 return res 
         .status(500)
-        .json({message:"Internal server error , try gain later "})
+        .json({message:"Internal server error ,Please try again later "})
     }
     return res
               .status(201) 
@@ -40,7 +40,8 @@ return res
     const user=req.user
     
     try {
-        const history=await AiReportModel.find({User:user.id})
+        const history=await AiReportModel.find({User:user.id},{jobTittle:1,createdAt:1})
+       
   if(history.length<1){
     return res 
                  .status(400)
@@ -62,7 +63,6 @@ return res
 export const getDetails=async(req,res)=>{
 const reportId=req.params.id
 const user=req.user
-
 
 try {
     const reportDetails=await AiReportModel.findOne({_id:reportId})

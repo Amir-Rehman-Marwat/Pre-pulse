@@ -10,18 +10,19 @@ import {
   LogOut, 
   Menu, 
   X,
-  Fingerprint
+  Fingerprint,
+  AlertTriangle
 } from 'lucide-react';
 import styles from './Dashboard.module.scss';
 import { getMe } from '../../auth/services/auth.api';
 import InterviewHook from '../interviewHooks/interview.hook';
-import { InterviewContext } from '../interviewContexts/interview.context';
-import { useContext } from 'react';
 
 const Dashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [userName, setuserName] = useState(".");
-const {handleLogOut}=InterviewHook()
+  const { handleLogOut } = InterviewHook();
+
   useEffect(() => {
     const run = async () => {
       try {
@@ -34,9 +35,39 @@ const {handleLogOut}=InterviewHook()
     };
     run();
   }, []);
+
+  const executeLogout = async () => {
+    await handleLogOut();
+  };
+
   return (
     <div className={styles.dashboardContainer}>
-      {/* --- TOP NAVBAR --- */}
+      <AnimatePresence>
+        {showLogoutConfirm && (
+          <motion.div 
+            className={styles.confirmOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div 
+              className={styles.confirmBox}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            >
+              <AlertTriangle color="#dc143c" size={32} />
+              <h3>Terminate Session?</h3>
+              <p>Are you sure you want to exit the Delta interface?</p>
+              <div className={styles.confirmActions}>
+                <button className={styles.cancelBtn} onClick={() => setShowLogoutConfirm(false)}>Stay</button>
+                <button className={styles.confirmBtn} onClick={executeLogout}>Exit</button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <nav className={styles.topNav}>
         <div className={styles.logoSection}>
           <div className={styles.logoIcon}>
@@ -52,7 +83,6 @@ const {handleLogOut}=InterviewHook()
         </div>
 
         <div className={styles.profileArea}>
-          {/* Candidate Portion Integrated Here */}
           <div className={styles.userPilot}>
             <div className={styles.pilotInfo}>
               <span className={styles.pilotRole}>CANDIDATE</span>
@@ -68,19 +98,16 @@ const {handleLogOut}=InterviewHook()
             {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
           
-          <button className={styles.logoutBtn} aria-label="Logout" onClick={()=>{
-            const run =async()=>{
-    await   handleLogOut()
-           
-            }
-            run()
-          }}>
+          <button 
+            className={styles.logoutBtn} 
+            aria-label="Logout" 
+            onClick={() => setShowLogoutConfirm(true)}
+          >
             <LogOut size={20} />
           </button>
         </div>
       </nav>
 
-      {/* --- AESTHETIC MOBILE MENU --- */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
@@ -102,13 +129,14 @@ const {handleLogOut}=InterviewHook()
                 <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
                 <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
                 <div className={styles.menuDivider} />
-                <button className={styles.mobileLogout}  onClick={()=>{
-            const run =async()=>{
-    await   handleLogOut()
-            }
-            run()
-          }}  >
-                   <LogOut size={18} /> Logout
+                <button 
+                  className={styles.mobileLogout}  
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setShowLogoutConfirm(true);
+                  }}
+                >
+                  <LogOut size={18} /> Logout
                 </button>
               </div>
             </motion.div>
@@ -130,7 +158,6 @@ const {handleLogOut}=InterviewHook()
         </aside>
 
         <section className={styles.contentArea}>
-          {/* Welcome Portions Removed as Requested */}
           <div className={styles.outletWrapper}><Outlet /></div>
         </section>
       </div>
