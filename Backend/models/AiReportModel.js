@@ -79,6 +79,10 @@ const AiReportSchema = mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
     ref:"User"
     },
+    candidateName:{
+        type:String,
+        required:true
+    },
   // User's input  details;
   selfDescription: {
     type: String,

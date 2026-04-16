@@ -44,19 +44,7 @@ const ReportDetails = () => {
     run();
   }, [id]);
 
-  useEffect(() => {
-    const run = async () => {
-      if (!user) {
-        try {
-          const response = await getMe();
-          setUser(response.data.user.userName.split(" ")[0] || "GUEST_PILOT");
-        } catch (e) {
-          setUser("GUEST_PILOT");
-        }
-      }
-    };
-    run();
-  }, [user]);
+  
 
   if (loading) return <div className={styles.initialLoading}>SYSTEM_INITIALIZING...</div>;
 
@@ -99,7 +87,7 @@ const ReportDetails = () => {
           <div className={styles.userPilot}>
             <div className={styles.pilotInfo}>
               <span className={styles.pilotRole}>CANDIDATE</span>
-              <span className={styles.pilotName}>{user.toUpperCase()}</span>
+              <span className={styles.pilotName}>{report.candidateName.split(" ")[0] || "Guest"}</span>
             </div>
             <div className={styles.avatarHex}><Fingerprint size={18} /></div>
           </div>

@@ -40,7 +40,7 @@ return res
     const user=req.user
     
     try {
-        const history=await AiReportModel.find({User:user.id},{jobTittle:1,createdAt:1})
+        const history=await AiReportModel.find({User:user.id})
        
   if(history.length<1){
     return res 

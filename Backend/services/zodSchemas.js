@@ -2,6 +2,13 @@ import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
 export const aiReportResponseSchema = z.object({
+  candidateName:z
+  .string()
+  .describe(
+    "The name of the candidate who is seeking for the report ,from the resume text or self description"
+  )
+  ,
+
   matchScore: z
     .number()
     .describe(
