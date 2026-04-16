@@ -25,7 +25,7 @@ const BehavioralPrep = () => {
     >
       <header className={styles.header}>
         <div className={styles.titleGroup}>
-          <h1>Behavioral Strategy</h1>
+          <h1>Behavioral Preparation</h1>
           <p>Structured situational questions to evaluate your soft skills and leadership.</p>
         </div>
         

@@ -20,6 +20,7 @@ import DetailsIndex from "./features/interview/pages/ReportDetailschildRoutes/De
 import NewResume from "./features/interview/pages/NewResume";
 import FullPreview from "./features/interview/pages/FullPreview";
 import PreviewDownload from "./features/interview/pages/PreviewDownload";
+import Services from "./features/interview/pages/Services";
 
 export const router = createBrowserRouter([
   {
@@ -103,6 +104,10 @@ export const router = createBrowserRouter([
 }
 ]
    
+  },
+  {
+    path:"/services",
+    element:<Services />
   }
   
 ]);

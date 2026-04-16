@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 import styles from './ReportDetails.module.scss';
 import InterviewHook from '../interviewHooks/interview.hook';
-import { getMe } from '../../auth/services/auth.api';
 import { InterviewContext } from '../interviewContexts/interview.context';
 
 const ReportDetails = () => {
@@ -29,7 +28,6 @@ const ReportDetails = () => {
   const { report } = context;
   
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -43,8 +41,6 @@ const ReportDetails = () => {
     };
     run();
   }, [id]);
-
-  
 
   if (loading) return <div className={styles.initialLoading}>SYSTEM_INITIALIZING...</div>;
 
@@ -87,7 +83,7 @@ const ReportDetails = () => {
           <div className={styles.userPilot}>
             <div className={styles.pilotInfo}>
               <span className={styles.pilotRole}>CANDIDATE</span>
-              <span className={styles.pilotName}>{report.candidateName.split(" ")[0] || "Guest"}</span>
+              <span className={styles.pilotName}>{report.candidateName || "Guest"}</span>
             </div>
             <div className={styles.avatarHex}><Fingerprint size={18} /></div>
           </div>
@@ -143,7 +139,6 @@ const ReportDetails = () => {
               </NavLink>
             ))}
 
-            {/* --- COMPACT AI RESUME CTA --- */}
             <div className={styles.compactCta}>
               <NavLink 
                 to={`/reportDetails/${id}/new-resume`} 
@@ -152,7 +147,7 @@ const ReportDetails = () => {
               >
                 <div className={styles.glowLayer} />
                 <FilePlus size={16} />
-                <span>AI RESUME GEN</span>
+                <span> DELTA AI RESUME GENERATOR</span>
                 <Zap size={12} className={styles.miniZap} />
               </NavLink>
             </div>

@@ -1,0 +1,167 @@
+$cyan: #22d3ee;
+$bg-dark: #020617;
+$slate-200: #e2e8f0;
+$slate-400: #94a3b8;
+$slate-800: #1e293b;
+
+.servicesPage {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  color: white;
+}
+
+.heroSection {
+  text-align: center;
+  margin-bottom: 6rem;
+
+  .topBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba($cyan, 0.1);
+    color: $cyan;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    border: 1px solid rgba($cyan, 0.2);
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+
+    span {
+      color: $cyan;
+      display: block;
+      margin-top: 0.5rem;
+    }
+  }
+
+  p {
+    color: $slate-400;
+    font-size: 1.1rem;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 8rem;
+}
+
+.featureCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 2.5rem;
+  border-radius: 32px;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba($cyan, 0.3);
+    transform: translateY(-8px);
+    
+    .iconContainer {
+      background: $cyan;
+      color: $bg-dark;
+      box-shadow: 0 0 20px rgba($cyan, 0.4);
+    }
+  }
+
+  .iconContainer {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $cyan;
+    margin-bottom: 1.8rem;
+    transition: 0.3s;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: $slate-200;
+  }
+
+  p {
+    color: $slate-400;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+}
+
+.ctaWrapper {
+  margin-bottom: 4rem;
+}
+
+.ctaCard {
+  background: linear-gradient(135deg, rgba($slate-800, 0.8), rgba($bg-dark, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+
+  @media (min-width: 900px) {
+    flex-direction: row;
+    text-align: left;
+    padding: 5rem;
+  }
+
+  .ctaText {
+    h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+    }
+    p {
+      color: $slate-400;
+      font-size: 1.1rem;
+    }
+  }
+
+  .startBtn {
+    text-decoration: none;
+    background: white;
+    color: $bg-dark;
+    padding: 1.2rem 2.8rem;
+    border-radius: 20px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+
+    &:hover {
+      background: $cyan;
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba($cyan, 0.3);
+    }
+    
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}

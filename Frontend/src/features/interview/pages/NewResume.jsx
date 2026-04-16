@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FilePlus, Check, Zap, ArrowRight, MousePointer2, Info } from 'lucide-react';
+import { FilePlus, Check, Zap, ArrowRight, MousePointer2 } from 'lucide-react';
 import styles from './NewResume.module.scss';
 import { InterviewContext } from '../interviewContexts/interview.context';
 import InterviewHook from '../interviewHooks/interview.hook';
@@ -10,10 +10,10 @@ import ResumeGeneratingLoader from '../components/resumeGeneratingLoader';
 const NewResume = () => {
   const { id } = useParams();
   const context = useContext(InterviewContext);
-  const { handleAllTemplates,handleNewResume } = InterviewHook();
-  const { templates, newResumeLoading ,NewResumeUrl} = context;
+  const { handleAllTemplates, handleNewResume } = InterviewHook();
+  const { templates, newResumeLoading } = context;
   const [selectedLayout, setSelectedLayout] = useState(null);
-console.log(NewResumeUrl)
+
   useEffect(() => {
     const run = async () => {
       await handleAllTemplates();
@@ -21,27 +21,29 @@ console.log(NewResumeUrl)
     run();
   }, []);
 
-  const generateNewPdf=async ()=>{
- try {
-  const response =await handleNewResume(id,selectedLayout)
- console.dir(response)
- } catch (error) {
-  console.dir(error)
- }
-  }
+  const generateNewPdf = async () => {
+    try {
+      await handleNewResume(id, selectedLayout);
+    } catch (error) {
+      console.dir(error);
+    }
+  };
 
   if (newResumeLoading) {
-    return (
-      <ResumeGeneratingLoader/>
-    );
+    return <ResumeGeneratingLoader />;
   }
 
   return (
-    <div className={styles.container}>
+    <motion.div 
+      className={styles.container}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <header className={styles.miniHeader}>
         <div className={styles.titleSlot}>
           <div className={styles.dot} />
-          <span>SELECT_INTERFACE</span>
+          <span>SELECT_TEMPLATE</span>
         </div>
         <div className={styles.stats}>
           <span className={styles.count}>{templates?.length || 0} AVAILABLE</span>
@@ -49,9 +51,12 @@ console.log(NewResumeUrl)
       </header>
 
       <div className={styles.templateGrid}>
-        {templates?.map((tpl) => (
-          <div
+        {templates?.map((tpl, index) => (
+          <motion.div
             key={tpl.layoutId}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.1 }}
             className={`${styles.card} ${selectedLayout === tpl.layoutId ? styles.active : ''}`}
             onClick={() => setSelectedLayout(prev => (prev === tpl.layoutId ? null : tpl.layoutId))}
           >
@@ -79,12 +84,11 @@ console.log(NewResumeUrl)
                 <h3>{tpl.name.replace('_', ' ')}</h3>
               </div>
               
-              {/* --- ADDED DESCRIPTION SECTION --- */}
               <div className={styles.descriptionArea}>
                 <p>{tpl.description}</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -93,23 +97,21 @@ console.log(NewResumeUrl)
           <MousePointer2 size={12} className={styles.cursorIcon} />
           <div className={styles.textGroup}>
             <span className={styles.statusLabel}>SELECTED_LAYOUT</span>
-            <span className={styles.statusValue}>{selectedLayout || 'NULL_PTR'}</span>
+            <span className={styles.statusValue}>{selectedLayout || 'NONE'}</span>
           </div>
         </div>
 
         <button
           className={styles.initBtn}
           disabled={!selectedLayout}
-          onClick={()=>{
-           generateNewPdf()
-          }}
+          onClick={generateNewPdf}
         >
           <span>BUILD_PDF</span>
           <Zap size={14} fill={selectedLayout ? "currentColor" : "none"} />
           <ArrowRight size={14} />
         </button>
       </footer>
-    </div>
+    </motion.div>
   );
 };
 

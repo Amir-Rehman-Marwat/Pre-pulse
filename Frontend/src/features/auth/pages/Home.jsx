@@ -1,123 +1,147 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { LayoutDashboard, UploadCloud, Target, Zap, ArrowRight, Layers } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  LayoutDashboard, 
+  FileText, 
+  Target, 
+  Zap, 
+  ArrowRight, 
+  Layers 
+} from 'lucide-react';
 import styles from './HomePage.module.scss';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../contexts/auth.context';
 import { getMe } from '../services/auth.api';
 
 const HomePage = () => {
-  const context=useContext(AuthContext)
-  const [name, setName] = useState(".")
-console.log(name)
-  useEffect(() => {
-    const run=async()=>{
-const response=await getMe()
-const lowerCaseName=response.data.user.userName
-setName(lowerCaseName.split(" ")[0].toUpperCase())
-console.log(response)
-
-    }
-    run()
-  }, [])
-  
+  const context = useContext(AuthContext);
+  const [name, setName] = useState("USER");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await getMe();
+        if (response?.data?.user?.userName) {
+          setName(response.data.user.userName.split(" ")[0].toUpperCase());
+        }
+      } catch (e) {
+        console.error("Session sync paused");
+      }
+    };
+    fetchUser();
+  }, []);
+
   const welcomeText = "Welcome,";
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.04, delayChildren: 0.1 }
-    }
-  };
-
-  const letterVariants = {
-    hidden: { opacity: 0, x: -10, filter: "blur(5px)" },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      filter: "blur(0px)",
-      transition: { type: "spring", damping: 20, stiffness: 300 } 
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
-  };
+  const viewportConfig = { once: true, amount: 0.3 };
 
   return (
     <div className={styles.container}>
-      {/* Navigation */}
+      <div className={styles.ambientGlow} />
+      
       <nav className={styles.nav}>
-       <div className={styles.logoArea}>
-  <div className={styles.iconBox}>
-    <Layers size={22} color="#dc143c" />
-  </div>
-  <h1>Delta Hire</h1>
-</div>
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className={styles.logoArea}
+        >
+          <div className={styles.iconBox}>
+            <Layers size={22} color="#dc143c" />
+          </div>
+          <h1>Delta Hire</h1>
+        </motion.div>
         
-        {/* Profile removed, Dashboard made attractive */}
-        <div className={styles.navActions}>
-          <button 
-            className={styles.dashboardLink} 
-            onClick={() => navigate("/dashboard/new-report")}
-          >
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className={styles.navActions}
+        >
+          <button onClick={() => navigate("/dashboard/new-report")} className={styles.dashboardLink}>
             <LayoutDashboard size={18} />
             <span>Dashboard</span>
           </button>
-        </div>
+        </motion.div>
       </nav>
 
-      <motion.main 
-        className={styles.mainContent}
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <motion.main className={styles.mainContent}>
         <div className={styles.titleWrapper}>
-          <motion.h2 className={styles.title}>
-            <div className={styles.row}>
-              {welcomeText.split("").map((char, index) => (
-                <motion.span key={index} variants={letterVariants} className={styles.letter}>
-                  {char}
-                </motion.span>
-              ))}
-            </div>
-            <div className={styles.row}>
-              {name.split("").map((char, index) => (
-                <motion.span key={index} variants={letterVariants} className={styles.nameLetter}>
-                  {char}
-                </motion.span>
-              ))}
-            </div>
-          </motion.h2>
+          <div className={styles.row}>
+            {welcomeText.split("").map((char, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ delay: i * 0.04, duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+                className={styles.letter}
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
+          </div>
+          <div className={styles.row}>
+            {name.split("").map((char, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, scale: 0.5, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                transition={{ delay: 0.4 + i * 0.05, duration: 0.8, type: "spring", bounce: 0.4 }}
+                className={styles.nameLetter}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </div>
         </div>
         
-        <motion.p variants={itemVariants} className={styles.subtitle}>
-          The elite AI engine to analyze, match, and prepare you for your dream role.
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 1 }}
+          className={styles.subtitle}
+        >
+          Smart analysis. Gap detection. ATS-optimized resumes. 
+          The complete toolkit for your next career move.
         </motion.p>
 
-        <div className={styles.serviceList}>
-          {[{ icon: <UploadCloud size={18}/>, text: "1. Upload Resume" },
-            { icon: <Target size={18}/>, text: "2. Define Target Job" },
-            { icon: <Zap size={18}/>, text: "3. Generate Path" }].map((step, i) => (
-            <motion.div key={i} variants={itemVariants} className={styles.serviceCard} whileHover={{ scale: 1.02, x: 5 }}>
-              <span className={styles.icon}>{step.icon}</span>
-              <span className={styles.cardText}>{step.text}</span>
+        <motion.div 
+          className={styles.serviceGrid}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: { transition: { staggerChildren: 0.1, delayChildren: 1.2 } }
+          }}
+        >
+          {[
+            { icon: <Target size={18}/>, text: "Job Analysis" },
+            { icon: <Zap size={18}/>, text: "Skill Mapping" },
+            { icon: <FileText size={18}/>, text: "Resume Builder" }
+          ].map((item, i) => (
+            <motion.div 
+              key={i} 
+              variants={{
+                hidden: { opacity: 0, scale: 0.9, y: 20 },
+                visible: { opacity: 1, scale: 1, y: 0 }
+              }}
+              className={styles.serviceCard}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            >
+              <span className={styles.icon}>{item.icon}</span>
+              <span className={styles.cardText}>{item.text}</span>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <motion.button 
-          variants={itemVariants}
-          whileHover={{ scale: 1.05 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6, duration: 0.8 }}
+          whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(34, 211, 238, 0.3)" }}
           whileTap={{ scale: 0.98 }}
           className={styles.continueBtn}
           onClick={() => navigate("/dashboard/new-report")}
         >
-          CONTINUE TO DASHBOARD <ArrowRight size={20} />
+          EXPLORE DELTA HIRE <ArrowRight size={20} />
         </motion.button>
       </motion.main>
     </div>

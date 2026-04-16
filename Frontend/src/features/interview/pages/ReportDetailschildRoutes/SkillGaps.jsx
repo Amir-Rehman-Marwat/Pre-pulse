@@ -44,7 +44,7 @@ InterviewHook("gaps")
       <header className={styles.header}>
         <div className={styles.titleGroup}>
           <h1>Skill Gap Analysis</h1>
-          <p>Identified discrepancies between the job requirements and your current profile.</p>
+          <p>Critical focus areas to help you meet 100% of the job's expectations.</p>
         </div>
         <div className={styles.alertCount}>
           <AlertTriangle size={18} />

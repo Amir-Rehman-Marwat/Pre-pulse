@@ -24,8 +24,8 @@ InterviewHook("technical")
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <header className={styles.header}>
-        <h1>Technical Prep</h1>
-        <p>Curated interview questions based on your profile and target JD.</p>
+        <h1>Technical Preparation</h1>
+        <p>Practice technical questions specifically tailored to your expertise and the target job description.</p>
       </header>
 
       <div className={styles.list}>
