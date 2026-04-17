@@ -6,7 +6,7 @@ export const Pro_v1ZodSchema = z.object({
     contactBar: z.string().describe("Phone, Email, and Links formatted with pipes (e.g., +92-XXX | email@example.com | github.com/user). Use only provided contact details."),
   }),
   
-  profile: z.string().describe("A professional summary. You may rewrite this for impact, but DO NOT invent facts, years of experience, or skills not found in the source documents."),
+  profile: z.string().describe("A professional summary. You may rewrite this for impact, but DO NOT invent facts, years of experience, or skills not found in the source documents and it must be of maximum 2 lines not too long ."),
   
   education: z.array(z.object({
     institution: z.string().describe("The EXACT name of the university/school. Example: 'University of Lahore'. DO NOT change 'of' to 'in' or paraphrase."),

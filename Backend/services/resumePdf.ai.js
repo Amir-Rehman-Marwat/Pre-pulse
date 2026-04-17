@@ -16,13 +16,15 @@ const ai = new GoogleGenAI({key:process.env.GEMINI_API_KEY});
  templateSchema=z.toJSONSchema(Pro_v1ZodSchema)
     }
     console.log("generatinng the resume conntent")
-const prompt=`generate the json content for the new modified resume of the user ,keeping in view the following data of the user;
+const prompt=`generate the json resume content for the new modified resume of the user for the target job of the user  without grammer and spelling mistakes  ,
+Note#1:You are strictly forbidden from inventing dates, locations, or descriptions. If a field in the JSON is marked as optional or nullable and the information is missing from the source(old resume or self description), you MUST return null or "" .Before finalizing the JSON, verify that every date and name matches the "Current Resume i-e old resume of the user " exactly.
+Note#2 : strickly avoid repition of same words , also avoid the grammer and spelling mistakes strictly for a best ats score .
+NOTE#3:Use specific numbers like 'Improved performance by 40%' or 'Managed 10+ modules' to ensure a high ATS score and .
+NOTE#4: The profile summary must be of maximum 2 lines not too long. 
+,keeping in view the following data of the user;
 selfDescription:${selfDescription},
 jobDescription:${jobDescription},
-resume:${resume}
-Note#1:You are strictly forbidden from inventing dates, locations, or descriptions. If a field in the JSON is marked as optional or nullable and the information is missing from the source, you MUST return null or "".Before finalizing the JSON, verify that every date and name matches the "Current Resume" exactly.
-Note#2 :avoid repition of same words ,grammer and spelling mistakes strictly for ats passing 
-Note#3:add quantifiable achievements from previous positions that user have held. this is must 
+old resume:${resume}
 `
 const response=await  ai.models.generateContent({
     model:"gemini-3-flash-preview",
@@ -32,7 +34,6 @@ const response=await  ai.models.generateContent({
         responseSchema:templateSchema
     }
 })
-console.log("content generatd ")
 console.log(JSON.parse(response.text))
 return JSON.parse(response.text)
 }
@@ -58,7 +59,6 @@ export const generateResumePdf=async(selfDescription,jobDescription,Resume,layou
 const page = await browser.newPage();
 await page.setContent(html)
 const pdfBuffer= await page.pdf({
-    path:`${layoutId}.pdf`,
   format: "A4",
   printBackground:true
   

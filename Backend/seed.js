@@ -8,8 +8,14 @@ const templates = [
   {
     name: "EXECUTIVE_PRO", 
     layoutId: "Pro_v1",    
-    thumbnail: "https://res.cloudinary.com/djsmx24lx/image/upload/v1773803366/SharedScreenshot_yjavhx.jpg", 
+    thumbnail: "https://res.cloudinary.com/djsmx24lx/image/upload/q_auto/f_auto/v1776403788/SharedScreenshot_qaqxbc.jpg", 
     description: "A refined, high-performance layout optimized for ATS compatibility and executive-level readability."
+  },
+   {
+    name: "Profesional", 
+    layoutId: "profesional- v2",    
+    thumbnail: "https://res.cloudinary.com/djsmx24lx/image/upload/q_auto/f_auto/v1773803366/SharedScreenshot_yjavhx.jpg", 
+    description: "a more poffessional one "
   }
 ];
 
