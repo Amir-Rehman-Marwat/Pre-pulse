@@ -47,19 +47,34 @@ function Register() {
   const onSubmit = async (data) => {
     try {
       await handleRegister(data.userName, data.email, data.password)
+      reset()
     } catch (err) {
       console.log(err)
-    } finally {
-      reset()
     }
   }
+
+  const onInvalid = (errors) => {
+    const firstError = Object.values(errors)[0];
+    if (firstError) {
+      toast.error(firstError.message, {
+        icon: <AlertCircle size={18} color="#dc143c" />,
+        style: {
+          background: '#020617',
+          color: '#fff',
+          border: '1px solid #dc143c',
+          fontFamily: 'JetBrains Mono, monospace',
+          fontSize: '0.7rem'
+        }
+      });
+    }
+  };
 
   return (
     <main className={styles.mainWrapper}>
       <Toaster position="top-right" />
 
       <div className={styles.registerFormContainer}>
-        <form className={styles.registerForm} onSubmit={handleSubmit(onSubmit)}>
+        <form className={styles.registerForm} onSubmit={handleSubmit(onSubmit, onInvalid)}>
           
           {loading && (
             <div className={styles.loaderArea}>
@@ -77,21 +92,33 @@ function Register() {
           <input
             type="text"
             className={styles.registerInput}
-            {...register("userName")}
+            {...register("userName", {
+              required: "User name is required",
+              minLength: { value: 3, message: "Name must be at least 3 characters" }
+            })}
             placeholder='User name'
           />
           
           <input
             type="text"
             className={styles.registerInput}
-            {...register("email")}
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Please enter a valid email"
+              }
+            })}
             placeholder='Email'
           />
           
           <input
             type="password"
             className={styles.registerInput}
-            {...register("password")}
+            {...register("password", {
+              required: "Password is required",
+              minLength: { value: 6, message: "Password must be at least 6 characters" }
+            })}
             placeholder='Password'
           />
           

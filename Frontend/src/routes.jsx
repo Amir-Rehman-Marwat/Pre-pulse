@@ -21,6 +21,7 @@ import NewResume from "./features/interview/pages/NewResume";
 import FullPreview from "./features/interview/pages/FullPreview";
 import PreviewDownload from "./features/interview/pages/PreviewDownload";
 import Services from "./features/interview/pages/Services";
+import AboutPage from "./features/interview/pages/About";
 
 export const router = createBrowserRouter([
   {
@@ -108,6 +109,10 @@ export const router = createBrowserRouter([
   {
     path:"/services",
     element:<Services />
+  },
+  {
+    path:"/about",
+    element:<AboutPage />
   }
   
 ]);

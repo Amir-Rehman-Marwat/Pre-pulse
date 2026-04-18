@@ -10,7 +10,13 @@ import { AlertCircle, CheckCircle2 } from "lucide-react";
 function Login() {
   const { loading, error, success, setError, setSuccess } = useContext(AuthContext);
   const { handleLogin } = AuthHook();
-  const { register, handleSubmit, reset } = useForm();
+  
+  const { 
+    register, 
+    handleSubmit, 
+    reset,
+    formState: { errors } 
+  } = useForm();
 
   useEffect(() => {
     if (error) {
@@ -46,10 +52,25 @@ function Login() {
   const onSubmit = async (data) => {
     try {
       await handleLogin(data.email, data.password);
+      reset();
     } catch (err) {
       console.log(err);
-    } finally {
-      reset();
+    }
+  };
+
+  const onInvalid = (errors) => {
+    const firstError = Object.values(errors)[0];
+    if (firstError) {
+      toast.error(firstError.message, {
+        icon: <AlertCircle size={18} color="#dc143c" />,
+        style: {
+          background: '#020617',
+          color: '#fff',
+          border: '1px solid #dc143c',
+          fontFamily: 'JetBrains Mono, monospace',
+          fontSize: '0.7rem'
+        }
+      });
     }
   };
 
@@ -58,7 +79,10 @@ function Login() {
       <Toaster position="top-right" />
 
       <div className={styles.loginFormContainer}>
-        <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
+        <form 
+          className={styles.loginForm} 
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
+        >
           
           {loading && (
             <div className={styles.loaderArea}>
@@ -76,14 +100,26 @@ function Login() {
           <input
             type="text"
             className={styles.loginEmail}
-            {...register("email")}
+            {...register("email", { 
+              required: "Email is required",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Please enter a valid email"
+              }
+            })}
             placeholder="Email"
           />
           
           <input
             type="password"
             className={styles.loginPassword}
-            {...register("password")}
+            {...register("password", { 
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters"
+              }
+            })}
             placeholder="Password"
           />
           
